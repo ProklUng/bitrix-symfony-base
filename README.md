@@ -1,4 +1,4 @@
-# Bitrix Project
+# Bitrix Project + Symfony
 
 Заготовка для 1C Bitrix проектов. На базе https://github.com/regiomedia/bitrix-project
 

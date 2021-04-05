@@ -1,6 +1,6 @@
 # Bitrix Project
 
-Заготовка для 1C Bitrix проектов.
+Заготовка для 1C Bitrix проектов. На базе https://github.com/regiomedia/bitrix-project
 
 ## Создание нового проекта
 
@@ -8,7 +8,7 @@
 
 К примеру:
 ```sh
-git clone www_test:git/bitrix-build.git ./
+git clone proklung/bitrix-symfony-base.git ./
 ```
 
 - Настроить вебсервер для работы с директорией `sites/s1` либо сделать симлинк вида
@@ -42,6 +42,8 @@ git submodule init
 ```sh
 git submodule update
 ```
+
+Или настроить его иным способом.
 
 ### Символьные ссылки
 
@@ -110,33 +112,6 @@ npm run encore -- dev
 
 Composer и PSR-4 автозагрузка классов из директории `local/classes`. Пространство имен `\Local\ `
 
-### Используемые пакеты:
-
-- [arrilot/bitrix-migrations](https://github.com/arrilot/bitrix-migrations)
-- [arrilot/bitrix-models](https://github.com/arrilot/bitrix-models)
-    - [illuminate/database](https://github.com/illuminate/database)
-    - [illuminate/events](https://github.com/illuminate/events)
-- [bitrix-expert/bbc](https://github.com/bitrix-expert/bbc)
-- [bitrix-expert/monolog-adapter](https://github.com/bitrix-expert/monolog-adapter)
-- [bitrix-expert/tools](https://github.com/bitrix-expert/tools)
-- [maximaster/tools.twig](https://github.com/maximaster/tools.twig)
-- [notamedia/console-jedi](https://github.com/notamedia/console-jedi)
-- [kint-php/kint](https://github.com/kint-php/kint) и [kint-php/kint-twig](https://github.com/kint-php/kint-twig)  
-- [vlucas/phpdotenv](https://github.com/vlucas/phpdotenv)
-
-### Контроль качества
-
-Для проверки пхп-кода используется [squizlabs/PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
-
-Код проверятся в соответствии с набором правил, описанных в файле [ruleset.xml](ruleset.xml).
-
-На данный момент, это стандарт PSR-2 
-([рус.](https://svyatoslav.biz/misc/psr_translation/#_PSR-2)/[англ.](http://www.php-fig.org/psr/psr-2/)),
-а также наличие PHPDoc-комментариев.
-
-Проверяются файлы из директорий [local/classes](local/classes) и [local/components](local/components) 
-(за исключением файлов `template.php`)
-
 Проверка осуществляется командой (это запуск утилиты `phpcs` с предустановленными параметрами) 
 
 ```sh
@@ -148,9 +123,6 @@ composer run lint:php
 ```sh
 composer run fix:php
 ```
-
-
-
 
 ## Фронтенд
 
@@ -167,27 +139,12 @@ npm run encore -- dev          # запустить сборку для разр
 npm run encore -- dev --watch  # запустить сборку для разработчика в режиме слежения за файлами
 npm run encore -- production   # запустить сборку для продакшена
 ```
-
-
-## Доработки Фронтенда
-Папка 'local/assets/script/own-js' - здесь находятся самописные js-модули, которые инклюдятся 
-либо на всех страницах (в файле 'local/assets/script/routes/common.js'), либо на конкретной
-странице (в файле 'local/assets/script/routes/_имя-страницы.js').
-
-
-
-### Технологии
-
-- SCSS ([рус.](https://sass-scss.ru/guide/)/[англ.](http://sass-lang.com/guide))
-- "Современный" Javascript ([рус](https://learn.javascript.ru/es-modern)/[англ](https://github.com/metagrover/ES6-for-humans))
-    - [DOM-based Router](https://github.com/roots/sage/blob/master/resources/assets/scripts/util/Router.js)
-    - [Vue JS](https://vuejs.org/)
     
 #### Vue
 
 Мини-модуль [vueInvoker](local/assets/scripts/util/vueInvoker.js) 
 предназначен для инициализации Vue компонентов на странице.
-Он упрощает использование Vueклассическом веб-приложении, когда нет возможности 
+Он упрощает использование Vue классическом веб-приложении, когда нет возможности 
 использовать один "корневой" экземпляр `Vue` (Как, например, это устроено в одностраничных приложениях).
 
 #### Использование:
@@ -232,29 +189,6 @@ export default {
   DemoApp,
 };
 ```
-
-    
-### Контроль качества
-
-JS-файлы проверяются на соответствие стандарту [airbnb](https://github.com/airbnb/javascript) 
-утилитой [ESLint](https://eslint.org). Конфигурация линтера - файл [.eslintrc](.eslintrc)
-
-```sh
-npm run lint:scripts  # показать ошибки
-npm run fix:scripts   # исправить ошибки
-```
-
-SCSS-файлы проверяются утилитой [stylelint](https://stylelint.io/). 
-Основа - набор правил [sass-guidelines](https://github.com/bjankord/stylelint-config-sass-guidelines). 
-Конфигурация - файл [.stylelintrc](.stylelintrc)
-
-```sh
-npm run lint:styles  # показать ошибки
-npm run fix:styles   # исправить ошибки
-```
-
-За исправление стилевых файлов отвечает пакет [stylefmt](https://github.com/morishitter/stylefmt)
-
 
 ## Многосайтовость
 

@@ -1,0 +1,10 @@
+##############
+# Контроллеры
+##############
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true

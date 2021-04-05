@@ -1,0 +1,15 @@
+##################
+# Schedule tasks
+##################
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # Образец scheduled task.
+  Local\Bundles\TaskSchedulerBundle\Examples\ExampleTask:
+    tags:
+      - { name: ts.task }

@@ -1,0 +1,24 @@
+@mixin mobile($only: false) {
+  @if $only == false {
+    @content;
+  }
+
+  @else {
+    @include media-breakpoint-down(md) {
+
+      @content;
+    }
+  }
+}
+
+@mixin tablet() {
+  @include media-breakpoint-up(md) {
+    @content;
+  }
+}
+
+@mixin desktop() {
+  @include media-breakpoint-up(lg) {
+    @content;
+  }
+}

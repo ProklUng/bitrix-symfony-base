@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  dto_mapper_bundle.mapper:
+    class: Local\Bundles\DtoMapperBundle\Services\Mapper
+    arguments: ['@automapper_plus.mapper', '@property_info']
+
+  Local\Bundles\DtoMapperBundle\Services\Mapper: '@dto_mapper_bundle.mapper'
+  Local\Bundles\DtoMapperBundle\Services\MapperInterface: '@dto_mapper_bundle.mapper'

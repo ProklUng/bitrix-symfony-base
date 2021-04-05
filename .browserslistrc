@@ -1,0 +1,10 @@
+[production]
+
+>=1% in RU
+last 2 versions
+not dead
+
+[development]
+
+last 2 Chrome versions
+last 2 Firefox versions

@@ -1,0 +1,37 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+
+  # Санитайзер.
+  bitrix_iblock_element_validator.sanitizer:
+    class: Local\Bundles\BitrixIblockElementValidatorBundle\Services\Sanitizer\SanitizerMaker
+
+  Local\Bundles\BitrixIblockElementValidatorBundle\Services\Contracts\SanitizerInterface: '@bitrix_iblock_element_validator.sanitizer'
+
+  bitrix_iblock_element_validator.initializer:
+    class: Local\Bundles\BitrixIblockElementValidatorBundle\Services\BitrixPropertiesValidator
+    arguments:
+      - !tagged_locator { tag: 'bitrix_iblock_element_validator.custom_validator', index_by: 'key' }
+      - '@bitrix_iblock_element_validator.sanitizer'
+      - '%bitrix_iblock_element_validator.config%'
+    tags: ['service.bootstrap']
+
+  # Образец кастомного валидатора.
+  bitrix_iblock_element_validator.example_custom_validator:
+    class: Local\Bundles\BitrixIblockElementValidatorBundle\Services\ExampleCustomValidator
+    arguments: ['Кастомная ошибка: забаненый email']
+    tags:
+      - { name: bitrix_iblock_element_validator.custom_validator, key: bitrix_iblock_element_validator.example_custom_validator  }
+
+  bitrix_iblock_element_validator.unique_validator:
+    class: Local\Bundles\BitrixIblockElementValidatorBundle\Services\BitrixUniquePropertyValidator
+    arguments: ['#FIELD_NAME#: такое значение уже есть в базе', '@bitrix_iblock_element_validator.cblockelement']
+    tags:
+      - { name: bitrix_iblock_element_validator.custom_validator, key: bitrix_iblock_element_validator.unique_validator  }
+
+  bitrix_iblock_element_validator.cblockelement:
+    public: false
+    class: CIBlockElement

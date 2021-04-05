@@ -1,0 +1,8 @@
+local/build/
+local/dist/
+sites/s1/
+upload/
+bitrix/
+vendor/
+node_modules/
+.git/

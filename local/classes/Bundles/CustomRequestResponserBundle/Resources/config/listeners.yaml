@@ -1,0 +1,63 @@
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Symfony\Component\ExpressionLanguage\ExpressionLanguage: ~
+
+  custom_request_responser.set.headers:
+    class: Local\Bundles\CustomRequestResponserBundle\Event\Listeners\SetHeaders
+    arguments: ['@Symfony\Component\ExpressionLanguage\ExpressionLanguage', '%custom_request_responser%']
+    tags:
+      - { name: kernel.event_listener, event: kernel.response, method: handle, priority: 10 }
+      - { name: custom_request_responser.handler, priority: 10 }
+
+  Local\Bundles\CustomRequestResponserBundle\Event\Listeners\SetHeaders: '@custom_request_responser.set.headers'
+
+  # Минификация Response для типа txt/html.
+  custom_request_responser.compress_response:
+    class: Local\Bundles\CustomRequestResponserBundle\Event\Listeners\CompressHtmlResponse
+    tags:
+      - { name: kernel.event_listener, event: kernel.response, method: handle, priority: 10 }
+      - { name: custom_request_responser.handler, priority: 10 }
+
+  # Управление индексацией роута.
+  custom_request_responser.robots:
+    class: Local\Bundles\CustomRequestResponserBundle\Event\Listeners\Robots
+    calls:
+      - setContainer: ['@service_container']
+    tags:
+      - { name: kernel.event_listener, event: kernel.response, method: handle, priority: 10 }
+      - { name: custom_request_responser.handler, priority: 10 }
+
+  # Логгирование Request & Response.
+  custom_request_responser.logger_response:
+    class: Local\Bundles\CustomRequestResponserBundle\Event\Listeners\LogResponse
+    arguments:
+      - '@logger'
+    tags:
+      - { name: kernel.event_listener, event: kernel.response, method: handle, priority: 999 }
+
+  # Запуск пачки middlewares PageSpeed.
+  custom_request_responser.pagespeed_middlewares:
+    class: Local\Bundles\CustomRequestResponserBundle\Event\Listeners\PageSpeedMiddlewares
+    arguments:
+      - '@service_container'
+      - '%custom_request_responser%'
+      - 'middlewares_disabled'
+      - !tagged_iterator response.middleware
+    tags:
+      - { name: kernel.event_listener, event: kernel.response, method: handle, priority: 10 }
+
+  # Подвязка middlewares PageSpeed на битриксовые роуты.
+  custom_request_responser.pagespeed_middlewares_bitrix_bridge:
+    class: Local\Bundles\CustomRequestResponserBundle\Services\BitrixEventBridge\Bridge
+    arguments:
+      - '@service_container'
+      - '%custom_request_responser%'
+      - 'bitrix_middlewares_disabled'
+      - !tagged_iterator response.middleware
+    tags:
+      - { name: bitrix.events.init, module: main, event: OnEndBufferContent, method: handleEvent, sort: 1 }

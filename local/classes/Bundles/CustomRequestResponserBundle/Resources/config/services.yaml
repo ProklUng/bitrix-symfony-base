@@ -1,0 +1,57 @@
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # Injects tags in the HEAD to enable the browser to do DNS prefetching.
+  custom_request_responser.middleware.dns_prefetch:
+    class: Local\Bundles\CustomRequestResponserBundle\Services\PageSpeed\InsertDNSPrefetch
+    tags:
+      - { name: response.middleware, priority: 10 }
+
+  Local\Bundles\CustomRequestResponserBundle\Services\PageSpeed\InsertDNSPrefetch: '@custom_request_responser.middleware.dns_prefetch'
+
+  # Eliminates HTML, JS and CSS comments.
+  custom_request_responser.middleware.remove_comments:
+    class: Local\Bundles\CustomRequestResponserBundle\Services\PageSpeed\RemoveComments
+    tags:
+      - { name: response.middleware, priority: 20 }
+
+  Local\Bundles\CustomRequestResponserBundle\Services\PageSpeed\RemoveComments: '@custom_request_responser.middleware.remove_comments'
+
+  # Reduces bytes transmitted in an HTML file by removing unnecessary whitespace.
+  custom_request_responser.middleware.collapse_whitespace:
+    class: Local\Bundles\CustomRequestResponserBundle\Services\PageSpeed\CollapseWhitespace
+    tags:
+      - { name: response.middleware, priority: -10 }
+
+  Local\Bundles\CustomRequestResponserBundle\Services\PageSpeed\CollapseWhitespace: '@custom_request_responser.middleware.collapse_whitespace'
+
+  # Eliminates unnecessary quotation marks from HTML attributes.
+  custom_request_responser.middleware.remove_quotes:
+    class: Local\Bundles\CustomRequestResponserBundle\Services\PageSpeed\RemoveQuotes
+    tags:
+      - { name: response.middleware, priority: 30 }
+
+  Local\Bundles\CustomRequestResponserBundle\Services\PageSpeed\RemoveQuotes: '@custom_request_responser.middleware.remove_quotes'
+
+  # Removing attributes from tags when the specified value is equal to the default value.
+  custom_request_responser.middleware.elide_attributes:
+    class: Local\Bundles\CustomRequestResponserBundle\Services\PageSpeed\ElideAttributes
+    tags:
+      - { name: response.middleware, priority: 30 }
+
+  Local\Bundles\CustomRequestResponserBundle\Services\PageSpeed\ElideAttributes: '@custom_request_responser.middleware.elide_attributes'
+
+  # Transforms the inline "style" attribute of tags into classes by moving the CSS to the header.
+  custom_request_responser.middleware.inline_css:
+    class: Local\Bundles\CustomRequestResponserBundle\Services\PageSpeed\InlineCss
+    tags:
+      - { name: response.middleware, priority: 40 }
+
+  Local\Bundles\CustomRequestResponserBundle\Services\PageSpeed\InlineCss: '@custom_request_responser.middleware.inline_css'
+
+  # Пример кастомного обработчика - нужно ли индексировать роут или нет.
+  Local\Bundles\CustomRequestResponserBundle\Services\IndexRoutesManager\AdminRouteProcessor: ~

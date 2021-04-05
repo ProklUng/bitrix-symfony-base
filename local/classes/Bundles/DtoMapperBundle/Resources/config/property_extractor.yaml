@@ -1,0 +1,43 @@
+####################
+# PropertyExtractor
+###################
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  property_info:
+    class: Symfony\Component\PropertyInfo\PropertyInfoExtractor
+    arguments:
+      - ['@property_info.reflection_extractor']
+      - ['@property_info.reflection_extractor', '@property_info.php_doc_extractor']
+      - ['@property_info.php_doc_extractor']
+      - ['@property_info.reflection_extractor']
+      - ['@property_info.reflection_extractor']
+
+  property_info.reflection_extractor:
+    class: Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor
+    tags:
+      - { name: property_info.list_extractor, priority: -1000}
+      - { name: property_info.type_extractor, priority: -1002}
+      - { name: property_info.access_extractor, priority: -1000}
+      - { name: property_info.initializable_extractor, priority: -1000}
+
+  property_info.php_doc_extractor:
+    class: Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor
+    tags:
+      - { name: property_info.description_extractor, priority: -1000}
+      - { name: property_info.type_extractor, priority: -1002}
+
+  Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor: '@property_info.php_doc_extractor'
+
+  Symfony\Component\PropertyInfo\PropertyInfoExtractor: '@property_info'
+  Symfony\Component\PropertyInfo\PropertyAccessExtractorInterface: '@property_info'
+  Symfony\Component\PropertyInfo\PropertyDescriptionExtractorInterface: '@property_info'
+  Symfony\Component\PropertyInfo\PropertyInfoExtractorInterface: '@property_info'
+  Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface: '@property_info'
+  Symfony\Component\PropertyInfo\PropertyListExtractorInterface: '@property_info'
+  Symfony\Component\PropertyInfo\PropertyInitializableExtractorInterface: '@property_info'

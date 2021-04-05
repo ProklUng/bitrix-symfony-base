@@ -1,0 +1,17 @@
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # Класс для временного (тестового) контейнера.
+  custom_arguments_resolvers.double.service.container:
+    class: Symfony\Component\DependencyInjection\ContainerBuilder
+
+  # Тестовый контейнер.
+  custom_arguments_resolvers.test.service_container:
+    class: Local\Bundles\CustomArgumentResolverBundle\Tests\Tools\CustomTestContainer
+    arguments: ['@kernel', 'custom_arguments_resolvers.double.service.container']
+    calls:
+      - setTestContainer: ['@custom_arguments_resolvers.double.service.container']

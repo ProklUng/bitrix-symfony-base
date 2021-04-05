@@ -1,0 +1,92 @@
+############
+# Ресолверы
+############
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # Ресолвер переменных и сервисов из контейнера.
+  Local\SymfonyTools\ArgumentsResolvers\Supply\ResolveParamsFromContainer:
+    class: Local\SymfonyTools\ArgumentsResolvers\Supply\ResolveParamsFromContainer
+    calls:
+      - setContainer: ['@service_container']
+
+  # Мой кастомный argument resolver - массив рекурсивно прогоняется на предмет переменных и сервисов.
+  argument_resolver.array_recursive:
+    arguments: ['@Local\SymfonyTools\ArgumentsResolvers\Supply\ResolveParamsFromContainer']
+    calls:
+      - setContainer: ['@service_container']
+    class: Local\SymfonyTools\ArgumentsResolvers\ArrayRecursiveArgumentResolver
+    tags:
+      - { name: controller.argument_value_resolver, priority: 100}
+
+  controller_resolver:
+    class: Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver
+    arguments: ['@service_container']
+
+  Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver: '@controller_resolver'
+
+  argument_metadata_factory:
+    class: Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory
+
+  Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory: '@argument_metadata_factory'
+
+  argument_resolver:
+    class: Symfony\Component\HttpKernel\Controller\ArgumentResolver
+    arguments:
+      - '@argument_metadata_factory'
+      - [
+        '@argument_resolver.request_attribute',
+        '@argument_resolver.session',
+        '@argument_resolver.service',
+        '@argument_resolver.default',
+        '@argument_resolver.variadic',
+      ]
+
+  Symfony\Component\HttpKernel\Controller\ArgumentResolver: '@argument_resolver'
+
+  argument_resolver.request_attribute:
+    class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver
+    tags:
+      - {name: controller.argument_value_resolver, priority: 100}
+
+  Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver: '@argument_resolver.request_attribute'
+
+  argument_resolver.request:
+    class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver
+    tags:
+      - {name: controller.argument_value_resolver, priority: 50}
+
+  Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver: '@argument_resolver.request'
+
+  argument_resolver.session:
+    class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver
+    tags:
+      - {name: controller.argument_value_resolver, priority: 50}
+
+  Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver: '@argument_resolver.session'
+
+  argument_resolver.service:
+    class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver
+    tags:
+      - {name: controller.argument_value_resolver, priority: 50}
+
+  Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver: '@argument_resolver.service'
+
+  argument_resolver.default:
+    class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver
+    tags:
+      - {name: controller.argument_value_resolver, priority: -150}
+
+  Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver: '@argument_resolver.default'
+
+  argument_resolver.variadic:
+    class: Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver
+    tags:
+      - {name: controller.argument_value_resolver, priority: -150}
+
+  Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver: '@argument_resolver.variadic'

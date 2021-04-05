@@ -1,0 +1,65 @@
+{% import '@CsaGuzzle/Calls/macros.html.twig' as macros %}
+
+<div class="accordion">
+    {% for call in calls %}
+        <section class="call">
+            <header class="accordion-header {{ call.request.method|lower }}">
+                <span class="method-name">{{ call.request.method }}</span>
+                {% if call.request.method == 'GET' %}
+                    <a href="{{ call.uri }}" target="_blank" class="path">{{ call.uri }}</a>
+                {% else %}
+                    <span class="path">{{ call.uri }}</span>
+                {% endif %}
+                {% set statusCode = call.httpCode %}
+                <span class="badge status-code {{ statusCode|csa_guzzle_status_code_class }}">
+                    {{ statusCode }} - {{ call.response is defined ? call.response.reasonPhrase : 'Unknown error' }}
+                </span>
+                {% if call.cache is defined %}<span class="badge cache {{ call.cache|lower }}">Cache {{ call.cache }}</span>{% endif %}
+                {% if call.mock is defined %}<span class="badge mock {{ call.mock|lower }}">Mock {{ call.mock }}</span>{% endif %}
+                {% if call.info %}
+                    {% if call.info.total_time > 1 %}
+                        {% set duration_color = 'error' %}
+                    {% elseif call.info.total_time < 0.2 %}
+                        {% set duration_color = 'success' %}
+                    {% else %}
+                        {% set duration_color = 'warning' %}
+                    {% endif %}
+                    <span class="badge duration {{ duration_color }}">{{ call.info.total_time|csa_guzzle_format_duration }}</span>
+                {% endif %}
+            </header>
+
+            <div class="accordion-content{{ loop.first ? ' expanded': '' }}">
+                <div class="sf-tabs">
+                    <div class="tab">
+                        <h3 class="tab-title">Request</h3>
+                        <div class="tab-content">
+                            {{ macros.render_infos(call.info) }}
+                            {{ macros.render_headers(call.request.headers, call.uri) }}
+                            {{ macros.render_body(call.request.body) }}
+                            {% if call.curl is defined %}
+                                {{ macros.render_curl(call.curl) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if call.response is defined %}
+                        <div class="tab">
+                            <h3 class="tab-title">Response</h3>
+                            <div class="tab-content">
+                                {{ macros.render_headers(call.response.headers, call.uri) }}
+                                {{ macros.render_body(call.response.body) }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if call.error is not null %}
+                        <div class="tab">
+                            <h3 class="tab-title">Error</h3>
+                            <div class="tab-content">
+                                {{ macros.render_error(call.error) }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    {% endfor %}
+</div>

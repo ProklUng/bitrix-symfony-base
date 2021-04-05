@@ -1,0 +1,59 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # Инициализация Blade в Битриксе.
+  symfony_blade.register_bitrix:
+    class: Local\Bundles\SymfonyBladeBundle\Services\Providers\BladeProvider
+    factory: ['Local\Bundles\SymfonyBladeBundle\Services\Providers\BladeProvider', 'register']
+    arguments: ['%symfony_blade%']
+    tags: ['service.bootstrap']
+
+  # Фабрика View для Битрикса.
+  symfony_blade.view_factory:
+    class: Illuminate\Contracts\View\Factory
+    factory: ['Local\Bundles\SymfonyBladeBundle\Services\Providers\BladeProvider', 'getViewFactory']
+
+  # Blade Compiler для Битрикса.
+  symfony_blade.compiler:
+    class: Local\Bundles\SymfonyBladeBundle\Services\BladeCompilerBitrix
+    factory: ['Local\Bundles\SymfonyBladeBundle\Services\Providers\BladeProvider', 'getCompiler']
+
+  # Blade для Битрикса.
+  symfony_blade.blade:
+    class: Local\Bundles\SymfonyBladeBundle\Services\Blade
+    arguments:
+      - '@symfony_blade.view_factory'
+      - ['%symfony_blade.base_path%']
+
+  # Фреймворконезависимая инициализация Blade.
+  symfony_blade.register_agnostic:
+    class: Local\Bundles\SymfonyBladeBundle\Services\Providers\BladeAgnosticProvider
+    factory: ['Local\Bundles\SymfonyBladeBundle\Services\Providers\BladeAgnosticProvider', 'register']
+    arguments: ['%symfony_blade%']
+    tags: ['service.bootstrap']
+
+  # Фреймворконезависимая фабрика View.
+  symfony_blade.view_factory_agnostic:
+    class: Illuminate\Contracts\View\Factory
+    factory: ['Local\Bundles\SymfonyBladeBundle\Services\Providers\BladeAgnosticProvider', 'getViewFactory']
+
+  # Фреймворконезависимый Blade Compiler.
+  symfony_blade.compiler_agnostic:
+    class: Illuminate\View\Compilers\BladeCompiler
+    factory: ['Local\Bundles\SymfonyBladeBundle\Services\Providers\BladeAgnosticProvider', 'getCompiler']
+
+  # Фреймворконезависимый Blade.
+  blade.instance:
+    class: Local\Bundles\SymfonyBladeBundle\Services\Blade
+    arguments:
+      - '@symfony_blade.view_factory_agnostic'
+      - ['%symfony_blade.base_path%']
+
+  # Очистка кэша при наличии GET параметра clear_cache.
+  symfony_blade.clear_cache:
+    class: Local\Bundles\SymfonyBladeBundle\Services\Utils\BladeCacheClearer
+    tags:
+      - { name: bitrix.events.init, module: main, event: OnProlog, method: clear, sort: 1 }

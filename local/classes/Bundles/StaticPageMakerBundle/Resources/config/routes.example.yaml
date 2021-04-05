@@ -1,0 +1,20 @@
+# Пример рендеринга простой статической страницы прямо из роута.
+simple_static_page:
+  path: /simple_page/
+  methods: [GET]
+  controller: 'Local\Bundles\StaticPageMakerBundle\Services\TemplateControllerContainerAware::templateAction'
+  defaults:
+    template:  './static/example2.twig'
+    context:
+      # Препроцессоры контекста.
+      _processors:
+        - '@Local\Bundles\StaticPageMakerBundle\Services\ContextProcessors\ExampleContextProcessor'
+      options: '@app.options'
+      site_name: 'Example site'
+      object:
+        errored: true
+        finished: true
+        pending: true
+      page_type: 'static-page'
+      title: 'Простая статическая страница'
+      description: 'Простая статическая страница'

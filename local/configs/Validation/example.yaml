@@ -1,0 +1,2 @@
+'ID' : 'required|numeric'
+'TYPE': 'required|string'

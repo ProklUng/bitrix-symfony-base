@@ -1,0 +1,143 @@
+########
+# EMAIL
+########
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # Сервис-обертка отправки писем.
+  mailer_bundle.mail_service:
+    class: Local\Bundles\SymfonyMailerBundle\Services\EmailService
+    arguments:
+      - '@mailer_bundle.mailer'
+      - '@Symfony\Bridge\Twig\Mime\BodyRenderer'
+
+  Local\Bundles\SymfonyMailerBundle\Services\EmailService: '@mailer_bundle.mail_service'
+
+  # DTO для отправки почты.
+  mailer_bundle.admin_notify_email_dto:
+    class: Symfony\Bridge\Twig\Mime\TemplatedEmail
+    calls:
+      - to: ['%symfony_mailer_bundle.admin_email%']
+      - subject: ['Notify']
+
+  # Тестовый сервис отправки почты админу
+#  mailer_bundle.simple_send_notify_email_admin:
+#    class: Local\Bundles\SymfonyMailerBundle\Services\EmailService
+#    calls:
+#      - setEmail: ['@mailer_bundle.admin_notify_email_dto']
+#      - setTemplate: ['email/intro_letter.twig']
+#      - setContext: [ {user_name: 'Fedy', event: 'Test event'} ]
+
+  # Тестовый сервис отправки почты через MailerMessageFactory
+  mailer_bundle.send_email_via_factory:
+    class: Local\Bundles\SymfonyMailerBundle\Services\Factory\MailerMessageFactory
+    arguments:
+      $documentRoot: '%kernel.project_dir%'
+      $defaultSettings:
+        from: '%symfony_mailer_bundle.default_email_from_adress%'
+        cc: []
+        bcc: []
+        replyTo: '%symfony_mailer_bundle.default_email_from_adress%'
+        headers: []
+
+  ###############################
+  # Symfony services & listeners
+  ###############################
+
+  mailer_bundle.mailer:
+    class: Symfony\Component\Mailer\Mailer
+    arguments: ['@mailer_bundle.mailer_transports', null, '@event_dispatcher']
+
+  mailer_bundle.mailer_debug:
+    class: Symfony\Component\Mailer\Mailer
+    arguments: ['@mailer_bundle.mailer_transports.filesystem', null, '@event_dispatcher']
+
+  Symfony\Component\Mailer\MailerInterface: '@mailer_bundle.mailer'
+
+  mailer_bundle.mailer.transport_factory:
+    class: Symfony\Component\Mailer\Transport
+    arguments: [!tagged { tag: mailer.transport_factory }]
+
+  mailer_bundle.mailer_transports:
+    class: Symfony\Component\Mailer\Transport\Transports
+    factory: ['@mailer_bundle.mailer.transport_factory', 'fromStrings']
+    arguments:
+      - [ '%symfony_mailer_bundle.dsn%' ]
+
+  # Кастомная фабрика транспортов.
+  Local\Bundles\SymfonyMailerBundle\Services\Factory\TransportFactory:
+     arguments:
+        - '%kernel.project_dir%'
+
+  # Транспорт - запись писем в файл.
+  mailer_bundle.mailer_transports.filesystem:
+    class: Symfony\Component\Mailer\Transport\TransportInterface
+    factory: '@Local\Bundles\SymfonyMailerBundle\Services\Factory\TransportFactory'
+    arguments:
+      - '%symfony_mailer_bundle.dsn_file%'
+      - '@mailer.filesystem'
+      - '@event_dispatcher'
+      - '@http_client'
+      - '@logger'
+
+  mailer_bundle.mailer.default_transport:
+    class: Symfony\Component\Mailer\Transport\TransportInterface
+    factory: ['@mailer_bundle.mailer.transport_factory', 'fromString']
+    arguments: ['%symfony_mailer_bundle.dsn%']
+
+  Symfony\Component\Mailer\Transport\TransportInterface: '@mailer_bundle.mailer.default_transport'
+
+  mailer.messenger.message_handler:
+    class: Symfony\Component\Mailer\Messenger\MessageHandler
+    arguments: ['@mailer_bundle.mailer_transports']
+    tags:
+      - { name: messenger.message_handler }
+
+  mailer.envelope_listener:
+    class: Symfony\Component\Mailer\EventListener\EnvelopeListener
+    tags:
+      - { name: kernel.event_subscribe }
+
+  mailer.logger_message_listener:
+    class: Symfony\Component\Mailer\EventListener\MessageLoggerListener
+    tags:
+      - { name: kernel.event_subscriber }
+      - { name: kernel.reset, method: reset }
+
+  Local\Bundles\SymfonyMailerBundle\Events\SetFromListener:
+    arguments: ['%symfony_mailer_bundle.default_email_from_adress%', '%symfony_mailer_bundle.default_email_from_title%']
+    tags:
+      - { name: kernel.event_subscriber }
+
+  #############
+  # Transports
+  #############
+
+  mailer.transport_factory.abstract:
+    class: Symfony\Component\Mailer\Transport\AbstractTransportFactory
+    abstract: true
+    arguments:
+      - '@event_dispatcher'
+      - '@http_client'
+      - '@logger'
+
+  #########
+  # Прочее
+  #########
+
+  # Symfony/twig-bridge
+  Symfony\Bridge\Twig\Mime\BodyRenderer:
+    class: Symfony\Bridge\Twig\Mime\BodyRenderer
+    arguments: ['@twig.instance']
+
+  Symfony\Component\Mime\BodyRendererInterface: '@Symfony\Bridge\Twig\Mime\BodyRenderer'
+
+  http_client:
+    class: Symfony\Contracts\HttpClient\HttpClientInterface
+    factory: ['Symfony\Component\HttpClient\HttpClient', 'create']
+
+  Symfony\Contracts\HttpClient\HttpClientInterface: '@http_client'

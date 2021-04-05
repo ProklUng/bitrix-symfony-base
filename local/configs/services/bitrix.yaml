@@ -1,0 +1,103 @@
+###########
+# Битрикс
+###########
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  CIBlockElement:
+    class: CIBlockElement
+
+  CIBlockSection:
+    class: CIBlockSection
+
+  iblock.element.manager:
+    class: Local\Services\IblockElementManager
+
+  iblock.property.manager:
+    class: Local\Services\IBlockPropertyManager
+
+  iblock.section.manager:
+    class: Local\Services\IBlockSectionManager
+
+  hlblock.manager:
+    class: Local\Services\HLIBlockElementManager
+
+  iblock.manager:
+    class: Local\Services\IblockManager
+
+  form.manager:
+    class: Local\Services\FormManager
+
+  # Новый элемент инфоблока.
+  creator.iblock.element:
+    class: Local\Services\Bitrix\AddElement
+    arguments: ['@Local\Services\TranslitService']
+
+  # Битриксовый кэшер
+  bitrix.cacher:
+    class: CPHPCache
+
+  # Кэшер.
+  cacher:
+    class: Local\Util\Bitrix\Cacher
+    arguments: ['@bitrix.cacher']
+
+  bitrix.cache.engine:
+    class: Bitrix\Main\Data\ICacheEngine
+    factory: ['Bitrix\Main\Data\Cache', 'createCacheEngine']
+
+  Bitrix\Main\Data\Cache:
+    arguments: ['@bitrix.cache.engine']
+
+  # Инстанс $APPLICATION
+  application:
+    class: CMain
+
+  Local\Services\Bitrix\GetApplication: ~
+
+  application.instance:
+    class: CMain
+    factory: ['@Local\Services\Bitrix\GetApplication', 'instance']
+
+  CFile:
+    class: CFile
+  CUser:
+    class: CUser
+  CMain:
+    class: CMain
+  Bitrix\Main\UserTable: ~
+  Bitrix\Main\Mail\Event: ~
+
+  # Работа с почтовыми событиями.
+  Local\Services\Email\SendNotification:
+    class: Local\Services\Email\SendNotification
+    arguments: ['@Bitrix\Main\Mail\Event', '@CFile']
+
+  # Загрузчик контента.
+  loader.content:
+    class: Local\Util\LoaderContent
+
+  # Обертка над CFile.
+  CFile.wrapper:
+    class: Local\Services\CFileWrapper
+    arguments: ['@CFile']
+
+  # Транслит.
+  Denismitr\Translit\Translit: ~
+
+  Local\Services\TranslitService:
+    class: Local\Services\TranslitService
+    arguments: ['@Denismitr\Translit\Translit']
+
+  Local\Services\Bitrix\Interfaces\TranslitInterface: '@Local\Services\TranslitService'
+
+  # Доступ к bitrix/.settings.php.
+  # Параметры: connections.default.host (ключи разделены точками) или connections.
+  # См. хэлпер bxConfig
+  bx.config:
+    class: Local\Util\Config\Manager

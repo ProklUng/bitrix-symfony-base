@@ -1,0 +1,68 @@
+#########################
+# Валидация, санитизация
+#########################
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # Валидатор Laravel. Пример. Загрузка из Yaml.
+  sample.validator:
+    class: Local\Services\Validation\Validator
+    arguments: ['%kernel.project_dir%', '/local/configs/Validation/example.yaml']
+
+  # Валидатор Laravel. Базовый сервис.
+  laravel.validator:
+    class: Local\Services\Validation\Validator
+    arguments: ['%kernel.project_dir%']
+
+  # Санитайзер.
+  sanitizer:
+    class: Local\Services\Sanitizing\SanitizerService
+
+  Local\Services\Sanitizing\SanitizerService: '@sanitizer'
+  Local\Services\Sanitizing\SanitizerInterface: '@sanitizer'
+
+  Local\Services\Validation\Custom\CustomEmailValidatorNullable: ~
+  Local\Services\Validation\Custom\LaravelPhoneValidatorNullable: ~
+
+  Local\Services\Validation\Custom\CyrillicAlphaValidator: ~
+  Local\Services\Validation\Custom\CyrillicAlphaValidatorNullable: ~
+
+  validator:
+    class: Symfony\Component\Validator\Validator\ValidatorInterface
+    factory: ['@validator.builder', 'getValidator']
+
+  Symfony\Component\Validator\Validator\ValidatorInterface: '@validator'
+  validator.mapping.class_metadata_factory: '@validator'
+
+  validator.validator_factory:
+    class: Symfony\Component\Validator\ContainerConstraintValidatorFactory
+    arguments: []
+
+  validator.builder:
+    class: Symfony\Component\Validator\ValidatorBuilder
+    factory: ['Symfony\Component\Validator\Validation', 'createValidatorBuilder']
+    calls:
+      - setConstraintValidatorFactory: ['@validator.validator_factory']
+
+  validator.expression:
+    class: Symfony\Component\Validator\Constraints\ExpressionValidator
+    tags:
+      - { name: validator.constraint_validator, alias: validator.expression }
+
+  validator.email:
+    class: Symfony\Component\Validator\Constraints\EmailValidator
+    tags:
+      - { name: validator.constraint_validator, alias: Symfony\Component\Validator\Constraints\EmailValidator }
+
+  Local\Validators\PhoneValidator:
+    tags:
+      - { name: validator.constraint_validator }
+
+  Local\Validators\EmailValidator:
+    tags:
+      - { name: validator.constraint_validator }

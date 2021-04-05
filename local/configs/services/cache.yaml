@@ -1,0 +1,118 @@
+#########
+# Cache
+#########
+parameters:
+  cache:
+    enabled: true
+    app: cache.adapter.filesystem
+    system: cache.adapter.system
+    directory: '%kernel.project_dir%/bitrix/cache/symfony'
+    default_memcached_provider: 'memcached://localhost'
+
+    pools:
+      my_cache_pool:
+        public: true
+        provider: cache.adapter.filesystem
+        default_lifetime: 600
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  cache.adapter.filesystem:
+    class: Symfony\Component\Cache\Adapter\FilesystemAdapter
+    arguments: ['', 3600,'%kernel.cache_dir%/pools']
+
+  cache.adapter.array:
+    class: Symfony\Component\Cache\Adapter\ArrayAdapter
+    arguments: [0]
+    tags:
+      - { name: cache.pool, clearer: cache.app_clearer }
+      - { name: monolog.logger, channel: cache }
+
+  cache.adapter.memcached:
+    class: Symfony\Component\Cache\Adapter\MemcachedAdapter
+    arguments: [~, ~,0, '@cache.default_marshaller']
+    tags:
+      - { name: cache.pool, provider: "cache.default_memcached_provider", clearer: cache.app_clearer, reset: reset }
+      - { name: monolog.logger, channel: cache }
+
+  cache.adapter.apcu:
+    class: Symfony\Component\Cache\Adapter\ApcuAdapter
+    arguments: ['', 0,~]
+    tags:
+      - { name: cache.pool, clearer: cache.default_clearer, reset: reset }
+      - { name: monolog.logger, channel: cache }
+
+  cache.app:
+    public: true
+    autowire: true
+    autoconfigure: false
+    parent: "cache.adapter.filesystem"
+    tags:
+      - { name: cache.pool, clearer: cache.app_clearer }
+
+  cache.app.taggable:
+    class: Symfony\Component\Cache\Adapter\TagAwareAdapter
+    arguments: ['@cache.app']
+
+  cache.adapter.system:
+    abstract: true
+    class: Symfony\Component\Cache\Adapter\AdapterInterface
+    factory: ['Symfony\Component\Cache\Adapter\AbstractAdapter', 'createSystemCache']
+    arguments:
+      - ''
+      - 0
+      - ''
+      - '%kernel.cache_dir%/pools'
+      - '@logger'
+    tags:
+      - { name: cache.pool, reset: reset }
+      - { name: monolog.logger, channel: cache }
+
+  cache.default_clearer:
+    class: Symfony\Component\HttpKernel\CacheClearer\Psr6CacheClearer
+    arguments: [[]]
+
+  cache.default_marshaller:
+    class: Symfony\Component\Cache\Marshaller\DefaultMarshaller
+    arguments: [~]
+
+  cache.app_clearer: '@cache.default_clearer'
+  cache.system_clearer:
+    public: true
+    autowire: true
+    autoconfigure: false
+    parent: "cache.default_clearer"
+
+  cache.global_clearer:
+    public: true
+    autowire: true
+    autoconfigure: false
+    parent: "cache.default_clearer"
+
+  Symfony\Component\Cache\Adapter\AdapterInterface: '@cache.app'
+  Symfony\Contracts\Cache\CacheInterface: '@cache.app'
+  Psr\Cache\CacheItemPoolInterface: '@cache.app'
+  Symfony\Contracts\Cache\TagAwareCacheInterface: '@cache.app.taggable'
+
+  cache.adapter.psr6:
+    abstract: true
+    class: Symfony\Component\Cache\Adapter\ProxyAdapter
+    arguments:
+      - ~
+      - ''
+      - 0
+    tags:
+      - { name: cache.pool, provider: cache.default_psr6_provider, clearer: cache.default_clearer, reset: reset }
+
+  # My custom adapter
+  app.cache.adapter.filesystem:
+    public: true
+    autowire: true
+    autoconfigure: false
+    parent: 'cache.adapter.filesystem'
+    tags:
+      - { name: 'cache.pool', namespace: 'test_namespace', default_lifetime: 600 }

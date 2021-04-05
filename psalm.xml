@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="3"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    allowStringToStandInForClass="true"
+    allowCoercionFromStringToClassConst="true"
+    findUnusedPsalmSuppress="true"
+    skipChecksOnUnresolvableIncludes="true"
+>
+    <plugins>
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
+        <pluginClass class="Psalm\MockeryPlugin\Plugin"/>
+    </plugins>
+    <projectFiles>
+        <directory name="local/classes"/>
+        <directory name="local/functions"/>
+        <directory name="local/modules"/>
+        <directory name="local/php_interface"/>
+        <directory name="local/templates"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+            <directory name="local/classes/Tests"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <extraFiles>
+        <directory name="./bitrix"/>
+    </extraFiles>
+
+    <issueHandlers>
+        <UndefinedGlobalVariable>
+            <errorLevel type="suppress">
+                <referencedVariable name="$APPLICATION" />
+                <referencedVariable name="$USER" />
+            </errorLevel>
+        </UndefinedGlobalVariable>
+
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <directory name="local/classes"/> <!-- all InvalidReturnType issues in this directory are suppressed -->
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+
+        <UndefinedConstant>
+            <errorLevel type="suppress">
+                <directory name="local"/> <!-- all InvalidReturnType issues in this directory are suppressed -->
+            </errorLevel>
+        </UndefinedConstant>
+
+        <UndefinedMagicPropertyFetch>
+            <errorLevel type="suppress">
+                <directory name="local/classes"/> <!-- all InvalidReturnType issues in this directory are suppressed -->
+            </errorLevel>
+        </UndefinedMagicPropertyFetch>
+
+        <UnresolvableInclude>
+            <errorLevel type="suppress">
+                <directory name="local/classes"/> <!-- all InvalidReturnType issues in this directory are suppressed -->
+            </errorLevel>
+        </UnresolvableInclude>
+    </issueHandlers>
+</psalm>

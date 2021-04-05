@@ -1,0 +1,10 @@
+request_log:
+  mocks_dir: '%kernel.project_dir%/../../logs/mocks/'
+  mocks_dir_commands: '/logs/mocks'
+  mock_request: true
+  hash_query_params: false
+  use_indexed_associative_array: true
+  bitrix_uri_list:
+    - '/^\/clubs\/$/'
+    - '/^\/about\/$/'
+    - '/^\/xxx\/$/'

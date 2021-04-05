@@ -1,0 +1,31 @@
+{% macro property(property, value) %}
+    {% if value is iterable %}
+ /** @var array ${{ property }} */
+        {% set imploded = value | assocjoin(',') %}
+ public ${{property}} = [{{ imploded | raw }}];
+    {% elseif value is numeric %}
+ /** @var int ${{ property }} */
+     public ${{property}} = {{ value }};
+      {% else %}
+ /** @var string ${{ property }} */
+      public ${{property}} = '{{ value }}';
+    {% endif %}
+{% endmacro %}
+<?php
+
+namespace Local\Bundles\BitrixComponentParamsBundle\DTO;
+
+use Spatie\DataTransferObject\DataTransferObject;
+use Local\Bundles\BitrixComponentParamsBundle\Services\Contracts\BitrixParameterInterface;
+
+/**
+ * Class {{ className }}
+ * @package Local\Bundles\BitrixComponentParamsBundle\DTO
+ */
+class {{ className }} extends DataTransferObject implements BitrixParameterInterface
+{
+  {% for property, value in data %}
+     {{  _self.property(property, value) }}
+  {% endfor %}
+
+}

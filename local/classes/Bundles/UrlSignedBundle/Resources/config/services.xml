@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="url_signer.signer.md5" class="Local\Bundles\UrlSignedBundle\UrlSigner\Md5UrlSigner" public="true">
+            <tag name="url_signer.signer" />
+        </service>
+        <service id="Local\Bundles\UrlSignedBundle\UrlSigner\Md5UrlSigner" alias="url_signer.signer.md5" public="true"/>
+
+        <service id="url_signer.signer.sha256" class="Local\Bundles\UrlSignedBundle\UrlSigner\Sha256UrlSigner" public="true">
+            <tag name="url_signer.signer" />
+        </service>
+        <service id="Local\Bundles\UrlSignedBundle\UrlSigner\Sha256UrlSigner" alias="url_signer.signer.sha256" />
+
+        <service id="url_signer.listener.validate_signed_route" class="Local\Bundles\UrlSignedBundle\EventListener\ValidateSignedRouteListener" public="true">
+            <argument type="service" id="url_signer.signer" />
+            <tag name="kernel.event_listener" event="kernel.request" method="validateSignedRoute" />
+        </service>
+
+        <service id="Local\Bundles\UrlSignedBundle\Controller\ExampleSignedController" class="Local\Bundles\UrlSignedBundle\Controller\ExampleSignedController" public="true">
+            <argument type="service" id="url_signer.signer" />
+        </service>
+
+    </services>
+</container>

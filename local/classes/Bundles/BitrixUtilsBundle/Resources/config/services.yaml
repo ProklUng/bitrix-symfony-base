@@ -1,0 +1,16 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  bitrix.module_manager:
+    class: Local\Bundles\BitrixUtilsBundle\Services\ModuleInitializer
+    arguments:
+      - '%bitrix_utils.modules%'
+
+  bitrix.module_manager.startup:
+    class: Local\Bundles\BitrixUtilsBundle\Services\ModuleInitializer
+    factory: ['@bitrix.module_manager', 'init']
+    tags:
+      - { name: bitrix.events.init, module: main, event: OnPageStart, method: init, sort: 200 }

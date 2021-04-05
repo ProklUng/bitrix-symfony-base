@@ -1,0 +1,35 @@
+<?php
+
+namespace local\components;
+
+
+use Bex\Bbc\Basis;
+use Bitrix\Main\Loader;
+use Exception;
+
+if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
+    die();
+}
+
+if (!Loader::includeModule('bex.bbc')) {
+    return false;
+}
+
+/**
+ * Class #CLASS_NAME#
+ * @package local\components
+ */
+class #CLASS_NAME# extends Basis
+{
+    /**
+     * Основная логика - получение и обработка данных. Кешируется.
+     *
+     * @return void
+     * @throws Exception
+     */
+    protected function executeMain()
+    {
+
+    }
+
+}

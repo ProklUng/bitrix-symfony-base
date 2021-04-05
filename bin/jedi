@@ -1,0 +1,19 @@
+<?php
+
+use Local\ConsoleJedi\Application\Application;
+
+@set_time_limit(0);
+
+$_SERVER['DOCUMENT_ROOT'] = __DIR__. DIRECTORY_SEPARATOR . '..';
+$GLOBALS['DOCUMENT_ROOT'] = $_SERVER['DOCUMENT_ROOT'];
+
+$autoloadPath = $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+
+/** @noinspection PhpIncludeInspection */
+require_once $autoloadPath;
+
+$jediApplication = new Application();
+$jediApplication->setDocumentRoot($_SERVER['DOCUMENT_ROOT']);
+
+$jediApplication->run();
+

@@ -1,0 +1,76 @@
+###########################
+# Расширители коллекций.
+###########################
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # Удалить суффикс PROPERTY_*_VALUE.
+  Local\Services\Collections\Extenders\RemovePropertySuffix: ~
+
+  # Макрос pick - расширенный pluck.
+  Local\Services\Collections\Extenders\Pick: ~
+
+  # Reduce each collection item to the value found between a given start and end string.
+  Local\Services\Collections\Extenders\Beatween: ~
+
+  # Perform an operation on the collection's keys.
+  Local\Services\Collections\Extenders\TransformKeys: ~
+
+  Local\Services\Collections\Extenders\SortByExternalKeys: ~
+
+  # Sorts the Collection by its keys.
+  Local\Services\Collections\Extenders\KSort: ~
+  # Sorts the Collection by its keys in the reverse order
+
+  Local\Services\Collections\Extenders\KRSort: ~
+
+  # Recursively convert nested arrays into Laravel Collections.
+  Local\Services\Collections\Extenders\Recursive: ~
+
+  # Perform a regular expression search and replace.
+  Local\Services\Collections\Extenders\Replace: ~
+
+  # Sort the values in a collection by a datetime value.
+  Local\Services\Collections\Extenders\SortByDate: ~
+  # Sort the values in a collection by a datetime value in reversed order.
+  Local\Services\Collections\Extenders\SortByDateDesc: ~
+
+  # Pass collection to an anonymous function.
+  Local\Services\Collections\Extenders\Pipe: ~
+
+  # Ensure that every array / collection within a collection contains the same keys.
+  Local\Services\Collections\Extenders\NormalizeKeys: ~
+
+  # Contains
+  Local\Services\Collections\Extenders\Contains: ~
+
+  # Any
+  Local\Services\Collections\Extenders\Any: ~
+
+  # Новые макросы для коллекций Laravel.
+  extender.collection:
+    class: Local\Services\Collections\Extender
+    arguments:
+      - '@Local\Services\Collections\Extenders\Pick'
+      - '@Local\Services\Collections\Extenders\RemovePropertySuffix'
+      - '@Local\Services\Collections\Extenders\Beatween'
+      - '@Local\Services\Collections\Extenders\TransformKeys'
+      - '@Local\Services\Collections\Extenders\SortByExternalKeys'
+      - '@Local\Services\Collections\Extenders\KSort'
+      - '@Local\Services\Collections\Extenders\KRSort'
+      - '@Local\Services\Collections\Extenders\Recursive'
+      - '@Local\Services\Collections\Extenders\Replace'
+      - '@Local\Services\Collections\Extenders\SortByDate'
+      - '@Local\Services\Collections\Extenders\SortByDateDesc'
+      - '@Local\Services\Collections\Extenders\Pipe'
+      - '@Local\Services\Collections\Extenders\NormalizeKeys'
+      - '@Local\Services\Collections\Extenders\Contains'
+      - '@Local\Services\Collections\Extenders\Any'
+    tags: ['service.bootstrap']
+
+  Local\Services\Collections\Extender: '@extender.collection'

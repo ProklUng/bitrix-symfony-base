@@ -1,0 +1,34 @@
+##########
+# Ассеты
+##########
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Local\Services\AssetPathService: ~
+
+  # Пути к сборке Webpack.
+  build.path:
+    class: Local\Services\AssetPathService
+    factory: ['@Local\Services\AssetPathService', 'pathBuild']
+    arguments: ['%debug%', '%build.dev.path%', '%build.production.path%']
+
+  assets.manager:
+    class: Local\Util\Assets
+    arguments: ['@build.path']
+
+  Local\Util\Assets: '@assets.manager'
+
+  # Загрузчик иконок SVG.
+  icons.svg:
+    class: Local\Services\IconSvgLoaders
+    arguments: ['@filesystem.instance', '@build.path',  '/images/icons.svg']
+
+  # Загрузить иконки SVG.
+  icons.svg.load:
+    class: Local\Services\IconSvgLoaders
+    factory: ['@icons.svg', 'load']

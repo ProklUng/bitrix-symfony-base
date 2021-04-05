@@ -1,0 +1,15 @@
+################
+# Пример конфига
+################
+custom_arguments_resolvers:
+  defaults:
+    enabled: true
+  params:
+    # Какие конкретно листенеры запретить (ID сервиса).
+    disabled_resolvers:
+      # - custom_arguments_resolvers.argument_resolver.ajax_call
+    # Обрабатывать только контроллеры, не зарегистрированные сервисами.
+    process_only_non_service_controller: false
+    # Классы контроллеров, подлежащие обработке.
+    classes_controllers:
+      - 'Symfony\Bundle\FrameworkBundle\Controller\AbstractController'

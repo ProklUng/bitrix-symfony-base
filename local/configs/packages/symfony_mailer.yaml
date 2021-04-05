@@ -1,0 +1,21 @@
+symfony_mailer:
+  enabled: true
+
+  # Заменять реальную отправку на запись в файл.
+  mock_sending_email: true
+
+  # Дефолтное поле from.
+  default_email_from_adress: 'email@gmail.com'
+  default_email_from_title: 'Simple title'
+
+  # Email админа.
+  admin_email: 'admin_site@gmail.com'
+
+  dsn: gmail+smtp://email2020:izjqfjyegwmznrtb@default
+
+  # Шаблон - для strftime, где элемент паттерна обрамлен скобками.
+  dsn_file: file:///upload/emails/{Y}/{m}/{d}/@hash.eml
+
+  envelope:
+       recipients: ['second.email@mail.ru']
+

@@ -1,0 +1,34 @@
+{% extends "./static/template/baseTemplate.twig" %}
+
+{# content #}
+{% block content %}
+    {% apply inline_css %}
+    <br><br><br><br><br>
+    <h1>Я статическая страница</h1>
+    <style>
+        .test {
+            color: red;
+        }
+        .errored {color: rosybrown}
+    </style>
+
+    <div>
+        Мои параметры: {{ site_name }}
+    </div>
+
+        <br><br>
+        <p class="{{ html_classes('a-class', 'another-class', {
+            'errored': object.errored,
+            'finished': object.finished,
+            'pending': object.pending,
+        }) }}">How are you doing?</p>
+
+    <div class="home-philosophy my-3 my-md-4 my-lg-5 my-xl-10">
+        {{ param('kernel.project_dir') }}
+        {{ service('build.path') }}
+    </div>
+    {% endapply %}
+    {#{{ render('/api/foo/') }}#}
+{% endblock %}
+
+

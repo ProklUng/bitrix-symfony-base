@@ -1,0 +1,21 @@
+##############
+# Токен CSRF
+##############
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # CsrfTokenManager
+  security.csrf.token_manager:
+    class: Symfony\Component\Security\Csrf\CsrfTokenManager
+
+  Symfony\Component\Security\Csrf\CsrfTokenManager: '@security.csrf.token_manager'
+  Symfony\Component\Security\Csrf\CsrfTokenManagerInterface: '@security.csrf.token_manager'
+  security.csrf.token_generator:
+    class: Symfony\Component\Security\Csrf\TokenGenerator\UriSafeTokenGenerator
+
+  Symfony\Component\Security\Csrf\TokenGenerator\UriSafeTokenGenerator: '@security.csrf.token_generator'

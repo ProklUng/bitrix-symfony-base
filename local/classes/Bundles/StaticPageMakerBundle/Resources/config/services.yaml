@@ -1,0 +1,59 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  static_page_maker.bitrix.pieces:
+    public: true
+    arguments: ['%kernel.project_dir%']
+    class: Local\Bundles\StaticPageMakerBundle\Twig\BitrixPiecesExtension
+    tags:
+      - { name: twig.extension }
+
+  static_page_maker.assets.handler:
+    public: true
+    class: Local\Bundles\StaticPageMakerBundle\Twig\AssetsExtension
+    tags:
+      - { name: twig.extension }
+
+  static_page_majer.bitrix.element_values_proxy:
+    public: false
+    class: Local\Bundles\StaticPageMakerBundle\Services\Bitrix\ElementValuesProxy
+
+  static_page_maker.seo_properties_searcher:
+    public: false
+    class: Local\Bundles\StaticPageMakerBundle\Services\Bitrix\SeoMetaElement
+    arguments:
+        - '@CIBlockElement'
+        - '@static_page_majer.bitrix.element_values_proxy'
+        - '%static_page_maker.seo_iblock_id%'
+
+  Local\Bundles\StaticPageMakerBundle\Services\TemplateControllerContainerAware:
+    arguments: ['@static_page_maker.default.context.processors', '@twig.instance']
+    calls:
+      - setContainer: ['@service_container']
+
+  static_page_maker.default.context.processors:
+    public: false
+    class: Local\Bundles\StaticPageMakerBundle\Services\ContextProcessors\DefaultContextProcessorsBag
+    calls:
+      - setProcessors: [ !tagged_iterator static_page_maker.default.context.processor]
+
+  Local\Bundles\StaticPageMakerBundle\Services\ContextProcessors\SeoContextProcessor:
+    class: Local\Bundles\StaticPageMakerBundle\Services\ContextProcessors\SeoContextProcessor
+    arguments: ['@static_page_maker.seo_properties_searcher']
+    tags:
+      - { name: static_page_maker.default.context.processor}
+
+  static_page_maker.twig_utils:
+    public: false
+    class: Local\Bundles\StaticPageMakerBundle\Services\Utils\TwigUtils
+    arguments: ['@twig.instance', '@filesystem']
+
+  static_page_maker.listener_set_last_modified:
+    public: true
+    class: Local\Bundles\StaticPageMakerBundle\Event\SetLastModifiedHeaderListener
+    arguments: ['@static_page_maker.twig_utils', '%static_page_maker.set_last_modified_header%']
+    tags:
+      - { name: kernel.event_listener, event: kernel.response, method: handle, priority: 10 }

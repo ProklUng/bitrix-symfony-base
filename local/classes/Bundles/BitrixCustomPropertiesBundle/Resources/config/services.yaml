@@ -1,0 +1,96 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # Валидатор EMAIL.
+  bitrix_custom_properties_bundle.email_validator:
+    public: false
+    class: Local\Bundles\BitrixCustomPropertiesBundle\Services\Validators\CustomEmailValidatorNullable
+
+  # Валидатор телефона.
+  bitrix_custom_properties_bundle.phone_validator:
+    public: false
+    class: Local\Bundles\BitrixCustomPropertiesBundle\Services\Validators\LaravelPhoneValidatorNullable
+
+  # Свойство EMAIL.
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\CustomProperties\Email:
+    arguments: ['@bitrix_custom_properties_bundle.email_validator']
+    tags:
+      - { name: bitrix.custom.property.type }
+
+  # Свойство PHONE.
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\CustomProperties\Phone:
+    arguments: ['@bitrix_custom_properties_bundle.phone_validator']
+    tags:
+      - { name: bitrix.custom.property.type }
+
+  # Свойство YoutubeVideo.
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\CustomProperties\YoutubeVideo:
+    tags:
+      - { name: bitrix.custom.property.type }
+
+  # Свойство привязка к форме.
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\CustomProperties\FormType:
+    tags:
+      - { name: bitrix.custom.property.type }
+
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\CustomProperties\YesNoType:
+    tags:
+      - { name: bitrix.custom.property.type }
+
+  # Кастомное свойство "Привязка к группе пользователей".
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\CustomProperties\GroupUser:
+    tags:
+      - { name: bitrix.custom.property.type }
+
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\CustomProperties\EnumProperty\Base:
+    tags:
+      - { name: bitrix.custom.property.type }
+
+  # Кастомное свойство "Привязка к элементу с описанием".
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\CustomProperties\ListElementWithDescription:
+    tags:
+      - { name: bitrix.custom.property.type }
+
+  # Комплексное свойство инфоблока.
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\CustomProperties\CIBlockPropertyCProp:
+    tags:
+      - { name: bitrix.custom.property.type }
+
+  # Кастомное пользовательское свойство "Привязка к пользователю".
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\CustomProperties\CUserTypeUserId:
+    tags:
+      - { name: bitrix.uf.property.type }
+
+  # Кастомное пользовательское свойство "Привязка к группам пользователей".
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\CustomProperties\CUserTypeUserGroup:
+    tags:
+      - { name: bitrix.uf.property.type }
+
+  # Инициализатор кастомных пользовательских (UF) свойств.
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\PropertiesProcessor\CustomUfPropertiesProcessor:
+    class: Local\Bundles\BitrixCustomPropertiesBundle\Services\PropertiesProcessor\CustomUfPropertiesProcessor
+    arguments: [!tagged bitrix.uf.property.type]
+
+  # Подвязка событий инициализации кастомных пользовательских (UF) свойств.
+  bitrix_custom_properties_bundle.init.uf.custom.properties:
+    class: Local\Bundles\BitrixCustomPropertiesBundle\Services\PropertiesProcessor\CustomUfPropertiesProcessor
+    factory: ['@Local\Bundles\BitrixCustomPropertiesBundle\Services\PropertiesProcessor\CustomUfPropertiesProcessor', 'register']
+    tags: ['service.bootstrap']
+
+  # Инициализатор кастомных свойств.
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\PropertiesProcessor\CustomIblockPropertiesProcessor:
+    class: Local\Bundles\BitrixCustomPropertiesBundle\Services\PropertiesProcessor\CustomIblockPropertiesProcessor
+    arguments: [!tagged bitrix.custom.property.type]
+
+  # Подвязка событий инициализации кастомных свойств.
+  bitrix_custom_properties_bundle.init.custom.properties:
+    class: Local\Bundles\BitrixCustomPropertiesBundle\Services\PropertiesProcessor\CustomIblockPropertiesProcessor
+    factory: ['@Local\Bundles\BitrixCustomPropertiesBundle\Services\PropertiesProcessor\CustomIblockPropertiesProcessor', 'register']
+    tags: ['service.bootstrap']
+
+  # Работа с кастомными свойствами инфоблока через модуль asd.iblock.
+  bitrix_custom_properties_bundle.asd_iblock_tools:
+    class: Local\Bundles\BitrixCustomPropertiesBundle\Services\AsdIblockTools\IblockProperty

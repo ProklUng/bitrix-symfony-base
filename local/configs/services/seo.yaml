@@ -1,0 +1,22 @@
+#######
+# SEO
+#######
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # Обработчик LastModified заголовков.
+  last.modified:
+    shared: false
+    class: Local\Services\LastModifiedService
+  # Определение самого свежего элемента инфоблока.
+  timestamp.iblock:
+    class: Local\Seo\TimestampIblock
+    arguments: ['@CIBlockElement']
+  # Определение самого свежего элемента по arResult['ITEMS'].
+  timestamp.news:
+    class: Local\Services\TimestampNews

@@ -1,0 +1,32 @@
+custom_request_responser:
+  defaults:
+    enabled: true
+
+  # True - middleware запрещено, false - нет.
+  # По умолчанию false.
+  middlewares_disabled:
+    custom_request_responser.middleware.inline_css: true
+    custom_request_responser.middleware.dns_prefetch: true
+    custom_request_responser.middleware.remove_comments: true
+    custom_request_responser.middleware.collapse_whitespace: true
+    custom_request_responser.middleware.remove_quotes: true
+    custom_request_responser.middleware.elide_attributes: true
+
+  # Middleware, запускаемые на контент Битрикса.
+  # True - middleware запрещено, false - нет.
+  # По умолчанию false.
+  bitrix_middlewares_disabled:
+    custom_request_responser.middleware.inline_css: false
+    custom_request_responser.middleware.dns_prefetch: false
+    custom_request_responser.middleware.remove_comments: false
+    custom_request_responser.middleware.collapse_whitespace: false
+    custom_request_responser.middleware.remove_quotes: false
+    custom_request_responser.middleware.elide_attributes: false
+
+  headers:
+    # Apply a CSP on all the responses
+    - Content-Security-Policy: default-src 'self'
+
+    - name: Cache-Control
+      value: max-age=31536000, public
+      condition: response.headers.get('Content-Type') matches '/^html/'

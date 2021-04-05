@@ -1,0 +1,86 @@
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  ####################
+  # kernel.controller
+  ####################
+
+  # Bootable traits.
+  custom_arguments_resolvers.boot_trait:
+    class: Local\Bundles\CustomArgumentResolverBundle\Event\Listeners\BootTraits
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: handle, priority: 50 }
+
+  # Ресолвинг аргументов из контейнера.
+  custom_arguments_resolvers.argument_resolver.from_container:
+    class: Local\Bundles\CustomArgumentResolverBundle\Event\Listeners\InjectServiceController
+    calls:
+      - setContainer: ['@service_container']
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: handle, priority: 60 }
+
+  # Основной ресолвер аргументов.
+  custom_arguments_resolvers.argument_resolver.params:
+    class: Local\Bundles\CustomArgumentResolverBundle\Event\Listeners\ResolverParamsController
+    arguments: ['@custom_arguments_resolvers.controller_argument.processor', '%custom_arguments_resolvers%']
+    calls:
+      - setContainer: ['@service_container']
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: handle, priority: 55 }
+
+  # Проверка прав на роут.
+  custom_arguments_resolvers.argument_resolver.user_permission_check:
+    arguments: ['@CUser', '@Bitrix\Main\UserTable']
+    class: Local\Bundles\CustomArgumentResolverBundle\Event\Listeners\UserPermissions
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: handle, priority: 1 }
+
+  # Проверка вызова на AJAX.
+  custom_arguments_resolvers.argument_resolver.ajax_call:
+    class: Local\Bundles\CustomArgumentResolverBundle\Event\Listeners\AjaxCall
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: handle, priority: 5 }
+
+  # Проверка токена безопасности.
+  custom_arguments_resolvers.argument_resolver.security_token_checker:
+    class: Local\Bundles\CustomArgumentResolverBundle\Event\Listeners\SecurityToken
+    arguments: ['@custom_arguments_resolvers.security.csrf.token_manager']
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: handle, priority: 15 }
+
+  # Пропихивание контейнера в контроллер.
+  custom_arguments_resolvers.argument_resolver.set_container:
+    class: Local\Bundles\CustomArgumentResolverBundle\Event\Listeners\SetContainer
+    calls:
+      - setContainer: ['@service_container']
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: handle, priority: 55 }
+
+  ################
+  # kernel.request
+  ################
+
+  # Set Symfony session.
+  custom_arguments_resolvers.argument_resolver.set_session:
+    class: Local\Bundles\CustomArgumentResolverBundle\Event\Listeners\SetSession
+    calls:
+      - setContainer: ['@service_container']
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: handle, priority: 10 }
+
+  # Валидатор CSRF токена.
+  custom_arguments_resolvers.argument_resolver.validator_csrf_token:
+    class: Local\Bundles\CustomArgumentResolverBundle\Event\Listeners\ValidatorRequestCsrfToken
+    arguments: ['@custom_arguments_resolvers.csrf_checker']
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: handle, priority: 10 }
+
+  # Обработка запросов x-www-form-urlencoded.
+  custom_arguments_resolvers.argument_resolver.form_url_encoded:
+    class: Local\Bundles\CustomArgumentResolverBundle\Event\Listeners\FormUrlencodedTreatment
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: handle, priority: 10 }

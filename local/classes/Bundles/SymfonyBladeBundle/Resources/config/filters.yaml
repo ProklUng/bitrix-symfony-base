@@ -1,0 +1,20 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Local\Bundles\SymfonyBladeBundle\Services\Filters\FiltersRegistrator:
+    class: Local\Bundles\SymfonyBladeBundle\Services\Filters\FiltersRegistrator
+    arguments: [!tagged blade.custom.filter]
+
+  ##########
+  # Фильтры
+  ##########
+
+  # Строковые фильтры.
+  Local\Bundles\SymfonyBladeBundle\Services\Filters\Filters\BladeStringFilters:
+    class: Local\Bundles\SymfonyBladeBundle\Services\Filters\Filters\BladeStringFilters
+    tags:
+      - { name: blade.custom.filter }
+

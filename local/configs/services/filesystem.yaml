@@ -1,0 +1,30 @@
+####################################
+# Абстрактный слой файловой системы
+####################################
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # Адаптер локальной файловой системы.
+  local.filesystem.adapter:
+    class: Local\Services\Filesystem\LocalFilesystemAdapter
+    arguments: ['%kernel.project_dir%']
+
+  # Сервис инициализации абстракции файловой системы.
+  filesystem.service:
+    class: Local\Services\Filesystem\FilesystemService
+    arguments: ['@local.filesystem.adapter']
+
+  # Экземпляр League Filesystem.
+  filesystem.instance:
+    class: League\Flysystem\Filesystem
+    factory: ['@filesystem.service', 'getFilesystem']
+
+  filesystem:
+    class:  Symfony\Component\Filesystem\Filesystem
+
+  Symfony\Component\Filesystem\Filesystem: '@filesystem'

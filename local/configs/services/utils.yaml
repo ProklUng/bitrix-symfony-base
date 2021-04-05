@@ -1,0 +1,40 @@
+##########################
+# Вспомогательные сервисы
+##########################
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  Symfony\Component\HttpFoundation\Response:
+    class: Symfony\Component\HttpFoundation\Response
+
+  # Json OK response.
+  json.response:
+    class: Local\Services\Responses\JsonResponse
+    arguments: ['@Symfony\Component\HttpFoundation\Response']
+
+  # Json error response.
+  json.response.error:
+    class: Local\Services\Responses\JsonResponseError
+    arguments: ['@Symfony\Component\HttpFoundation\Response', '400']
+
+  # Экран смерти.
+  die.screen:
+    class: Local\Util\ErrorScreen
+    arguments: ['@application']
+
+  # Адаптированный Pipeline.
+  Local\Util\Pipeline\Pipeline:
+    arguments: ['@service_container']
+
+  Local\Util\Pipeline\Hub:
+    arguments: ['@service_container']
+
+  Local\SymfonyTools\Framework\Utils\ResolverDependency\ResolveDependencyMaker: ~
+  Local\SymfonyTools\Framework\Utils\ResolverDependency\ResolveDependencyMakerContainerAware: ~
+
+  public_logger: '@logger'

@@ -1,0 +1,92 @@
+/* контейнер main */
+.main {
+  position: relative;
+  flex: 1; // in ie11 doesn't work correctly
+  background-color: $color_white;
+  transition: all 0.4s ease;
+
+  // style only for ie11
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    flex: none;
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+
+  &-blocks {
+    padding-top: 24px;
+    padding-right: 0;
+    padding-bottom: 24px;
+    padding-left: 0;
+
+    @include media-breakpoint-up(md) {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+
+    @include media-breakpoint-up(xl) {
+      padding-right: 32px;
+      padding-left: 32px;
+    }
+
+    &-title {
+      margin-top: 0;
+      color: $color_main;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.page {
+  padding-top: 110px;
+
+  @include media-breakpoint-up(md) {
+    padding-top: 140px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    padding-top: 120px;
+  }
+}
+
+/* black row on the top of pages, under header */
+.blackRow {
+  height: calc(110px + 30px);
+  min-height: calc(110px + 30px);
+  margin-bottom: -30px;
+  background:
+    transparent linear-gradient(180deg, #202020 0%, #000 100%) 0% 0%
+    no-repeat padding-box;
+
+  @include media-breakpoint-up(md) {
+    height: calc(140px + 60px);
+    min-height: calc(140px + 60px);
+    margin-bottom: -60px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    height: calc(120px + 55px);
+    min-height: calc(120px + 55px);
+    margin-bottom: -55px;
+  }
+}
+
+/* test content on main page */
+.testImg {
+  width: 100%;
+  height: 370px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+
+  @include media-breakpoint-up(md) {
+    height: 430px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    height: 500px;
+  }
+
+  @media (min-width: 1400px) {
+    height: 600px;
+  }
+}

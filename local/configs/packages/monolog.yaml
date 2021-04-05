@@ -1,0 +1,22 @@
+# config/packages/prod/monolog.yaml
+monolog:
+  handlers:
+    main:
+      type: rotating_file
+      # log to var/log/(environment).log
+      path: "%kernel.project_dir%/logs/log.log"
+      # log *all* messages (debug is lowest level)
+      level: debug
+      max_files: 10
+    # this "file_log" key could be anything
+#    file_log:
+#      type: stream
+#      # log to var/log/(environment).log
+#      path: "%kernel.project_dir%/logs/log.log"
+#      # log *all* messages (debug is lowest level)
+#      level: debug
+
+    syslog_handler:
+      type: syslog
+      # log error-level messages and higher
+      level: error

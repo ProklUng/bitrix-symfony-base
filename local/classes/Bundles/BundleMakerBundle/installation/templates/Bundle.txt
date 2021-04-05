@@ -1,0 +1,27 @@
+<?php
+
+namespace Local\Bundles\{#bundleName};
+
+use Local\Bundles\{#bundleName}\DependencyInjection\{#bundleShortName}Extension;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+/**
+ * Class {#bundleName}
+ * @package Local\Bundles\{#bundleName}
+ *
+ * @since {#datum}
+ */
+class {#bundleName} extends Bundle
+{
+   /**
+   * @inheritDoc
+   */
+    public function getContainerExtension()
+    {
+        if ($this->extension === null) {
+            $this->extension = new {#bundleShortName}Extension();
+        }
+
+        return $this->extension;
+    }
+}

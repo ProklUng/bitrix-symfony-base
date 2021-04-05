@@ -1,0 +1,139 @@
+#########
+# Twig.
+#########
+parameters:
+  # Опции Твига.
+  twig:
+    globals:
+      secret_key: 'xxxx'
+      # Отсылка к переменной сервис-провайдера.
+      kernel_debug: '%kernel.debug%'
+      kernel_environment: '%kernel.environment%'
+      path_build: 'webpack.build.path'
+      # Сервисы указывать без @ - иначе не компилируется контейнер.
+      app: 'native.app.twig.variable'
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # Twig loader
+  twig.loader:
+    class: Twig_Loader_Filesystem
+    arguments: ['%kernel.project_dir%/local/twig/']
+
+  # Twig
+  twig:
+    class: Local\Services\TwigService
+    arguments: ['@twig.loader', '%debug%', '%kernel.project_dir%/bitrix/cache/twig']
+
+  # Экземпляр Twig.
+  twig.instance:
+    class: Twig_Environment
+    factory: ['@twig', 'instance']
+
+  # Нативные глобальные переменные Твига.
+  native.app.twig.variable:
+    class: Symfony\Bridge\Twig\AppVariable
+    calls:
+      - [setEnvironment, ["%kernel.environment%"]]
+      - [setDebug, ["%kernel.debug%"]]
+      - [setRequestStack, ['@request_stack']]
+
+  Symfony\Bridge\Twig\AppVariable: '@native.app.twig.variable'
+
+  ##################
+  # Twig extensions
+  ##################
+  debug.extension:
+    class: Twig_Extension_Debug
+    tags:
+      - {name: twig.extension}
+
+  # Расширенный var_dump.
+  Local\Services\Twig\Extensions\VarDumpExtension:
+    tags:
+      - { name: twig.extension }
+
+  # Супер-глобалы.
+  Maximaster\Tools\Twig\PhpGlobalsExtension:
+    tags:
+      - {name: twig.extension}
+
+  # Битриксовые функции.
+  Maximaster\Tools\Twig\BitrixExtension:
+    tags:
+      - {name: twig.extension}
+
+  # Глобальные переменные. Секция globals конфигурации twig.
+  Local\Services\Twig\Extensions\GlobalsExtension:
+    arguments: ['%twig%']
+    calls:
+      - setContainer: ['@service_container']
+    tags:
+      - { name: twig.extension }
+
+  # Различные хэлперы, связанные с сервис-контейнером.
+  Local\Services\Twig\Extensions\ContainerTwigExtension:
+    calls:
+      - setContainer: ['@service_container']
+    tags:
+      - { name: twig.extension }
+
+  # The "sortByField" filter sorts an array of entries (objects or arrays) by the specified field's value
+  # Usage: {% for entry in master.entries|sortbyfield('ordering', 'desc') %}
+  Local\Services\Twig\Extensions\SortByFieldExtension:
+    tags:
+      - { name: twig.extension }
+
+  # Пути роутов.
+  Local\Services\Twig\Extensions\RouteExtension:
+    arguments: ['@routes.collection', '@parameter_bag']
+    tags:
+      - { name: twig.extension }
+
+  # controller()
+  controller:
+    class: Local\Services\Twig\Extensions\ControllerExtension
+    tags:
+      - { name: twig.extension }
+
+  # render()
+  render:
+    class: Local\Services\Twig\Extensions\RenderExtension
+    arguments:
+      - '@Local\SymfonyTools\Framework\Utils\ResolverDependency\ResolveDependencyMakerContainerAware'
+      - '@dispatcher.controller'
+      - '@routes.collection'
+    calls:
+      - setContainer: ['@service_container']
+    tags:
+      - { name: twig.extension }
+
+  # Symfony Encore.
+  Local\Services\Twig\Extensions\SymfonyEncoreExtension:
+    arguments: ['@assets.manager']
+    tags:
+      - { name: twig.extension }
+
+  # json_decode.
+  Local\Services\Twig\Extensions\JsonDecodeExtension:
+    tags:
+      - { name: twig.extension }
+
+  # inline_css.
+  Local\Services\Twig\Extensions\CssInlinerExtension:
+    tags:
+      - { name: twig.extension }
+
+  # html_classes.
+  Local\Services\Twig\Extensions\HtmlExtension:
+    tags:
+      - { name: twig.extension }
+
+  Local\Services\Twig\Extensions\StringExtension:
+    tags:
+      - { name: twig.extension }

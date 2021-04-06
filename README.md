@@ -30,12 +30,12 @@ git clone proklung/bitrix-symfony-base.git ./
 
 ### Зависимости
 
-- Установить зависимости composer (frontend):
+- Установить зависимости composer (backend):
 ```sh
 composer install
 ```
 
-- Установить зависимости npm (backend):
+- Установить зависимости npm (frontend):
 ```sh
 npm install
 ```
@@ -87,6 +87,8 @@ touch .env
 ./vendor/bin/jedi env:init default
 
 Update: упрощенная локальная версия Jedi - в терминале: php bin/jedi env:init default
+
+Проблема в том, что оригинальная Jedi давно не обновлялась и лочит всю конструкцию на старый пакет Symfony.
 
 Эта команда скопирует в директорию `bitrix` системные файлы настроек сконфигурированные для работы с 
 [переменными окружения](https://github.com/vlucas/phpdotenv), а также настройки 

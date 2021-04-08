@@ -35,7 +35,7 @@ abstract class AbstractBaseModel extends DataManager
     /**
      * @const int CACHE_TTL Время жизни кэша.
      */
-    private const CACHE_TTL = 86400;
+    protected const CACHE_TTL = 86400;
 
     /**
      * @return array

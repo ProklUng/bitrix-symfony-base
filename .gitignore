@@ -29,3 +29,6 @@ hosts.yml
 
 /composer.lock
 composer.lock
+
+/local/components/bbc
+/local/modules/bex.bbc

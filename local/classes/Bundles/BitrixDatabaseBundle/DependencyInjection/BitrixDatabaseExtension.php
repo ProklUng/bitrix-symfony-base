@@ -22,6 +22,10 @@ class BitrixDatabaseExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container) : void
     {
+        if (!$_ENV['DEBUG']) {
+            return;
+        }
+
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 

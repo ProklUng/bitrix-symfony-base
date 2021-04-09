@@ -26,4 +26,5 @@ return [
     Local\Bundles\SymfonyBladeBundle\SymfonyBladeBundle::class => ['all' => true],
     // Local\Bundles\BitrixUtilsBundle\BitrixUtilsBundle::class => ['all' => true],
     Local\Bundles\RequestValidatorBundle\RequestValidatorBundle::class => ['all' => true],
+    Local\Bundles\BitrixDatabaseBundle\BitrixDatabaseBundle::class => ['all' => true],
 ];

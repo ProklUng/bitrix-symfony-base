@@ -1,0 +1,7 @@
+bitrix_database:
+  bitrix_database_bundle_fixture_path:
+    - '/local/classes/Bundles/BitrixDatabaseBundle/Samples/fixtures/'
+
+  structure_project:
+    - migrator:elements spravochnik content --truncate=true --sections=false --count=20
+    - migrator:elements common content --truncate=true --sections=true --count=5

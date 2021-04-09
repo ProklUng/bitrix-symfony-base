@@ -25,7 +25,7 @@ class ExampleRunner extends Command
     protected function configure()
     {
         $this->setName('runner:example')
-             ->setDescription('runner example');
+            ->setDescription('runner example');
     }
 
     /**
@@ -40,7 +40,8 @@ class ExampleRunner extends Command
         sleep(5); # Sleep so user can abort update
 
         (new CommandRunner([
-            new Process(['cache:clear', 'cache:clear --cache-type menu']),
+            new Process(['cache:clear']),
+            new Process(['cache:clear', '--cache-type=menu']),
         ]))
             ->continueOnError(true)
             ->setIO($this->io)

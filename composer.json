@@ -106,7 +106,8 @@
     "vimeo/psalm": "^4.3",
     "psalm/plugin-symfony": "^2.1",
     "phpstan/phpstan-doctrine": "^0.12.26",
-    "psalm/plugin-mockery": "^0.7.0"
+    "psalm/plugin-mockery": "^0.7.0",
+    "mmo/faker-images": "^0.3.0"
   },
   "autoload": {
     "psr-4": {

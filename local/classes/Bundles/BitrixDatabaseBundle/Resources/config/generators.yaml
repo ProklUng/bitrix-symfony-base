@@ -240,7 +240,6 @@ services:
       - { name: fixture_generator.item }
 
   # Случайная опция.
-  # Случайная опция.
   bitrix_database_bundle.options_generator:
     class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\OptionGenerator
     calls:

@@ -28,5 +28,6 @@ return [
         'MULTIPLE_ENUM' => 'bitrix_database_bundle.multiple_enum_generator',
         'LINK' => LinkElementGenerator::class,
         'MULTIPLE_LINK' => 'bitrix_database_bundle.multiple_link_generator',
+        // 'YES' => 1,
     ]
 ];

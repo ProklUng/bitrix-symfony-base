@@ -216,3 +216,13 @@ services:
       - 5
     tags:
       - { name: fixture_generator.item }
+
+  #####################
+  # Кастомные свойства
+  #####################
+
+  # Признак да-нет
+  Local\Bundles\BitrixDatabaseBundle\Services\Generators\YesNoGenerator:
+    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\YesNoGenerator
+    tags:
+      - { name: fixture_generator.item }

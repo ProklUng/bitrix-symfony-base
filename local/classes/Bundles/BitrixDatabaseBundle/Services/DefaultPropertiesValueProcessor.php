@@ -8,6 +8,7 @@ use Local\Bundles\BitrixDatabaseBundle\Services\Generators\IntGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\LinkElementGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\LinkSectionsGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\StringGenerator;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\YesNoGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\IblockProperties;
 
 /**
@@ -54,6 +55,17 @@ class DefaultPropertiesValueProcessor
     ];
 
     /**
+     * @var array[] $customPropertyMap Кастомные свойства.
+     */
+    private $customPropertyMap = [
+        // Признак Да-нет.
+        'Local\\Bundles\\BitrixCustomPropertiesBundle\\Services\\CustomProperties\\YesNoType' => [
+            'N' => YesNoGenerator::class,
+            'Y' => null,
+        ]
+    ];
+
+    /**
      * DefaultPropertiesValueProcessor constructor.
      *
      * @param IblockProperties $propertiesProcessor Менеджер свойств инфоблоков.
@@ -76,14 +88,17 @@ class DefaultPropertiesValueProcessor
         $result = [];
 
         foreach ($propsData as $propertyData) {
-            if ($propertyData['USER_TYPE'] !== null) {
-                continue;
-            }
-
             $propType = $propertyData['PROPERTY_TYPE'];
             $multiple = $propertyData['MULTIPLE'];
 
-            $result[$propertyData['CODE']] = $this->map[$propType][$multiple];
+            if ($propertyData['USER_TYPE'] === null) {
+                $result[$propertyData['CODE']] = $this->map[$propType][$multiple];
+                continue;
+            }
+
+            // Кастомные свойства.
+            $propType = $propertyData['USER_TYPE'];
+            $result[$propertyData['CODE']] = $this->customPropertyMap[$propType][$multiple];
         }
 
         return $result;

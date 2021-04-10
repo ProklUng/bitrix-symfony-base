@@ -3,7 +3,7 @@
 namespace Local\Bundles\BitrixDatabaseBundle\Services\Generators;
 
 use Exception;
-use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\IblockProperties;
 use RuntimeException;
 
@@ -13,7 +13,7 @@ use RuntimeException;
  *
  * @since 09.04.2021
  */
-class EnumGenerator implements FixtureGeneratorInterface
+class EnumGenerator  extends AbstractGenerator
 {
     /**
      * @var IblockProperties $propertiesManager Менеджер свойств инфоблоков.

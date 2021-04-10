@@ -4,6 +4,7 @@ namespace Local\Bundles\BitrixDatabaseBundle\Services\Generators;
 
 use Exception;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractGenerator;
 
 /**
  * Class MultipleGeneratorDecorator
@@ -11,7 +12,7 @@ use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterf
  *
  * @since 09.04.2021
  */
-class MultipleGeneratorDecorator implements FixtureGeneratorInterface
+class MultipleGeneratorDecorator extends AbstractGenerator
 {
     /**
      * @var FixtureGeneratorInterface $decoratedService

@@ -4,7 +4,7 @@ namespace Local\Bundles\BitrixDatabaseBundle\Services\Generators;
 
 use CUser;
 use Exception;
-use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractGenerator;
 
 /**
  * Class UserIdGenerator
@@ -12,7 +12,7 @@ use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterf
  *
  * @since 08.04.2021
  */
-class UserIdGenerator implements FixtureGeneratorInterface
+class UserIdGenerator extends AbstractGenerator
 {
     /**
      * @inheritDoc

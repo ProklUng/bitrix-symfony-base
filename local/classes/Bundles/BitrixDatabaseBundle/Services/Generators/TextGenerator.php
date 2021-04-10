@@ -6,7 +6,7 @@ use CUser;
 use Exception;
 use Faker\Factory;
 use Faker\Generator;
-use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractGenerator;
 
 /**
  * Class TextGenerator
@@ -14,7 +14,7 @@ use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterf
  *
  * @since 08.04.2021
  */
-class TextGenerator implements FixtureGeneratorInterface
+class TextGenerator extends AbstractGenerator
 {
     /**
      * @var Generator $faker Фэйкер.

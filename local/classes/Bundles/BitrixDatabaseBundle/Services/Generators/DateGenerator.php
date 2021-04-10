@@ -5,7 +5,7 @@ namespace Local\Bundles\BitrixDatabaseBundle\Services\Generators;
 use Bitrix\Main\Type\DateTime;
 use Faker\Factory;
 use Faker\Generator;
-use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractGenerator;
 
 /**
  * Class DateGenerator
@@ -13,7 +13,7 @@ use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterf
  *
  * @since 08.04.2021
  */
-class DateGenerator implements FixtureGeneratorInterface
+class DateGenerator extends AbstractGenerator
 {
     /**
      * @var Generator $faker Фэйкер.

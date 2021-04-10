@@ -2,10 +2,9 @@
 
 namespace Local\Bundles\BitrixDatabaseBundle\Services\Generators;
 
-use CIBlockElement;
 use CIBlockSection;
 use Exception;
-use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\IblockProperties;
 use RuntimeException;
 
@@ -15,7 +14,7 @@ use RuntimeException;
  *
  * @since 10.04.2021
  */
-class LinkSectionsGenerator implements FixtureGeneratorInterface
+class LinkSectionsGenerator extends AbstractGenerator
 {
     /**
      * @var IblockProperties $propertiesManager Менеджер свойств инфоблоков.

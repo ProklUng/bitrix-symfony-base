@@ -5,7 +5,7 @@ namespace Local\Bundles\BitrixDatabaseBundle\Services\Generators;
 use CFile;
 use COption;
 use Exception;
-use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractGenerator;
 
 /**
  * Class ImageIdGenerator
@@ -13,7 +13,7 @@ use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterf
  *
  * @since 08.04.2021
  */
-class ImageIdGenerator implements FixtureGeneratorInterface
+class ImageIdGenerator extends AbstractGenerator
 {
     /**
      * @inheritDoc

@@ -3,7 +3,7 @@
 namespace Local\Bundles\BitrixDatabaseBundle\Services\Generators;
 
 use Exception;
-use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractGenerator;
 
 /**
  * Class YesNoGenerator
@@ -11,7 +11,7 @@ use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterf
  *
  * @since 10.04.2021
  */
-class YesNoGenerator implements FixtureGeneratorInterface
+class YesNoGenerator extends AbstractGenerator
 {
     /**
      * @inheritDoc

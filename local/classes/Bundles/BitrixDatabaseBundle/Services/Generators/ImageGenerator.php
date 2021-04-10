@@ -6,7 +6,7 @@ use CFile;
 use Exception;
 use Faker\Factory;
 use Faker\Generator;
-use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractGenerator;
 use Mmo\Faker\PicsumProvider;
 use RuntimeException;
 
@@ -16,7 +16,7 @@ use RuntimeException;
  *
  * @since 08.04.2021
  */
-class ImageGenerator implements FixtureGeneratorInterface
+class ImageGenerator extends AbstractGenerator
 {
     /**
      * @var Generator $faker Фэйкер.

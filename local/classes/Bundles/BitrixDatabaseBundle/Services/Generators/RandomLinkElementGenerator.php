@@ -5,7 +5,7 @@ namespace Local\Bundles\BitrixDatabaseBundle\Services\Generators;
 use CIBlockElement;
 use CIBlockResult;
 use Exception;
-use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\HighloadBlock;
 use RuntimeException;
 
@@ -15,7 +15,7 @@ use RuntimeException;
  *
  * @since 10.04.2021
  */
-class RandomLinkElementGenerator implements FixtureGeneratorInterface
+class RandomLinkElementGenerator extends AbstractGenerator
 {
     /**
      * @var CIBlockElement $ciblockElement Битриксовый CIBlockElement.

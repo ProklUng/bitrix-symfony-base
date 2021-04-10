@@ -18,4 +18,11 @@ interface FixtureGeneratorInterface
      * @return mixed
      */
     public function generate(?array $payload = null);
+
+    /**
+     * @param array $params Задать дополнительные параметры.
+     *
+     * @return void
+     */
+    public function setParam(array $params) : void;
 }

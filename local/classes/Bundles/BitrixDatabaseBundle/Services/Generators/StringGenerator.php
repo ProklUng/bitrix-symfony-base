@@ -2,11 +2,10 @@
 
 namespace Local\Bundles\BitrixDatabaseBundle\Services\Generators;
 
-use CUser;
 use Exception;
 use Faker\Factory;
 use Faker\Generator;
-use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractGenerator;
 
 /**
  * Class StringGenerator
@@ -14,7 +13,7 @@ use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterf
  *
  * @since 08.04.2021
  */
-class StringGenerator implements FixtureGeneratorInterface
+class StringGenerator extends AbstractGenerator
 {
     /**
      * @var Generator $faker Фэйкер.

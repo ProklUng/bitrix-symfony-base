@@ -19,6 +19,7 @@ services:
     arguments:
       - !tagged_locator { tag: 'fixture_generator.item' }
       - '@bitrix_database_bundle.standart_element_mapper'
+      - '@bitrix_database_bundle.default_properties_processor'
       - '@bitrix_database_bundle.iblock_sections_manager'
       - '%bitrix_database_bundle_fixture_path%'
 
@@ -43,6 +44,11 @@ services:
   bitrix_database_bundle.standart_element_mapper:
     class: Local\Bundles\BitrixDatabaseBundle\Services\StandartIblockDataMapper
 
+  bitrix_database_bundle.default_properties_processor:
+    class: Local\Bundles\BitrixDatabaseBundle\Services\DefaultPropertiesValueProcessor
+    arguments:
+      - '@bitrix_database_bundle.iblock_properties_manager'
+
   # Удаление элементов.
   bitrix_database_bundle.iblock_element_eraser:
     class: Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\TruncaterElements
@@ -66,36 +72,6 @@ services:
   bitrix_database_bundle.seeder_db:
     class: Local\Bundles\BitrixDatabaseBundle\Services\SeedDatabase
     arguments: [!tagged_locator { tag: 'bitrix_custom_table' }]
-
-  ##########
-  # Команды
-  ##########
-
-  # Наполнение таблицы фикстурой.
-  bitrix_database_bundle.command_seed_database:
-    class: Local\Bundles\BitrixDatabaseBundle\Command\SeedDatabaseCommand
-    arguments:
-        - '@bitrix_database_bundle.fixture_generator'
-        - '@bitrix_database_bundle.seeder_db'
-        - !tagged_locator { tag: 'bitrix_custom_table' }
-    tags:
-      - { name: console.command, comand: migrator:seed }
-
-  # Команда создания структуры проекта.
-  bitrix_database_bundle.command_create_structure:
-    class: Local\Bundles\BitrixDatabaseBundle\Command\StructureCreatorRunner
-    arguments: ['%bitrix_database_bundle_test_project%']
-    tags:
-      - { name: console.command, comand: migrator:structure }
-
-  # Наполнение инфоблока элементами.
-  bitrix_database_bundle.command_seed_elements:
-    class: Local\Bundles\BitrixDatabaseBundle\Command\SeedElementsCommand
-    arguments:
-      - '@bitrix_database_bundle.element_generator'
-      - '@bitrix_database_bundle.iblock_element_eraser'
-    tags:
-      - { name: console.command, comand: migrator:elements }
 
   # Наполнение hl-инфоблока элементами.
   bitrix_database_bundle.command_seed_hl_elements:

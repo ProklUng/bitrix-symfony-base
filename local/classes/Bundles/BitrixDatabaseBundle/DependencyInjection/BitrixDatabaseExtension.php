@@ -46,6 +46,7 @@ class BitrixDatabaseExtension extends Extension
 
         $loader->load('services.yaml');
         $loader->load('generators.yaml');
+        $loader->load('commands.yaml');
     }
 
     /**

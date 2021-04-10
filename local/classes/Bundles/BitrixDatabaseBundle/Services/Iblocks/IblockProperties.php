@@ -52,6 +52,26 @@ class IblockProperties
     }
 
     /**
+     * @param integer $iblockId ID инфоблока.
+     *
+     * @return array
+     */
+    public function getAllProperties(int $iblockId) : array
+    {
+        $filter['IBLOCK_ID'] = $iblockId;
+        $filter['CHECK_PERMISSIONS'] = 'N';
+
+        $properties = CIBlockProperty::GetList(['SORT' => 'ASC'], $filter);
+        $result = [];
+
+        while ($prop_fields = $properties->GetNext()) {
+            $result[] = $this->prepareProperty($prop_fields);
+        }
+
+        return $result;
+    }
+
+    /**
      * Получает значения списков для свойств инфоблоков.
      *
      * @param array $filter Фильтр.
@@ -91,8 +111,8 @@ class IblockProperties
     /**
      * Получает значения списков для свойства инфоблока.
      *
-     * @param integer $iblockId
-     * @param string  $code
+     * @param integer $iblockId ID инфоблока.
+     * @param string  $code     Код свойства.
      *
      * @return array
      */
@@ -105,7 +125,7 @@ class IblockProperties
     }
 
     /**
-     * @param array $property
+     * @param array $property Данные свойства.
      *
      * @return mixed
      */

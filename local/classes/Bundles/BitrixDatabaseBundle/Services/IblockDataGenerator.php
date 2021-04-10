@@ -37,6 +37,11 @@ class IblockDataGenerator
     private $iblockSections;
 
     /**
+     * @var DefaultPropertiesValueProcessor $defaultPropertiesValueProcessor Обработчики свойств по умолчанию.
+     */
+    private $defaultPropertiesValueProcessor;
+
+    /**
      * @var string $iblockCode Код инфоблока.
      */
     private $iblockCode;
@@ -74,20 +79,23 @@ class IblockDataGenerator
     /**
      * IblockDataGenerator constructor.
      *
-     * @param ServiceLocator           $locator        Сервисы, помеченные тэгом fixture_generator.item.
-     * @param StandartIblockDataMapper $elementMapper  Маппер по умолчанию.
-     * @param IblockSections           $iblockSections Работа с подразделами.
-     * @param array                    $fixturePaths   Пути к фикстурам.
+     * @param ServiceLocator                  $locator                         Сервисы, помеченные тэгом fixture_generator.item.
+     * @param StandartIblockDataMapper        $elementMapper                   Маппер по умолчанию.
+     * @param DefaultPropertiesValueProcessor $defaultPropertiesValueProcessor Обработчики свойств по умолчанию.
+     * @param IblockSections                  $iblockSections                  Работа с подразделами.
+     * @param array                           $fixturePaths                    Пути к фикстурам.
      */
     public function __construct(
         ServiceLocator $locator,
         StandartIblockDataMapper $elementMapper,
+        DefaultPropertiesValueProcessor $defaultPropertiesValueProcessor,
         IblockSections $iblockSections,
         array $fixturePaths = []
     ) {
         $this->locator = $locator;
         $this->fixturePaths = $fixturePaths;
         $this->iblockSections = $iblockSections;
+        $this->defaultPropertiesValueProcessor = $defaultPropertiesValueProcessor;
 
         $this->faker = Factory::create('ru_Ru');
         $this->elementMap = $elementMapper->getMap();
@@ -105,9 +113,14 @@ class IblockDataGenerator
         $this->iblockId = $this->getIdIblock($this->iblockCode, $this->iblockType);
         $this->fixtureSchema = $this->loadFixtureFromFile($this->iblockType . '.' . $this->iblockCode);
 
+        // Генераторы свойство по умолчанию.
+        $propsDefault = $this->defaultPropertiesValueProcessor->getMap($this->iblockId);
+        $this->elementMap['PROPERTY_VALUES'] = array_merge($propsDefault, (array)$this->elementMap['PROPERTY_VALUES']);
+
         $result = $this->resolveGeneratorsFromLocator($this->elementMap, $this->iblockId);
         $resultFixture = $this->resolveGeneratorsFromLocator($this->fixtureSchema, $this->iblockId);
 
+        $resultFixture['PROPERTY_VALUES'] = array_merge((array)$result['PROPERTY_VALUES'], (array)$resultFixture['PROPERTY_VALUES']);
         $result = array_merge($result, $resultFixture);
 
         if (count($sectionsId) > 0) {

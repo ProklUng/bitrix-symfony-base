@@ -1,0 +1,34 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+  ##########
+  # Команды
+  ##########
+
+  # Наполнение таблицы фикстурой.
+  bitrix_database_bundle.command_seed_database:
+    class: Local\Bundles\BitrixDatabaseBundle\Command\SeedDatabaseCommand
+    arguments:
+      - '@bitrix_database_bundle.fixture_generator'
+      - '@bitrix_database_bundle.seeder_db'
+      - !tagged_locator { tag: 'bitrix_custom_table' }
+    tags:
+      - { name: console.command, comand: migrator:seed }
+
+  # Команда создания структуры проекта.
+  bitrix_database_bundle.command_create_structure:
+    class: Local\Bundles\BitrixDatabaseBundle\Command\StructureCreatorRunner
+    arguments: ['%bitrix_database_bundle_test_project%']
+    tags:
+      - { name: console.command, comand: migrator:structure }
+
+  # Наполнение инфоблока элементами.
+  bitrix_database_bundle.command_seed_elements:
+    class: Local\Bundles\BitrixDatabaseBundle\Command\SeedElementsCommand
+    arguments:
+      - '@bitrix_database_bundle.element_generator'
+      - '@bitrix_database_bundle.iblock_element_eraser'
+    tags:
+      - { name: console.command, comand: migrator:elements }

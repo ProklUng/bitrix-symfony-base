@@ -186,6 +186,28 @@ services:
     tags:
       - { name: fixture_generator.item }
 
+  # Целое число.
+  Local\Bundles\BitrixDatabaseBundle\Services\Generators\IntGenerator:
+    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\IntGenerator
+    tags:
+      - { name: fixture_generator.item }
+
+  # Множественное поле типа Число.
+  bitrix_database_bundle.multiple_int_generator:
+    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\MultipleGeneratorDecorator
+    arguments:
+      - '@Local\Bundles\BitrixDatabaseBundle\Services\Generators\IntGenerator'
+      - 5
+    tags:
+      - { name: fixture_generator.item }
+
+  # Строка.
+  Local\Bundles\BitrixDatabaseBundle\Services\Generators\StringGenerator:
+    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\StringGenerator
+    arguments: [1, 128]
+    tags:
+      - { name: fixture_generator.item }
+
   # Множественное поле типа Cтрока.
   bitrix_database_bundle.multiple_string_generator:
     class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\MultipleGeneratorDecorator

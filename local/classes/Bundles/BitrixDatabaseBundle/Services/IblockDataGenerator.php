@@ -6,10 +6,9 @@ use Bitrix\Main\ArgumentException;
 use CIBlock;
 use CIBlockElement;
 use Exception;
-use Faker\Factory;
-use Faker\Generator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\IblockSections;
+use Local\Bundles\BitrixDatabaseBundle\Services\Traits\DataGeneratorTrait;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
@@ -21,10 +20,7 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
  */
 class IblockDataGenerator
 {
-    /**
-     * @var Generator $faker Фэйкер.
-     */
-    private $faker;
+    use DataGeneratorTrait;
 
     /**
      * @var ServiceLocator $locator Сервисы, помеченные тэгом fixture_generator.item.
@@ -62,11 +58,6 @@ class IblockDataGenerator
     private $fixturePaths;
 
     /**
-     * @var array $fixtureSchema
-     */
-    private $fixtureSchema = [];
-
-    /**
      * @var array $elementMapper
      */
     private $elementMap;
@@ -97,7 +88,6 @@ class IblockDataGenerator
         $this->iblockSections = $iblockSections;
         $this->defaultPropertiesValueProcessor = $defaultPropertiesValueProcessor;
 
-        $this->faker = Factory::create('ru_Ru');
         $this->elementMap = $elementMapper->getMap();
         $this->sectionMap = $elementMapper->getSectionMap();
     }
@@ -111,14 +101,15 @@ class IblockDataGenerator
     public function generate(array $sectionsId = []) : array
     {
         $this->iblockId = $this->getIdIblock($this->iblockCode, $this->iblockType);
-        $this->fixtureSchema = $this->loadFixtureFromFile($this->iblockType . '.' . $this->iblockCode);
+        // Принцип именования файла с фикстурой: тип инфоблока.код инфоблока.php.
+        $fixtureSchema = $this->loadFixtureFromFile($this->fixturePaths, $this->iblockType . '.' . $this->iblockCode);
 
         // Генераторы свойство по умолчанию.
         $propsDefault = $this->defaultPropertiesValueProcessor->getMap($this->iblockId);
         $this->elementMap['PROPERTY_VALUES'] = array_merge($propsDefault, (array)$this->elementMap['PROPERTY_VALUES']);
 
         $result = $this->resolveGeneratorsFromLocator($this->elementMap, $this->iblockId);
-        $resultFixture = $this->resolveGeneratorsFromLocator($this->fixtureSchema, $this->iblockId);
+        $resultFixture = $this->resolveGeneratorsFromLocator($fixtureSchema, $this->iblockId);
 
         $resultFixture['PROPERTY_VALUES'] = array_merge((array)$result['PROPERTY_VALUES'], (array)$resultFixture['PROPERTY_VALUES']);
         $result = array_merge($result, $resultFixture);
@@ -278,7 +269,6 @@ class IblockDataGenerator
         return $result;
     }
 
-
     /**
      * @param array   $data     Данные.
      * @param integer $iblockId ID инфоблока.
@@ -307,26 +297,5 @@ class IblockDataGenerator
         }
 
         return $result;
-    }
-
-    /**
-     * @param string $fileName Название таблицы.
-     *
-     * @return array
-     */
-    private function loadFixtureFromFile(string $fileName) : array
-    {
-        foreach ($this->fixturePaths as $path) {
-            $pathFile = $_SERVER['DOCUMENT_ROOT'] . $path . $fileName . '.php';
-            if (!@file_exists($pathFile)) {
-                continue;
-            }
-            $result = include $_SERVER['DOCUMENT_ROOT'] . $this->fixturePaths[0] . $fileName . '.php';
-            if (is_array($result)) {
-                return $result;
-            }
-        }
-
-        return [];
     }
 }

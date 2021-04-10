@@ -5,10 +5,9 @@ namespace Local\Bundles\BitrixDatabaseBundle\Services;
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
-use Faker\Factory;
-use Faker\Generator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\HighloadBlock;
+use Local\Bundles\BitrixDatabaseBundle\Services\Traits\DataGeneratorTrait;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
 /**
@@ -19,6 +18,8 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
  */
 class IblockHlDataGenerator
 {
+    use DataGeneratorTrait;
+
     /**
      * @var ServiceLocator $locator Сервисы, помеченные тэгом fixture_generator.item.
      */
@@ -33,11 +34,6 @@ class IblockHlDataGenerator
      * @var array $fixturePaths
      */
     private $fixturePaths;
-
-    /**
-     * @var array $fixtureSchema
-     */
-    private $fixtureSchema = [];
 
     /**
      * @var HighloadBlock $highloadBlock
@@ -78,11 +74,14 @@ class IblockHlDataGenerator
      */
     public function generate(array $payload = []) : array
     {
+        // Поля по умолчанию.
         $propData = $this->highloadBlock->getAllProperties($payload['iblock_code']);
         $defaultProps = $this->elementMapper->getMapHl($propData);
 
-        $this->fixtureSchema = $this->loadFixtureFromFile($this->iblockCode);
-        $resultSchema = array_merge($defaultProps, $this->fixtureSchema);
+        // Поля из фикстуры.
+        // Принцип именования файла с фикстурой: код hl-блока.php.
+        $fixtureSchema = $this->loadFixtureFromFile($this->fixturePaths, $this->iblockCode);
+        $resultSchema = array_merge($defaultProps, $fixtureSchema);
 
         $resultFixture = $this->resolveGeneratorsFromLocator($resultSchema, $this->iblockCode);
 
@@ -121,6 +120,8 @@ class IblockHlDataGenerator
     }
 
     /**
+     * Разрешить генератор фикстурных данных из сервис-локатора.
+     *
      * @param array  $data       Данные.
      * @param string $iblockCode ID инфоблока.
      *
@@ -145,26 +146,5 @@ class IblockHlDataGenerator
         }
 
         return $result;
-    }
-
-    /**
-     * @param string $fileName Название таблицы.
-     *
-     * @return array
-     */
-    private function loadFixtureFromFile(string $fileName) : array
-    {
-        foreach ($this->fixturePaths as $path) {
-            $pathFile = $_SERVER['DOCUMENT_ROOT'] . $path . $fileName . '.php';
-            if (!@file_exists($pathFile)) {
-                continue;
-            }
-            $result = include $_SERVER['DOCUMENT_ROOT'] . $this->fixturePaths[0] . $fileName . '.php';
-            if (is_array($result)) {
-                return $result;
-            }
-        }
-
-        return [];
     }
 }

@@ -226,3 +226,14 @@ services:
     class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\YesNoGenerator
     tags:
       - { name: fixture_generator.item }
+
+  #################################
+  # Пример настроенного генератора
+  #################################
+
+  bitrix_database_bundle.short_string_generator:
+    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\StringGenerator
+    calls:
+      - setParams: [length: 25]
+    tags:
+      - { name: fixture_generator.item }

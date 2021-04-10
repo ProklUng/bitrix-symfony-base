@@ -25,7 +25,7 @@ abstract class AbstractGenerator implements FixtureGeneratorInterface
     /**
      * @inheritDoc
      */
-    public function setParam(array $params): void
+    public function setParams(array $params): void
     {
         $this->params = $params;
     }

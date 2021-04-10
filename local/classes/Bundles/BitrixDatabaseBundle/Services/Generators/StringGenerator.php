@@ -31,12 +31,12 @@ class StringGenerator extends AbstractGenerator
     private $maxLength;
 
     /**
-     * TextGenerator constructor.
+     * StringGenerator constructor.
      *
      * @param integer $minLength Минимальная длина текста.
      * @param integer $maxLength Максимальная длина текста.
      */
-    public function __construct(int $minLength, int $maxLength)
+    public function __construct(int $minLength = 0, int $maxLength = 255)
     {
         $this->faker = Factory::create('ru_RU');
 
@@ -50,6 +50,10 @@ class StringGenerator extends AbstractGenerator
      */
     public function generate(?array $payload = null)
     {
+        if (array_key_exists('length', $this->params)) {
+            return $this->faker->lexify(str_repeat('?', (int)$this->params['length']));
+        }
+
         $text = $this->faker->sentence(20);
 
         if (strlen($text) > $this->maxLength) {

@@ -8,7 +8,7 @@ use Local\Bundles\BitrixDatabaseBundle\Services\Generators\RandomLinkSectionGene
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\SentenceGenerator;
 
 return [
-    'UF_STRING' => SentenceGenerator::class,
+    'UF_STRING' => 'bitrix_database_bundle.short_string_generator',
     'UF_LINK_SECTION' => RandomLinkSectionGenerator::class,
     'UF_LINK_ELEMENT' => RandomLinkElementGenerator::class,
 ];

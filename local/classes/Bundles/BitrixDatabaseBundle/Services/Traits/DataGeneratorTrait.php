@@ -22,11 +22,12 @@ trait DataGeneratorTrait
     {
         foreach ($fixturePaths as $path) {
             $pathFile = $_SERVER['DOCUMENT_ROOT'] . $path . $fileName . '.php';
+
             if (!@file_exists($pathFile)) {
                 continue;
             }
 
-            $result = $pathFile;
+            $result = include $pathFile;
             if (is_array($result)) {
                 return $result;
             }

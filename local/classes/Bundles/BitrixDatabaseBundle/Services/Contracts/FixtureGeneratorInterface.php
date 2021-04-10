@@ -24,5 +24,5 @@ interface FixtureGeneratorInterface
      *
      * @return void
      */
-    public function setParam(array $params) : void;
+    public function setParams(array $params) : void;
 }

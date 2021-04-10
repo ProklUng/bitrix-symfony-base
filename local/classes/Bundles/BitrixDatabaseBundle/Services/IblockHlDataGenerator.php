@@ -5,7 +5,6 @@ namespace Local\Bundles\BitrixDatabaseBundle\Services;
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
-use Exception;
 use Faker\Factory;
 use Faker\Generator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
@@ -20,11 +19,6 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
  */
 class IblockHlDataGenerator
 {
-    /**
-     * @var Generator $faker Фэйкер.
-     */
-    private $faker;
-
     /**
      * @var ServiceLocator $locator Сервисы, помеченные тэгом fixture_generator.item.
      */
@@ -46,51 +40,51 @@ class IblockHlDataGenerator
     private $fixtureSchema = [];
 
     /**
-     * @var array $elementMapper
-     */
-    private $elementMap;
-
-    /**
-     * @var array $sectionMap
-     */
-    private $sectionMap;
-
-    /**
      * @var HighloadBlock $highloadBlock
      */
     private $highloadBlock;
 
     /**
+     * @var DefaultPropertiesValueProcessor $elementMapper
+     */
+    private $elementMapper;
+
+    /**
      * IblockHlDataGenerator constructor.
      *
-     * @param ServiceLocator $locator Сервисы, помеченные тэгом fixture_generator.item.
-     * @param StandartIblockDataMapper $elementMapper Маппер по умолчанию.
-     * @param HighloadBlock $highloadBlock
-     * @param array $fixturePaths Пути к фикстурам.
+     * @param ServiceLocator                  $locator       Сервисы, помеченные тэгом fixture_generator.item.
+     * @param DefaultPropertiesValueProcessor $elementMapper Маппер по умолчанию.
+     * @param HighloadBlock                   $highloadBlock High-load block manager.
+     * @param array                           $fixturePaths  Пути к фикстурам.
      */
     public function __construct(
         ServiceLocator $locator,
-        StandartIblockDataMapper $elementMapper,
+        DefaultPropertiesValueProcessor $elementMapper,
         HighloadBlock $highloadBlock,
         array $fixturePaths = []
     ) {
         $this->locator = $locator;
         $this->fixturePaths = $fixturePaths;
         $this->highloadBlock = $highloadBlock;
-
-        $this->faker = Factory::create('ru_Ru');
-        $this->elementMap = $elementMapper->getMap();
-        $this->sectionMap = $elementMapper->getSectionMap();
+        $this->elementMapper = $elementMapper;
     }
 
     /**
+     * @param array $payload Нагрузка.
+     *
      * @return array
-     * @throws ArgumentException | Exception
+     *
+     * @throws ArgumentException | ObjectPropertyException | SystemException
      */
-    public function generate() : array
+    public function generate(array $payload = []) : array
     {
+        $propData = $this->highloadBlock->getAllProperties($payload['iblock_code']);
+        $defaultProps = $this->elementMapper->getMapHl($propData);
+
         $this->fixtureSchema = $this->loadFixtureFromFile($this->iblockCode);
-        $resultFixture = $this->resolveGeneratorsFromLocator($this->fixtureSchema, $this->iblockCode);
+        $resultSchema = array_merge($defaultProps, $this->fixtureSchema);
+
+        $resultFixture = $this->resolveGeneratorsFromLocator($resultSchema, $this->iblockCode);
 
         $result[] = $this->addElement($this->iblockCode, $resultFixture);
 

@@ -11,6 +11,7 @@ use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
+use Bitrix\Main\UserFieldTable;
 use CDBResult;
 use CTask;
 use CUserFieldEnum;
@@ -126,7 +127,7 @@ class HighloadBlock
      */
     public function getPropertyData(string $hlblockName, string $property) : array
     {
-        $dbUserFields = \Bitrix\Main\UserFieldTable::getList(
+        $dbUserFields = UserFieldTable::getList(
             [
             'filter' => ['ENTITY_ID' => $this->getEntityId($hlblockName)],
             ]
@@ -150,6 +151,45 @@ class HighloadBlock
         }
 
         return $arResult['USER_FIELDS'][$property] ?? [];
+    }
+
+    /**
+     * Все свойства HL-блока.
+     *
+     * @param string $hlblockName Название HL блока.
+     *
+     * @return array
+     *
+     * @throws ArgumentException
+     * @throws ObjectPropertyException
+     * @throws SystemException
+     */
+    public function getAllProperties(string $hlblockName) : array
+    {
+        $dbUserFields = UserFieldTable::getList(
+            [
+                'filter' => ['ENTITY_ID' => $this->getEntityId($hlblockName)],
+            ]
+        );
+
+        $arResult = [];
+
+        while ($arUserField = $dbUserFields->fetch()) {
+            if ($arUserField["USER_TYPE_ID"] === 'enumeration') {
+                $fieldEnum = new \CUserFieldEnum();
+                $dbEnums = $fieldEnum->GetList(
+                    array(),
+                    array('USER_FIELD_ID' => $arUserField['ID'])
+                );
+                while ($arEnum = $dbEnums->GetNext()) {
+                    $arUserField['ENUMS'][$arEnum['XML_ID']] = $arEnum;
+                }
+            }
+
+            $arResult[$arUserField["FIELD_NAME"]] = $arUserField;
+        }
+
+        return $arResult;
     }
 
     /**

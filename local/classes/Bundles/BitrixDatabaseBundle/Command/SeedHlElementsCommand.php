@@ -83,7 +83,9 @@ class SeedHlElementsCommand extends Command
         $output->writeln('Создание элементов в hl-инфоблоке с кодом ' . $code);
 
         for ($i = 1; $i<= $count; $i++) {
-            $result[] = $this->elementGenerator->generate();
+            $result[] = $this->elementGenerator->generate(
+                ['iblock_code' => $code]
+            );
         }
 
         $output->writeln('Элементы hl-инфоблока с кодом ' . $code . ' успешно созданы.');

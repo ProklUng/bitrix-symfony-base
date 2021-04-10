@@ -28,7 +28,7 @@ services:
     class: Local\Bundles\BitrixDatabaseBundle\Services\IblockHlDataGenerator
     arguments:
       - !tagged_locator { tag: 'fixture_generator.item' }
-      - '@bitrix_database_bundle.standart_element_mapper'
+      - '@bitrix_database_bundle.default_properties_processor'
       - '@bitrix_database_bundle.hl_manager'
       - '%bitrix_database_bundle_fixture_path%'
 

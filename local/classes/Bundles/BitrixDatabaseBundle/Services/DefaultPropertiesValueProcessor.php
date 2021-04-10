@@ -7,6 +7,8 @@ use Local\Bundles\BitrixDatabaseBundle\Services\Generators\ImageGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\IntGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\LinkElementGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\LinkSectionsGenerator;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\RandomLinkElementGenerator;
+use Local\Bundles\BitrixDatabaseBundle\Services\Generators\RandomLinkSectionGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\StringGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\YesNoGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\IblockProperties;
@@ -25,10 +27,11 @@ class DefaultPropertiesValueProcessor
     private $propertiesProcessor;
 
     /**
-     * @var string[] $map
+     * @var string[] $map Базовые свойства.
      */
     private $map = [
         'S' => [
+            // MULTIPLE => Y | N.
             'N' => StringGenerator::class,
             'Y' => 'bitrix_database_bundle.multiple_string_generator', // Множественное свойство
         ],
@@ -66,6 +69,24 @@ class DefaultPropertiesValueProcessor
     ];
 
     /**
+     * @var \string[][] $hlFields Поля HL блоков.
+     */
+    private $hlFields = [
+        'iblock_section' => [
+            'N' => RandomLinkSectionGenerator::class,
+            'Y' => 'bitrix_database_bundle.multiple_link_section_generator',
+        ],
+        'iblock_element' => [
+            'N' => RandomLinkElementGenerator::class,
+            'Y' => 'bitrix_database_bundle.multiple_link_element_generator',
+        ],
+        'string' => [
+            'N' => StringGenerator::class,
+            'Y' => 'bitrix_database_bundle.multiple_string_generator',
+        ],
+    ];
+
+    /**
      * DefaultPropertiesValueProcessor constructor.
      *
      * @param IblockProperties $propertiesProcessor Менеджер свойств инфоблоков.
@@ -99,6 +120,27 @@ class DefaultPropertiesValueProcessor
             // Кастомные свойства.
             $propType = $propertyData['USER_TYPE'];
             $result[$propertyData['CODE']] = $this->customPropertyMap[$propType][$multiple];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Получить карту генераторов свойств HL блоков.
+     *
+     * @param array $hlBlockProps ID инфоблока.
+     *
+     * @return array
+     */
+    public function getMapHl(array $hlBlockProps) : array
+    {
+        $result = [];
+
+        foreach ($hlBlockProps as $propName => $propertyData) {
+            $propType = $propertyData['USER_TYPE_ID'];
+            $multiple = $propertyData['MULTIPLE'];
+
+            $result[$propName] = $this->hlFields[$propType][$multiple];
         }
 
         return $result;

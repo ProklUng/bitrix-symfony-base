@@ -21,20 +21,20 @@ class IntGenerator extends AbstractGenerator
     private $faker;
 
     /**
-     * @var integer $min
+     * @var integer $min Минимум.
      */
     private $min;
 
     /**
-     * @var integer $max
+     * @var integer $max Максимум.
      */
     private $max;
 
     /**
      * IntGenerator constructor.
      *
-     * @param integer $min
-     * @param integer $max
+     * @param integer $min Минимум.
+     * @param integer $max Максимум.
      */
     public function __construct(
         int $min = 1,

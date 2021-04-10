@@ -227,13 +227,22 @@ services:
     tags:
       - { name: fixture_generator.item }
 
-  #################################
-  # Пример настроенного генератора
-  #################################
+  ###############################
+  # Пример кастомного генератора
+  ###############################
 
+  # Строка из слов длиной 50 символов.
   bitrix_database_bundle.short_string_generator:
     class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\StringGenerator
     calls:
-      - setParams: [length: 25]
+      - setParams: [length: 50]
+    tags:
+      - { name: fixture_generator.item }
+
+  # Случайная опция.
+  bitrix_database_bundle.options_generator:
+    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\OptionGenerator
+    calls:
+      - setParams: [options: ['Вариант 1', 'Вариант 2']]
     tags:
       - { name: fixture_generator.item }

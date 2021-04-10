@@ -8,12 +8,12 @@ use Faker\Generator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractGenerator;
 
 /**
- * Class SentenceGenerator
+ * Class OptionGenerator
  * @package Local\Bundles\BitrixDatabaseBundle\Services\Generators
  *
- * @since 08.04.2021
+ * @since 10.04.2021
  */
-class SentenceGenerator extends AbstractGenerator
+class OptionGenerator extends AbstractGenerator
 {
     /**
      * @var Generator $faker Фэйкер.
@@ -21,12 +21,14 @@ class SentenceGenerator extends AbstractGenerator
     private $faker;
 
     /**
-     * SentenceGenerator constructor.
+     * TextGenerator constructor.
      *
+     * @param array $options
      */
-    public function __construct()
+    public function __construct(array $options = [])
     {
         $this->faker = Factory::create('ru_RU');
+        $this->params['options'] = $options;
     }
 
     /**
@@ -35,10 +37,9 @@ class SentenceGenerator extends AbstractGenerator
      */
     public function generate(?array $payload = null)
     {
-        if (array_key_exists('words', $this->params)) {
-            return $this->faker->sentence((int)$this->params['words']);
-        }
+        $key = mt_rand(0, count($this->params['options']) - 1);
 
-        return $this->faker->sentence();
+        return $this->params['options'][$key];
     }
+
 }

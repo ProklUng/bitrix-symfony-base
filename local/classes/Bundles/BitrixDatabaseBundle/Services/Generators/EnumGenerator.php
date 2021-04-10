@@ -13,7 +13,7 @@ use RuntimeException;
  *
  * @since 09.04.2021
  */
-class EnumGenerator  extends AbstractGenerator
+class EnumGenerator extends AbstractGenerator
 {
     /**
      * @var IblockProperties $propertiesManager Менеджер свойств инфоблоков.

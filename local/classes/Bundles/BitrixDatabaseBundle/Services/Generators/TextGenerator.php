@@ -51,6 +51,14 @@ class TextGenerator extends AbstractGenerator
      */
     public function generate(?array $payload = null)
     {
+        if (array_key_exists('length', $this->params)
+            ||
+            $this->maxLength === $this->minLength
+        ) {
+            $text = $this->faker->realText((int)$this->params['length']);
+            return substr($text, 0, (int)$this->params['length']);
+        }
+
         $text = $this->faker->realText($this->maxLength);
 
         if (strlen($text) < $this->minLength) {

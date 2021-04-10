@@ -39,6 +39,11 @@ class BitrixDatabaseExtension extends Extension
             $config['structure_project']
         );
 
+        $container->setParameter(
+            'bitrix_database_bundle_ignore_errors',
+            $config['ignore_errors']
+        );
+
         $loader = new YamlFileLoader(
             $container,
             new FileLocator(__DIR__ . self::DIR_CONFIG)

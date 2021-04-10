@@ -32,6 +32,10 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('name')
                     ->prototype('scalar')->end()
                 ->end()
+
+                ->booleanNode('ignore_errors')
+                    ->defaultValue(true)
+                ->end()
             ->end();
 
         return $treeBuilder;

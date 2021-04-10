@@ -21,6 +21,7 @@ services:
       - '@bitrix_database_bundle.standart_element_mapper'
       - '@bitrix_database_bundle.default_properties_processor'
       - '@bitrix_database_bundle.iblock_sections_manager'
+      - '%bitrix_database_bundle_ignore_errors%'
       - '%bitrix_database_bundle_fixture_path%'
 
   # Генератор элементов hl-инфоблока.
@@ -30,6 +31,7 @@ services:
       - !tagged_locator { tag: 'fixture_generator.item' }
       - '@bitrix_database_bundle.default_properties_processor'
       - '@bitrix_database_bundle.hl_manager'
+      - '%bitrix_database_bundle_ignore_errors%'
       - '%bitrix_database_bundle_fixture_path%'
 
   ##############

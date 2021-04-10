@@ -46,23 +46,31 @@ class IblockHlDataGenerator
     private $elementMapper;
 
     /**
+     * @var boolean $ignoreErrors Игнорировать ошибки.
+     */
+    private $ignoreErrors;
+
+    /**
      * IblockHlDataGenerator constructor.
      *
      * @param ServiceLocator                  $locator       Сервисы, помеченные тэгом fixture_generator.item.
      * @param DefaultPropertiesValueProcessor $elementMapper Маппер по умолчанию.
      * @param HighloadBlock                   $highloadBlock High-load block manager.
+     * @param boolean                         $ignoreErrors  Игнорировать ошибки.
      * @param array                           $fixturePaths  Пути к фикстурам.
      */
     public function __construct(
         ServiceLocator $locator,
         DefaultPropertiesValueProcessor $elementMapper,
         HighloadBlock $highloadBlock,
+        bool $ignoreErrors = false,
         array $fixturePaths = []
     ) {
         $this->locator = $locator;
         $this->fixturePaths = $fixturePaths;
         $this->highloadBlock = $highloadBlock;
         $this->elementMapper = $elementMapper;
+        $this->ignoreErrors = $ignoreErrors;
     }
 
     /**
@@ -139,7 +147,7 @@ class IblockHlDataGenerator
             if ($this->locator->has($serviceId)) {
                 /** @var FixtureGeneratorInterface $generator */
                 $generator = $this->locator->get($serviceId);
-                $payload = ['field' => $nameField, 'hlblock_code' => $iblockCode];
+                $payload = ['field' => $nameField, 'hlblock_code' => $iblockCode, 'ignore_errors' => $this->ignoreErrors];
                 $result[$nameField] = $generator->generate($payload);
                 continue;
             }

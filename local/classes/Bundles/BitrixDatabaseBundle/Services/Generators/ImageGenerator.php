@@ -34,6 +34,11 @@ class ImageGenerator extends AbstractGenerator
     private $height;
 
     /**
+     * @var boolean $ignoreErrors Игнорировать ошибки.
+     */
+    private $ignoreErrors = false;
+
+    /**
      * ImageGenerator constructor.
      *
      * @param integer $width      Ширина картинки.
@@ -61,6 +66,8 @@ class ImageGenerator extends AbstractGenerator
      */
     public function generate(?array $payload = null)
     {
+        $this->ignoreErrors = $payload['ignore_errors'];
+
         $imageUrl = $this->faker->picsumStaticRandomUrl($this->width, $this->height);
 
         return $this->generatePhotoFromLink($imageUrl);
@@ -76,11 +83,19 @@ class ImageGenerator extends AbstractGenerator
     {
         $arPicture = CFile::MakeFileArray($photoLink);
         if (!is_array($arPicture)) {
-            throw new RuntimeException('Ошибка подготовки данных изображения.');
+            if (!$this->ignoreErrors) {
+                throw new RuntimeException('Ошибка подготовки данных изображения.');
+            }
+
+            return [];
         }
 
         if (!array_key_exists('tmp_name', $arPicture)) {
-            throw new RuntimeException('Ошибка сохранения изображения.');
+            if (!$this->ignoreErrors) {
+                throw new RuntimeException('Ошибка сохранения изображения.');
+            }
+
+            return [];
         }
 
         $arPicture['name'] .= '.jpg';

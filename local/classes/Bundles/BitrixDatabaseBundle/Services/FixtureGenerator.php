@@ -9,6 +9,7 @@ use Faker\Factory;
 use Faker\Generator;
 use InvalidArgumentException;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
+use Local\Bundles\BitrixDatabaseBundle\Services\Traits\DataGeneratorTrait;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
@@ -22,6 +23,8 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
  */
 class FixtureGenerator
 {
+    use DataGeneratorTrait;
+
     /**
      * @var Generator $faker Фэйкер.
      */
@@ -72,7 +75,7 @@ class FixtureGenerator
             );
         }
 
-        $this->fixtureSchema = $this->loadFixtureFromFile($schema::getTableName());
+        $this->fixtureSchema = $this->loadFixtureFromFile($this->fixturePaths, $schema::getTableName());
 
         $tableDescription = $schema::getTableDescription();
         $result = [];
@@ -82,27 +85,6 @@ class FixtureGenerator
         }
 
         return $result;
-    }
-
-    /**
-     * @param string $tableName Название таблицы.
-     *
-     * @return array
-     */
-    private function loadFixtureFromFile(string $tableName) : array
-    {
-        foreach ($this->fixturePaths as $path) {
-            $pathFile = $_SERVER['DOCUMENT_ROOT'] . $path . $tableName . '.php';
-            if (!@file_exists($pathFile)) {
-                continue;
-            }
-            $result = include $_SERVER['DOCUMENT_ROOT'] . $this->fixturePaths[0] . $tableName . '.php';
-            if (is_array($result)) {
-                return $result;
-            }
-        }
-
-        return [];
     }
 
     /**

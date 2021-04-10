@@ -68,12 +68,18 @@ class IblockDataGenerator
     private $sectionMap;
 
     /**
+     * @var boolean $ignoreErrors Игнорировать ошибки.
+     */
+    private $ignoreErrors;
+
+    /**
      * IblockDataGenerator constructor.
      *
      * @param ServiceLocator                  $locator                         Сервисы, помеченные тэгом fixture_generator.item.
      * @param StandartIblockDataMapper        $elementMapper                   Маппер по умолчанию.
      * @param DefaultPropertiesValueProcessor $defaultPropertiesValueProcessor Обработчики свойств по умолчанию.
      * @param IblockSections                  $iblockSections                  Работа с подразделами.
+     * @param boolean                         $ignoreErrors                    Игнорировать ошибки.
      * @param array                           $fixturePaths                    Пути к фикстурам.
      */
     public function __construct(
@@ -81,11 +87,14 @@ class IblockDataGenerator
         StandartIblockDataMapper $elementMapper,
         DefaultPropertiesValueProcessor $defaultPropertiesValueProcessor,
         IblockSections $iblockSections,
+        bool $ignoreErrors = false,
         array $fixturePaths = []
     ) {
         $this->locator = $locator;
         $this->fixturePaths = $fixturePaths;
         $this->iblockSections = $iblockSections;
+        $this->ignoreErrors = $ignoreErrors;
+
         $this->defaultPropertiesValueProcessor = $defaultPropertiesValueProcessor;
 
         $this->elementMap = $elementMapper->getMap();
@@ -283,7 +292,7 @@ class IblockDataGenerator
             if ($this->locator->has($serviceId)) {
                 /** @var FixtureGeneratorInterface $generator */
                 $generator = $this->locator->get($serviceId);
-                $payload = ['field' => $nameField, 'iblock_id' => $iblockId];
+                $payload = ['field' => $nameField, 'iblock_id' => $iblockId, 'ignore_errors' => $this->ignoreErrors];
                 $result[$nameField] = $generator->generate($payload);
                 continue;
             }

@@ -22,6 +22,15 @@ services:
       - '@bitrix_database_bundle.iblock_sections_manager'
       - '%bitrix_database_bundle_fixture_path%'
 
+  # Генератор элементов hl-инфоблока.
+  bitrix_database_bundle.hl_element_generator:
+    class: Local\Bundles\BitrixDatabaseBundle\Services\IblockHlDataGenerator
+    arguments:
+      - !tagged_locator { tag: 'fixture_generator.item' }
+      - '@bitrix_database_bundle.standart_element_mapper'
+      - '@bitrix_database_bundle.hl_manager'
+      - '%bitrix_database_bundle_fixture_path%'
+
   ##############
   # Инструменты
   ##############
@@ -43,6 +52,10 @@ services:
   bitrix_database_bundle.iblock_sections_manager:
     class: Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\IblockSections
     arguments: ['@CIBlockSection']
+
+  # Менеджер high-load блоков.
+  bitrix_database_bundle.hl_manager:
+    class: Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\HighloadBlock
 
   # Менеджер свойств инфоблоков.
   bitrix_database_bundle.iblock_properties_manager:
@@ -82,147 +95,13 @@ services:
       - '@bitrix_database_bundle.element_generator'
       - '@bitrix_database_bundle.iblock_element_eraser'
     tags:
-      - { name: console.command, comand: migrator:seed }
+      - { name: console.command, comand: migrator:elements }
 
-  #############################
-  # Особые обработчики фикстур
-  ############################
-
-  # Генерация реальных ID картинок из базы.
-  Local\Bundles\BitrixDatabaseBundle\Services\Generators\ImageIdGenerator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\ImageIdGenerator
-    tags:
-      - { name: fixture_generator.item }
-
-  # Генерация реальных ID пользователей из базы.
-  Local\Bundles\BitrixDatabaseBundle\Services\Generators\UserIdGenerator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\UserIdGenerator
-    tags:
-      - { name: fixture_generator.item }
-
-  # Генерация случайного html.
-  Local\Bundles\BitrixDatabaseBundle\Services\Generators\HtmlGenerator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\HtmlGenerator
-    tags:
-      - { name: fixture_generator.item }
-
-  # Title
-  bitrix_database_bundle.title_generator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\TextGenerator
-    arguments: [5, 128]
-    tags:
-      - { name: fixture_generator.item }
-
-  # Name
-  bitrix_database_bundle.name_generator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\TextGenerator
-    arguments: [5, 120]
-    tags:
-      - { name: fixture_generator.item }
-
-  # Preview_text
-  bitrix_database_bundle.preview_text_generator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\TextGenerator
-    arguments: [1024, 3000]
-    tags:
-      - { name: fixture_generator.item }
-
-  # Detail_text
-  bitrix_database_bundle.detail_text_generator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\TextGenerator
-    arguments: [1024, 14000]
-    tags:
-      - { name: fixture_generator.item }
-
-  # Code
-  Local\Bundles\BitrixDatabaseBundle\Services\Generators\CodeGenerator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\CodeGenerator
-    tags:
-      - { name: fixture_generator.item }
-
-  # Sort
-  Local\Bundles\BitrixDatabaseBundle\Services\Generators\SortGenerator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\SortGenerator
-    tags:
-      - { name: fixture_generator.item }
-
-  # Image generator
-  bitrix_database_bundle.preview_picture_generator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\ImageGenerator
-    arguments: [350, 350, true]
-    tags:
-      - { name: fixture_generator.item }
-
-  bitrix_database_bundle.detail_picture_generator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\ImageGenerator
-    arguments: [1024, 1024, true]
-    tags:
-      - { name: fixture_generator.item }
-
-  # Image generator
-  Local\Bundles\BitrixDatabaseBundle\Services\Generators\ImageGenerator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\ImageGenerator
-    tags:
-      - { name: fixture_generator.item }
-
-  # Даты
-  Local\Bundles\BitrixDatabaseBundle\Services\Generators\DateGenerator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\DateGenerator
-    tags:
-      - { name: fixture_generator.item }
-
-  # Привязка к элементам.
-  Local\Bundles\BitrixDatabaseBundle\Services\Generators\LinkElementGenerator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\LinkElementGenerator
-    arguments: ['@bitrix_database_bundle.iblock_properties_manager', '@CIBlockElement']
-    tags:
-      - { name: fixture_generator.item }
-
-  # Множественная привязка к элементам.
-  bitrix_database_bundle.multiple_link_generator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\MultipleGeneratorDecorator
+  # Наполнение hl-инфоблока элементами.
+  bitrix_database_bundle.command_seed_hl_elements:
+    class: Local\Bundles\BitrixDatabaseBundle\Command\SeedHlElementsCommand
     arguments:
-      - '@Local\Bundles\BitrixDatabaseBundle\Services\Generators\LinkElementGenerator'
-      - 3
+      - '@bitrix_database_bundle.hl_element_generator'
+      - '@bitrix_database_bundle.hl_manager'
     tags:
-      - { name: fixture_generator.item }
-
-  # Списки
-  Local\Bundles\BitrixDatabaseBundle\Services\Generators\EnumGenerator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\EnumGenerator
-    arguments: ['@bitrix_database_bundle.iblock_properties_manager']
-    tags:
-      - { name: fixture_generator.item }
-
-  # Множественные списки.
-  bitrix_database_bundle.multiple_enum_generator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\MultipleGeneratorDecorator
-    arguments:
-      - '@Local\Bundles\BitrixDatabaseBundle\Services\Generators\EnumGenerator'
-      - 3
-    tags:
-      - { name: fixture_generator.item }
-
-  # Сентенция из 6 слов.
-  Local\Bundles\BitrixDatabaseBundle\Services\Generators\SentenceGenerator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\SentenceGenerator
-    tags:
-      - { name: fixture_generator.item }
-
-  # Множественное поле типа Файл (картинки).
-  bitrix_database_bundle.multiple_image_generator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\MultipleGeneratorDecorator
-    arguments:
-      - '@bitrix_database_bundle.detail_picture_generator'
-      - 3
-    tags:
-      - { name: fixture_generator.item }
-
-  # Множественное поле типа Cтрока.
-  bitrix_database_bundle.multiple_string_generator:
-    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\MultipleGeneratorDecorator
-    arguments:
-      - '@Local\Bundles\BitrixDatabaseBundle\Services\Generators\SentenceGenerator'
-      - 5
-    tags:
-      - { name: fixture_generator.item }
+      - { name: console.command, comand: migrator:elements-hl }

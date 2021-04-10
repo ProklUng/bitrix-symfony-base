@@ -40,7 +40,7 @@ class SeedElementsCommand extends Command
     private $truncaterElements;
 
     /**
-     * SeedDatabaseCommand constructor.
+     * SeedElementsCommand constructor.
      *
      * @param IblockDataGenerator $fixtureGenerator  Генератор фикстур.
      * @param TruncaterElements   $truncaterElements Очиститель инфоблока от элементов.

@@ -134,7 +134,8 @@ class IblockSections
     public function getSectionId(int $iblockId, $code) : int
     {
         $item = $this->getSection($iblockId, $code);
-        return ($item && isset($item['ID'])) ? $item['ID'] : 0;
+
+        return (count($item) > 0 && isset($item['ID'])) ? $item['ID'] : 0;
     }
 
     /**
@@ -154,6 +155,7 @@ class IblockSections
             ];
 
         $sections = $this->getSections($iblockId, $filter);
+
         return $sections[0] ?? [];
     }
 
@@ -215,7 +217,8 @@ class IblockSections
     }
 
     /**
-     * @param string $text
+     * @param string $text Текст.
+     *
      * @return string
      *
      * @see https://stackoverflow.com/questions/2955251/php-function-to-make-slug-url-string
@@ -224,23 +227,21 @@ class IblockSections
     {
         // replace non letter or digits by -
         $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+        if (!$text) {
+            return '';
+        }
 
         // transliterate
         $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
 
         // remove unwanted characters
         $text = preg_replace('~[^-\w]+~', '', $text);
-
-        // trim
         $text = trim($text, '-');
-
         // remove duplicate -
         $text = preg_replace('~-+~', '-', $text);
-
-        // lowercase
         $text = strtolower($text);
 
-        if (empty($text)) {
+        if ($text === '') {
             return 'n-a';
         }
 

@@ -36,7 +36,7 @@ class CodeGenerator implements FixtureGeneratorInterface
     {
         $slug = $this->faker->slug(6);
         if (strlen($slug) > 255) {
-            $slug = substr(0, 255, $slug);
+            $slug = substr($slug, 0, 255);
         }
 
         return str_replace(' ', '-', $slug);

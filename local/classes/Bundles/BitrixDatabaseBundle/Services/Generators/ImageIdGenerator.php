@@ -22,10 +22,20 @@ class ImageIdGenerator implements FixtureGeneratorInterface
     public function generate(?array $payload = null)
     {
         $result = [];
+
+        $uploadDir = COption::GetOptionString('main', 'upload_dir','upload');
+
         $query = CFile::GetList([], ['MODULE_ID' => 'iblock']);
         while ($arResult = $query->GetNext()) {
-            $filename = $_SERVER['DOCUMENT_ROOT'].'/'.COption::GetOptionString('main', 'upload_dir',
-                    'upload')."/".$arResult['SUBDIR'].'/'.$arResult['FILE_NAME'];
+            $filename = $_SERVER['DOCUMENT_ROOT'] .
+                    '/'
+                    .
+                    $uploadDir
+                    .
+                    '/'
+                    . $arResult['SUBDIR'] .
+                    '/'
+                    .$arResult['FILE_NAME'];
 
             if (CFile::IsImage($filename)) {
                 $result[] = (int)$arResult['ID'];

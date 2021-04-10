@@ -74,8 +74,10 @@ class IblockHlDataGenerator
      */
     public function generate(array $payload = []) : array
     {
+        $result = [];
+
         // Поля по умолчанию.
-        $propData = $this->highloadBlock->getAllProperties($payload['iblock_code']);
+        $propData = $this->highloadBlock->getAllProperties($payload['hlblock_code']);
         $defaultProps = $this->elementMapper->getMapHl($propData);
 
         // Поля из фикстуры.
@@ -132,11 +134,12 @@ class IblockHlDataGenerator
         $result = [];
 
         foreach ($data as $nameField => $item) {
+            /** @var string $serviceId */
             $serviceId = $data[$nameField];
             if ($this->locator->has($serviceId)) {
                 /** @var FixtureGeneratorInterface $generator */
                 $generator = $this->locator->get($serviceId);
-                $payload = ['field' => $nameField, 'iblock_code' => $iblockCode];
+                $payload = ['field' => $nameField, 'hlblock_code' => $iblockCode];
                 $result[$nameField] = $generator->generate($payload);
                 continue;
             }

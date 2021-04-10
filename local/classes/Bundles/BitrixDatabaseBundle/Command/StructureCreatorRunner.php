@@ -40,7 +40,7 @@ class StructureCreatorRunner extends Command
     /**
      * @inheritDoc
      */
-    protected function configure()
+    protected function configure() : void
     {
         $this->setName('migrator:structure')
              ->setDescription('Creating structure of project');

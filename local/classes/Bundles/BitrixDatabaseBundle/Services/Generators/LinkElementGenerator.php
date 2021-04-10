@@ -3,6 +3,7 @@
 namespace Local\Bundles\BitrixDatabaseBundle\Services\Generators;
 
 use CIBlockElement;
+use CIBlockResult;
 use Exception;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\IblockProperties;
@@ -62,6 +63,7 @@ class LinkElementGenerator implements FixtureGeneratorInterface
             return null;
         }
 
+        /** @var CIBlockResult $result */
         $result = $this->ciblockElement::GetList(
             ['RAND' => 'ASC'],
             [

@@ -4,6 +4,7 @@ namespace Local\Bundles\BitrixDatabaseBundle\Services\Iblocks;
 
 use CIBlockProperty;
 use CIBlockPropertyEnum;
+use RuntimeException;
 
 /**
  * Class IblockProperties
@@ -34,7 +35,8 @@ class IblockProperties
      * @param integer       $iblockId ID инфоблока.
      * @param integer|array $code     Код или фильтр.
      *
-     * @return array|boolean
+     * @return array
+     * @throws RuntimeException
      */
     public function getProperty(int $iblockId, $code)
     {
@@ -45,8 +47,12 @@ class IblockProperties
 
         $filter['IBLOCK_ID'] = $iblockId;
         $filter['CHECK_PERMISSIONS'] = 'N';
+
         /* do not use =CODE in filter */
         $property = CIBlockProperty::GetList(['SORT' => 'ASC'], $filter)->Fetch();
+        if ($property === false) {
+            throw new RuntimeException('Ошибка получения данных о свойстые.');
+        }
 
         return $this->prepareProperty($property);
     }
@@ -58,8 +64,10 @@ class IblockProperties
      */
     public function getAllProperties(int $iblockId) : array
     {
-        $filter['IBLOCK_ID'] = $iblockId;
-        $filter['CHECK_PERMISSIONS'] = 'N';
+        $filter = [
+            'IBLOCK_ID' => $iblockId,
+            'CHECK_PERMISSIONS' => 'N'
+        ];
 
         $properties = CIBlockProperty::GetList(['SORT' => 'ASC'], $filter);
         $result = [];
@@ -127,9 +135,9 @@ class IblockProperties
     /**
      * @param array $property Данные свойства.
      *
-     * @return mixed
+     * @return array
      */
-    private function prepareProperty(array $property)
+    private function prepareProperty(array $property) : array
     {
         if ($property && $property['PROPERTY_TYPE'] === 'L' && $property['IBLOCK_ID'] && $property['ID']) {
             $property['VALUES'] = $this->getPropertyEnums([

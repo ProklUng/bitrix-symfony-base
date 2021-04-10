@@ -75,6 +75,9 @@ class ImageGenerator implements FixtureGeneratorInterface
     private function generatePhotoFromLink(string $photoLink): array
     {
         $arPicture = CFile::MakeFileArray($photoLink);
+        if (!is_array($arPicture)) {
+            throw new RuntimeException('Ошибка подготовки данных изображения.');
+        }
 
         if (!array_key_exists('tmp_name', $arPicture)) {
             throw new RuntimeException('Ошибка сохранения изображения.');

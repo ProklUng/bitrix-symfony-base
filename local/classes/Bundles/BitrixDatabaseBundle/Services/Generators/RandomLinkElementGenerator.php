@@ -3,6 +3,7 @@
 namespace Local\Bundles\BitrixDatabaseBundle\Services\Generators;
 
 use CIBlockElement;
+use CIBlockResult;
 use Exception;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\HighloadBlock;
@@ -47,9 +48,9 @@ class RandomLinkElementGenerator implements FixtureGeneratorInterface
         $arFilter = [];
 
         // HL блоки.
-        if (array_key_exists('iblock_code', $payload)) {
+        if (array_key_exists('hlblock_code', $payload)) {
             $hl = new HighloadBlock();
-            $propData = $hl->getPropertyData($payload['iblock_code'], $payload['field']);
+            $propData = $hl->getPropertyData($payload['hlblock_code'], $payload['field']);
 
             if ($propData['SETTINGS']['IBLOCK_ID']) {
                 $arFilter['IBLOCK_ID'] = $propData['SETTINGS']['IBLOCK_ID'];
@@ -58,6 +59,7 @@ class RandomLinkElementGenerator implements FixtureGeneratorInterface
 
         $arFilter = array_merge($arFilter, ['ACTIVE' => 'Y']);
 
+        /** @var CIBlockResult $result */
         $result = $this->ciblockElement::GetList(
             ['RAND' => 'ASC'],
             $arFilter,

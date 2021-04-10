@@ -18,6 +18,7 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
  * @package Local\Bundles\BitrixDatabaseBundle\Services
  *
  * @since 08.04.2021
+ *
  */
 class FixtureGenerator
 {

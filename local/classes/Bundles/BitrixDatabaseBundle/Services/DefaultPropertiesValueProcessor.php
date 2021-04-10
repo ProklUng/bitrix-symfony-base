@@ -27,7 +27,7 @@ class DefaultPropertiesValueProcessor
     private $propertiesProcessor;
 
     /**
-     * @var string[] $map Базовые свойства.
+     * @var array $map Базовые свойства.
      */
     private $map = [
         'S' => [
@@ -58,7 +58,7 @@ class DefaultPropertiesValueProcessor
     ];
 
     /**
-     * @var array[] $customPropertyMap Кастомные свойства.
+     * @var array $customPropertyMap Кастомные свойства.
      */
     private $customPropertyMap = [
         // Признак Да-нет.
@@ -69,7 +69,7 @@ class DefaultPropertiesValueProcessor
     ];
 
     /**
-     * @var \string[][] $hlFields Поля HL блоков.
+     * @var array $hlFields Поля HL блоков.
      */
     private $hlFields = [
         'iblock_section' => [

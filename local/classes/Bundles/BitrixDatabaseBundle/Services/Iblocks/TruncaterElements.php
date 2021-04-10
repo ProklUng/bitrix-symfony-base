@@ -4,6 +4,7 @@ namespace Local\Bundles\BitrixDatabaseBundle\Services\Iblocks;
 
 use CFile;
 use CIBlockElement;
+use CIBlockResult;
 
 /**
  * Class TruncaterElements
@@ -44,7 +45,8 @@ class TruncaterElements
      */
     public function deleteElements(int $iblockId): int
     {
-        $res = $this->cblockElement::GetList(
+        /** @var CIBlockResult $query */
+        $query = $this->cblockElement::GetList(
             [],
             ['IBLOCK_ID' => $iblockId],
             false,
@@ -54,7 +56,7 @@ class TruncaterElements
 
         $i = 0;
 
-        while ($result = $res->GetNext()) {
+        while ($result = $query->GetNext()) {
             $id = $result['ID'];
             $this->cblockElement::Delete($id);
             $this->deleteImage($id);

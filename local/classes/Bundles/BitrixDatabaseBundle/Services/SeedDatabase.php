@@ -7,7 +7,6 @@ use Bitrix\Main\Db\SqlQueryException;
 use Bitrix\Main\Entity\DataManager;
 use Exception;
 use LogicException;
-use Module\CustomTable\News\NewsTable;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 

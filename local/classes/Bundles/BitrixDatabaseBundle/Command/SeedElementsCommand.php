@@ -3,6 +3,7 @@
 namespace Local\Bundles\BitrixDatabaseBundle\Command;
 
 use Exception;
+use InvalidArgumentException;
 use Local\Bundles\BitrixDatabaseBundle\Services\IblockDataGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\TruncaterElements;
 use Symfony\Component\Console\Command\Command;
@@ -71,10 +72,12 @@ class SeedElementsCommand extends Command
 
     /**
      * @inheritDoc
-     * @throws Exception
+     * @throws Exception | InvalidArgumentException
      */
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
+        $this->validateParameters($input);
+
         $count = (int)$input->getOption('count');
         $truncate = trim($input->getOption('truncate')) === 'true';
         $needSections = trim($input->getOption('sections')) === 'true';
@@ -114,5 +117,35 @@ class SeedElementsCommand extends Command
         $output->writeln('Элементы инфоблока с кодом ' . $code . ' успешно созданы.');
 
         return 0;
+    }
+
+    /**
+     * Валидация входящих параметров.
+     *
+     * @param InputInterface $input
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException
+     */
+    private function validateParameters(InputInterface $input) : void
+    {
+        if (!is_numeric($input->getOption('count'))) {
+            throw new InvalidArgumentException(
+                'Параметр count должен быть только числом.'
+            );
+        }
+
+        if (!is_string($input->getOption('truncate'))) {
+            throw new InvalidArgumentException(
+                'Параметр table должен быть только строкой.'
+            );
+        }
+
+        if (!is_string($input->getOption('sections'))) {
+            throw new InvalidArgumentException(
+                'Параметр truncate должен быть только строкой.'
+            );
+        }
     }
 }

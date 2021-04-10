@@ -4,6 +4,7 @@ namespace Local\Bundles\BitrixDatabaseBundle\Command;
 
 use Bitrix\Main\Entity\DataManager;
 use Exception;
+use InvalidArgumentException;
 use Local\Bundles\BitrixDatabaseBundle\Services\FixtureGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\SeedDatabase;
 use LogicException;
@@ -75,13 +76,14 @@ class SeedDatabaseCommand extends Command
 
     /**
      * @inheritDoc
-     * @throws Exception
+     * @throws Exception | InvalidArgumentException
      */
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
+        $this->validateParameters($input);
+
         $count = (int)$input->getOption('count');
         $truncate = $input->getOption('truncate') === 'true';
-
         $table = $input->getArgument('table');
 
         $output->writeln('Looking for entity of table ' . $table);
@@ -109,16 +111,46 @@ class SeedDatabaseCommand extends Command
     }
 
     /**
+     * Валидация входящих параметров.
+     *
+     * @param InputInterface $input
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException
+     */
+    private function validateParameters(InputInterface $input) : void
+    {
+        if (!is_string($input->getArgument('table'))) {
+            throw new InvalidArgumentException('Параметр table должен быть только строкой.');
+        }
+
+        if (!is_string($input->getOption('truncate'))) {
+            throw new InvalidArgumentException(
+                'Параметр truncate должен быть только строкой.'
+            );
+        }
+
+        if (!is_numeric($input->getOption('count'))) {
+            throw new InvalidArgumentException(
+                'Параметр count должен быть только числом.'
+            );
+        }
+    }
+
+    /**
      * Поиск сущности в сервис-локаторе.
      *
      * @param string $table Таблица.
      *
      * @return DataManager
      * @throws LogicException
+     *
      */
     private function locateEntityData(string $table) : DataManager
     {
         foreach ($this->entityLocator->getProvidedServices() as $serviceId => $value) {
+            /** @var DataManager $service */
             $service = $this->entityLocator->get($serviceId);
             if ($service->getTableName() === $table) {
                 return $service;

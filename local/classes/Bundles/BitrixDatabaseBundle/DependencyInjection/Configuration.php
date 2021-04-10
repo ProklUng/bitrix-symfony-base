@@ -19,11 +19,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode = $treeBuilder->getRootNode();
 
-        // @phpstan-ignore-next-line
         $rootNode
-            // @phpstan-ignore-next-line
             ->children()
-                // @phpstan-ignore-next-line
                 ->arrayNode('bitrix_database_bundle_fixture_path')
                     ->defaultValue([])
                     ->useAttributeAsKey('name')

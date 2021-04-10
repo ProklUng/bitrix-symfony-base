@@ -3,6 +3,7 @@
 namespace Local\Bundles\BitrixDatabaseBundle\Command;
 
 use Exception;
+use InvalidArgumentException;
 use Local\Bundles\BitrixDatabaseBundle\Services\IblockHlDataGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\HighloadBlock;
 use Symfony\Component\Console\Command\Command;
@@ -64,10 +65,12 @@ class SeedHlElementsCommand extends Command
 
     /**
      * @inheritDoc
-     * @throws Exception
+     * @throws Exception | InvalidArgumentException
      */
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
+        $this->validateParameters($input);
+
         $truncate = trim($input->getOption('truncate')) === 'true';
         $count = (int)$input->getOption('count');
         $code = $input->getArgument('code');
@@ -84,12 +87,42 @@ class SeedHlElementsCommand extends Command
 
         for ($i = 1; $i<= $count; $i++) {
             $result[] = $this->elementGenerator->generate(
-                ['iblock_code' => $code]
+                ['hlblock_code' => $code]
             );
         }
 
         $output->writeln('Элементы hl-инфоблока с кодом ' . $code . ' успешно созданы.');
 
         return 0;
+    }
+
+    /**
+     * Валидация входящих параметров.
+     *
+     * @param InputInterface $input
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException
+     */
+    private function validateParameters(InputInterface $input) : void
+    {
+        if (!is_numeric($input->getOption('count'))) {
+            throw new InvalidArgumentException(
+                'Параметр count должен быть только числом.'
+            );
+        }
+
+        if (!is_string($input->getOption('truncate'))) {
+            throw new InvalidArgumentException(
+                'Параметр table должен быть только строкой.'
+            );
+        }
+
+        if (!is_string($input->getArgument('code'))) {
+            throw new InvalidArgumentException(
+                'Параметр truncate должен быть только строкой.'
+            );
+        }
     }
 }

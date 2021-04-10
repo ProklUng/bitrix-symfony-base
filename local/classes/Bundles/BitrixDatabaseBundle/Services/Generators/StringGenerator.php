@@ -54,7 +54,7 @@ class StringGenerator implements FixtureGeneratorInterface
         $text = $this->faker->sentence(20);
 
         if (strlen($text) > $this->maxLength) {
-            $text = substr(0, $this->maxLength, $text);
+            $text = substr($text, 0, $this->maxLength);
         }
 
         if (strlen($text) < $this->minLength) {

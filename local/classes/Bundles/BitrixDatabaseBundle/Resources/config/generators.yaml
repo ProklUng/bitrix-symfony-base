@@ -217,6 +217,12 @@ services:
     tags:
       - { name: fixture_generator.item }
 
+  # Базовая случайная опция.
+  Local\Bundles\BitrixDatabaseBundle\Services\Generators\BaseOptionGenerator:
+    class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\BaseOptionGenerator
+    tags:
+      - { name: fixture_generator.item }
+
   #####################
   # Кастомные свойства
   #####################

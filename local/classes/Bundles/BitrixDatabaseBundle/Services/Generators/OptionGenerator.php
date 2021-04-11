@@ -3,8 +3,6 @@
 namespace Local\Bundles\BitrixDatabaseBundle\Services\Generators;
 
 use Exception;
-use Faker\Factory;
-use Faker\Generator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractGenerator;
 
 /**
@@ -16,18 +14,12 @@ use Local\Bundles\BitrixDatabaseBundle\Services\Generators\Abstraction\AbstractG
 class OptionGenerator extends AbstractGenerator
 {
     /**
-     * @var Generator $faker Фэйкер.
-     */
-    private $faker;
-
-    /**
-     * TextGenerator constructor.
+     * OptionGenerator constructor.
      *
-     * @param array $options
+     * @param array $options Варианты.
      */
     public function __construct(array $options = [])
     {
-        $this->faker = Factory::create('ru_RU');
         $this->params['options'] = $options;
     }
 
@@ -37,7 +29,7 @@ class OptionGenerator extends AbstractGenerator
      */
     public function generate(?array $payload = null)
     {
-        $key = mt_rand(0, count($this->params['options']) - 1);
+        $key = random_int(0, count($this->params['options']) - 1);
 
         return $this->params['options'][$key];
     }

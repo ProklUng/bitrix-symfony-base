@@ -1,6 +1,6 @@
 <?php
 
-namespace Local\Bundles\BitrixDatabaseBundle\Samples\fixtures;
+namespace Local\Bundles\BitrixDatabaseBundle\Samples\Fixtures;
 
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureInterface;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\EnumGenerator;
@@ -10,7 +10,7 @@ use Local\Bundles\BitrixDatabaseBundle\Services\Generators\SentenceGenerator;
 
 /**
  * Class ContentCommonFixture
- * @package Local\Bundles\BitrixDatabaseBundle\Samples\fixtures
+ * @package Local\Bundles\BitrixDatabaseBundle\Samples\Fixtures
  *
  * @since 11.04.2021
  */

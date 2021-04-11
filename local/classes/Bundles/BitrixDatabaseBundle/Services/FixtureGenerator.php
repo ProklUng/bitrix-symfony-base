@@ -9,7 +9,6 @@ use Faker\Factory;
 use Faker\Generator;
 use InvalidArgumentException;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
-use Local\Bundles\BitrixDatabaseBundle\Services\Traits\DataGeneratorTrait;
 use Local\Bundles\BitrixDatabaseBundle\Services\Utils\FixtureResolver;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\ServiceLocator;

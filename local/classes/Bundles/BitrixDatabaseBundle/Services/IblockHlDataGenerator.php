@@ -7,7 +7,6 @@ use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\HighloadBlock;
-use Local\Bundles\BitrixDatabaseBundle\Services\Traits\DataGeneratorTrait;
 use Local\Bundles\BitrixDatabaseBundle\Services\Utils\FixtureResolver;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 

@@ -36,7 +36,7 @@ services:
   # Name
   bitrix_database_bundle.name_generator:
     class: Local\Bundles\BitrixDatabaseBundle\Services\Generators\TextGenerator
-    arguments: [5, 120]
+    arguments: [11, 120]
     tags:
       - { name: fixture_generator.item }
 

@@ -18,7 +18,8 @@ class ExampleHighloadFixture implements FixtureInterface
     /**
      * @inheritDoc
      */
-    public function id() : string {
+    public function id() : string
+    {
         return 'ExampleHighload';
     }
 
@@ -30,7 +31,8 @@ class ExampleHighloadFixture implements FixtureInterface
      *    }
      * )
      */
-    public function fixture() : array {
+    public function fixture() : array
+    {
         return [
             'UF_STRING' => 'bitrix_database_bundle.short_string_generator',
             'UF_LINK_SECTION' => RandomLinkSectionGenerator::class,

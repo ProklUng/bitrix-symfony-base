@@ -8,7 +8,7 @@ use CIBlockElement;
 use Exception;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\IblockSections;
-use Local\Bundles\BitrixDatabaseBundle\Services\Traits\DataGeneratorTrait;
+use Local\Bundles\BitrixDatabaseBundle\Services\Utils\FixtureResolver;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
@@ -20,8 +20,6 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
  */
 class IblockDataGenerator
 {
-    use DataGeneratorTrait;
-
     /**
      * @var ServiceLocator $locator Сервисы, помеченные тэгом fixture_generator.item.
      */
@@ -53,11 +51,6 @@ class IblockDataGenerator
     private $iblockId;
 
     /**
-     * @var array $fixturePaths
-     */
-    private $fixturePaths;
-
-    /**
      * @var array $elementMapper
      */
     private $elementMap;
@@ -73,27 +66,32 @@ class IblockDataGenerator
     private $ignoreErrors;
 
     /**
+     * @var FixtureResolver $fixtureResolver Ресолвер фикстур.
+     */
+    private $fixtureResolver;
+
+    /**
      * IblockDataGenerator constructor.
      *
      * @param ServiceLocator                  $locator                         Сервисы, помеченные тэгом fixture_generator.item.
      * @param StandartIblockDataMapper        $elementMapper                   Маппер по умолчанию.
      * @param DefaultPropertiesValueProcessor $defaultPropertiesValueProcessor Обработчики свойств по умолчанию.
      * @param IblockSections                  $iblockSections                  Работа с подразделами.
+     * @param FixtureResolver                 $fixtureResolver                 Ресолвер фикстур.
      * @param boolean                         $ignoreErrors                    Игнорировать ошибки.
-     * @param array                           $fixturePaths                    Пути к фикстурам.
      */
     public function __construct(
         ServiceLocator $locator,
         StandartIblockDataMapper $elementMapper,
         DefaultPropertiesValueProcessor $defaultPropertiesValueProcessor,
         IblockSections $iblockSections,
-        bool $ignoreErrors = false,
-        array $fixturePaths = []
+        FixtureResolver $fixtureResolver,
+        bool $ignoreErrors = false
     ) {
         $this->locator = $locator;
-        $this->fixturePaths = $fixturePaths;
         $this->iblockSections = $iblockSections;
         $this->ignoreErrors = $ignoreErrors;
+        $this->fixtureResolver = $fixtureResolver;
 
         $this->defaultPropertiesValueProcessor = $defaultPropertiesValueProcessor;
 
@@ -111,7 +109,7 @@ class IblockDataGenerator
     {
         $this->iblockId = $this->getIdIblock($this->iblockCode, $this->iblockType);
         // Принцип именования файла с фикстурой: тип инфоблока.код инфоблока.php.
-        $fixtureSchema = $this->loadFixtureFromFile($this->fixturePaths, $this->iblockType . '.' . $this->iblockCode);
+        $fixtureSchema = $this->fixtureResolver->resolve($this->iblockType . '.' . $this->iblockCode);
 
         // Генераторы свойство по умолчанию.
         $propsDefault = $this->defaultPropertiesValueProcessor->getMap($this->iblockId);

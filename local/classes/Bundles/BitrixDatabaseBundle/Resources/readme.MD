@@ -19,6 +19,12 @@ php bin/console migrator:elements spravochnik content --truncate=false --section
 
 ###################
 
-HL-block ExampleHighload. Очищать элементы, генерировать подразделы, 5 элементов.
+HL-block ExampleHighload. Очищать элементы, 5 элементов.
 
 php bin/console migrator:elements-hl ExampleHighload --truncate=true --count=5
+
+###################
+
+Кастомная таблица. Очищать элементы, 5 элементов.
+
+php bin/console migrator:seed d_ah_news --truncate=true --count=5

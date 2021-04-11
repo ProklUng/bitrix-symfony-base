@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('bitrix_database_bundle_fixture_path')
+                ->arrayNode('fixture_path')
                     ->defaultValue([])
                     ->useAttributeAsKey('name')
                     ->prototype('scalar')->end()

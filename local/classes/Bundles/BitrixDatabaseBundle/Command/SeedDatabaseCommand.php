@@ -3,6 +3,7 @@
 namespace Local\Bundles\BitrixDatabaseBundle\Command;
 
 use Bitrix\Main\Entity\DataManager;
+use Bitrix\Main\Loader;
 use Exception;
 use InvalidArgumentException;
 use Local\Bundles\BitrixDatabaseBundle\Services\FixtureGenerator;
@@ -123,12 +124,6 @@ class SeedDatabaseCommand extends Command
     {
         if (!is_string($input->getArgument('table'))) {
             throw new InvalidArgumentException('Параметр table должен быть только строкой.');
-        }
-
-        if (!is_string($input->getOption('truncate'))) {
-            throw new InvalidArgumentException(
-                'Параметр truncate должен быть только строкой.'
-            );
         }
 
         if (!is_numeric($input->getOption('count'))) {

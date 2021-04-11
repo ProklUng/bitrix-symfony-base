@@ -10,6 +10,7 @@ use Faker\Generator;
 use InvalidArgumentException;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
 use Local\Bundles\BitrixDatabaseBundle\Services\Traits\DataGeneratorTrait;
+use Local\Bundles\BitrixDatabaseBundle\Services\Utils\FixtureResolver;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
@@ -23,8 +24,6 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
  */
 class FixtureGenerator
 {
-    use DataGeneratorTrait;
-
     /**
      * @var Generator $faker Фэйкер.
      */
@@ -36,9 +35,9 @@ class FixtureGenerator
     private $locator;
 
     /**
-     * @var array $fixturePaths
+     * @var FixtureResolver $fixtureResolver Ресолвер фикстур.
      */
-    private $fixturePaths;
+    private $fixtureResolver;
 
     /**
      * @var array $fixtureSchema
@@ -48,15 +47,15 @@ class FixtureGenerator
     /**
      * FixtureGenerator constructor.
      *
-     * @param ServiceLocator $locator      Сервисы, помеченные тэгом fixture_generator.item.
-     * @param array          $fixturePaths Пути к фикстурам.
+     * @param ServiceLocator  $locator         Сервисы, помеченные тэгом fixture_generator.item.
+     * @param FixtureResolver $fixtureResolver Ресолвер фикстур.
      */
     public function __construct(
         ServiceLocator $locator,
-        array $fixturePaths = []
+        FixtureResolver $fixtureResolver
     ) {
         $this->locator = $locator;
-        $this->fixturePaths = $fixturePaths;
+        $this->fixtureResolver = $fixtureResolver;
         $this->faker = Factory::create('ru_Ru');
     }
 
@@ -75,7 +74,7 @@ class FixtureGenerator
             );
         }
 
-        $this->fixtureSchema = $this->loadFixtureFromFile($this->fixturePaths, $schema::getTableName());
+        $this->fixtureSchema = $this->fixtureResolver->resolve($schema::getTableName());
 
         $tableDescription = $schema::getTableDescription();
         $result = [];

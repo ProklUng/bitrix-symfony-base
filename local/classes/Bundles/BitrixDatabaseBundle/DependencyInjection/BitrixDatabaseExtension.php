@@ -31,7 +31,7 @@ class BitrixDatabaseExtension extends Extension
 
         $container->setParameter(
             'bitrix_database_bundle_fixture_path',
-            $config['bitrix_database_bundle_fixture_path']
+            $config['fixture_path']
         );
 
         $container->setParameter(

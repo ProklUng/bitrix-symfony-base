@@ -12,7 +12,7 @@ use Local\Bundles\BitrixDatabaseBundle\Services\Generators\SentenceGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\UserIdGenerator;
 
 return [
-    //'PREVIEW_PICTURE' => ImageGenerator::class, // Сервис, помеченный тэгом fixture_generator.item.
+    // 'PREVIEW_PICTURE' => ImageGenerator::class, // Сервис, помеченный тэгом fixture_generator.item.
     //'DETAIL_PICTURE' => ImageGenerator::class,
 //    'CREATED_BY' => UserIdGenerator::class,
 //    'MODIFIED_BY' => UserIdGenerator::class,

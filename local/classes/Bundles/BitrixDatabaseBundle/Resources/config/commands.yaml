@@ -7,7 +7,7 @@ services:
   # Команды
   ##########
 
-  # Наполнение таблицы фикстурой.
+  # Наполнение кастомной таблицы фикстурой.
   bitrix_database_bundle.command_seed_database:
     class: Local\Bundles\BitrixDatabaseBundle\Command\SeedDatabaseCommand
     arguments:
@@ -32,3 +32,12 @@ services:
       - '@bitrix_database_bundle.iblock_element_eraser'
     tags:
       - { name: console.command, comand: migrator:elements }
+
+  # Наполнение hl-инфоблока элементами.
+  bitrix_database_bundle.command_seed_hl_elements:
+    class: Local\Bundles\BitrixDatabaseBundle\Command\SeedHlElementsCommand
+    arguments:
+      - '@bitrix_database_bundle.hl_element_generator'
+      - '@bitrix_database_bundle.hl_manager'
+    tags:
+      - { name: console.command, comand: migrator:elements-hl }

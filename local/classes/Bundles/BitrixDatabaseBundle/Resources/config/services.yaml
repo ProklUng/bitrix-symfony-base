@@ -11,7 +11,7 @@ services:
   # Генератор элементов кастомных таблиц.
   bitrix_database_bundle.fixture_generator:
     class: Local\Bundles\BitrixDatabaseBundle\Services\FixtureGenerator
-    arguments: [!tagged_locator { tag: 'fixture_generator.item' }, '%bitrix_database_bundle_fixture_path%']
+    arguments: [!tagged_locator { tag: 'fixture_generator.item' }, '@bitrix_database_bundle.fixture_resolver']
 
   # Генератор элементов и разделов инфоблока.
   bitrix_database_bundle.element_generator:
@@ -21,8 +21,8 @@ services:
       - '@bitrix_database_bundle.standart_element_mapper'
       - '@bitrix_database_bundle.default_properties_processor'
       - '@bitrix_database_bundle.iblock_sections_manager'
+      - '@bitrix_database_bundle.fixture_resolver'
       - '%bitrix_database_bundle_ignore_errors%'
-      - '%bitrix_database_bundle_fixture_path%'
 
   # Генератор элементов hl-инфоблока.
   bitrix_database_bundle.hl_element_generator:
@@ -31,8 +31,8 @@ services:
       - !tagged_locator { tag: 'fixture_generator.item' }
       - '@bitrix_database_bundle.default_properties_processor'
       - '@bitrix_database_bundle.hl_manager'
+      - '@bitrix_database_bundle.fixture_resolver'
       - '%bitrix_database_bundle_ignore_errors%'
-      - '%bitrix_database_bundle_fixture_path%'
 
   ##############
   # Инструменты
@@ -75,11 +75,17 @@ services:
     class: Local\Bundles\BitrixDatabaseBundle\Services\SeedDatabase
     arguments: [!tagged_locator { tag: 'bitrix_custom_table' }]
 
-  # Наполнение hl-инфоблока элементами.
-  bitrix_database_bundle.command_seed_hl_elements:
-    class: Local\Bundles\BitrixDatabaseBundle\Command\SeedHlElementsCommand
+  bitrix_database_bundle.finder_files:
+    class: Symfony\Component\Finder\Finder
+
+ # Локатор классов-фикстур.
+  bitrix_database_bundle.fixture_class_locator:
+    class: Local\Bundles\BitrixDatabaseBundle\Services\Utils\FixtureClassLocator
+    arguments: ['@bitrix_database_bundle.finder_files', '%bitrix_database_bundle_fixture_path%']
+
+  # Комплексный загрузчик фикстур.
+  bitrix_database_bundle.fixture_resolver:
+    class: Local\Bundles\BitrixDatabaseBundle\Services\Utils\FixtureResolver
     arguments:
-      - '@bitrix_database_bundle.hl_element_generator'
-      - '@bitrix_database_bundle.hl_manager'
-    tags:
-      - { name: console.command, comand: migrator:elements-hl }
+        - '@bitrix_database_bundle.fixture_class_locator'
+        - '%bitrix_database_bundle_fixture_path%'

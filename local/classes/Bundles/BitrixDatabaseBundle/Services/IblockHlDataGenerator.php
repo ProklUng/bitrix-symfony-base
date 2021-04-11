@@ -8,6 +8,7 @@ use Bitrix\Main\SystemException;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\HighloadBlock;
 use Local\Bundles\BitrixDatabaseBundle\Services\Traits\DataGeneratorTrait;
+use Local\Bundles\BitrixDatabaseBundle\Services\Utils\FixtureResolver;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
 /**
@@ -18,8 +19,6 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
  */
 class IblockHlDataGenerator
 {
-    use DataGeneratorTrait;
-
     /**
      * @var ServiceLocator $locator Сервисы, помеченные тэгом fixture_generator.item.
      */
@@ -29,11 +28,6 @@ class IblockHlDataGenerator
      * @var string $iblockCode Код инфоблока.
      */
     private $iblockCode;
-
-    /**
-     * @var array $fixturePaths
-     */
-    private $fixturePaths;
 
     /**
      * @var HighloadBlock $highloadBlock
@@ -51,25 +45,30 @@ class IblockHlDataGenerator
     private $ignoreErrors;
 
     /**
+     * @var FixtureResolver $fixtureResolver Ресолвер фикстур.
+     */
+    private $fixtureResolver;
+
+    /**
      * IblockHlDataGenerator constructor.
      *
-     * @param ServiceLocator                  $locator       Сервисы, помеченные тэгом fixture_generator.item.
-     * @param DefaultPropertiesValueProcessor $elementMapper Маппер по умолчанию.
-     * @param HighloadBlock                   $highloadBlock High-load block manager.
-     * @param boolean                         $ignoreErrors  Игнорировать ошибки.
-     * @param array                           $fixturePaths  Пути к фикстурам.
+     * @param ServiceLocator                  $locator         Сервисы, помеченные тэгом fixture_generator.item.
+     * @param DefaultPropertiesValueProcessor $elementMapper   Маппер по умолчанию.
+     * @param HighloadBlock                   $highloadBlock   High-load block manager.
+     * @param FixtureResolver                 $fixtureResolver Ресолвер фикстур.
+     * @param boolean                         $ignoreErrors    Игнорировать ошибки.
      */
     public function __construct(
         ServiceLocator $locator,
         DefaultPropertiesValueProcessor $elementMapper,
         HighloadBlock $highloadBlock,
-        bool $ignoreErrors = false,
-        array $fixturePaths = []
+        FixtureResolver $fixtureResolver,
+        bool $ignoreErrors = false
     ) {
         $this->locator = $locator;
-        $this->fixturePaths = $fixturePaths;
         $this->highloadBlock = $highloadBlock;
         $this->elementMapper = $elementMapper;
+        $this->fixtureResolver = $fixtureResolver;
         $this->ignoreErrors = $ignoreErrors;
     }
 
@@ -90,7 +89,7 @@ class IblockHlDataGenerator
 
         // Поля из фикстуры.
         // Принцип именования файла с фикстурой: код hl-блока.php.
-        $fixtureSchema = $this->loadFixtureFromFile($this->fixturePaths, $this->iblockCode);
+        $fixtureSchema = $this->fixtureResolver->resolve($this->iblockCode);
         $resultSchema = array_merge($defaultProps, $fixtureSchema);
 
         $resultFixture = $this->resolveGeneratorsFromLocator($resultSchema, $this->iblockCode);

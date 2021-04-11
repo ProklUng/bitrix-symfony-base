@@ -2,6 +2,7 @@
 
 namespace Local\Bundles\BitrixDatabaseBundle\Samples\Fixtures;
 
+use Local\Bundles\BitrixDatabaseBundle\Services\Annotations\FieldParams;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureInterface;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\EnumGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\ImageGenerator;
@@ -25,6 +26,14 @@ class ContentCommonFixture implements FixtureInterface
 
     /**
      * @inheritDoc
+     * @FieldParams(
+     *    params={
+     *     "PREVIEW_PICTURE"= { "width"=400 },
+     *     "PROPERTY_VALUES" = {
+     *          "STRING"= { "length"=22 }
+     *      }
+     *    }
+     * )
      */
     public function fixture() : array {
         return [

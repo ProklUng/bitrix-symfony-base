@@ -88,4 +88,5 @@ services:
     class: Local\Bundles\BitrixDatabaseBundle\Services\Utils\FixtureResolver
     arguments:
         - '@bitrix_database_bundle.fixture_class_locator'
+        - '@annotations.reader'
         - '%bitrix_database_bundle_fixture_path%'

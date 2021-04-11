@@ -62,9 +62,26 @@ class FixtureClassLocator
             }
         }
 
-        throw new LogicException(
-            'Фикстура по id ' . $fixtureId . ' не найдена.'
-        );
+        $this->throwError($fixtureId);
+    }
+
+    /**
+     * Класс фикстуры.
+     *
+     * @param string $fixtureId ID фикстуры.
+     *
+     * @return string
+     * @throws LogicException Фикстура не найдена.
+     */
+    public function getFixtureClass(string $fixtureId) : string
+    {
+        foreach ($this->fixtures as $fixtureItem) {
+            if ($fixtureItem->id() === $fixtureId) {
+                return get_class($fixtureItem);
+            }
+        }
+
+        $this->throwError($fixtureId);
     }
 
     /**
@@ -77,15 +94,33 @@ class FixtureClassLocator
         $result = [];
 
         foreach ($this->fixtureDirectories as $dir) {
-            $iter = new ClassIterator(
+            $iterator = new ClassIterator(
                 $this->finder->in($_SERVER['DOCUMENT_ROOT'] . $dir)
             );
 
-            foreach ($iter->type('Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureInterface') as $classname => $splFileInfo) {
+            foreach ($iterator->type(
+                'Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureInterface'
+            ) as $classname => $splFileInfo) {
                 $result[] = new $classname;
             }
         }
 
         return $result;
+    }
+
+    /**
+     * Выбросить ошибку.
+     *
+     * @param string $fixtureId ID фикстуры.
+     *
+     * @return void
+     *
+     * @throws LogicException
+     */
+    private function throwError(string $fixtureId) : void
+    {
+        throw new LogicException(
+            'Фикстура по id ' . $fixtureId . ' не найдена.'
+        );
     }
 }

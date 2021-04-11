@@ -50,6 +50,11 @@ class StringGenerator extends AbstractGenerator
      */
     public function generate(?array $payload = null)
     {
+        if (array_key_exists('length', $payload['params'])) {
+            $text = $this->faker->sentence($payload['params']['length']);
+            return substr($text, 0, $payload['params']['length']);
+        }
+
         if (array_key_exists('length', $this->params)
             ||
             $this->maxLength === $this->minLength

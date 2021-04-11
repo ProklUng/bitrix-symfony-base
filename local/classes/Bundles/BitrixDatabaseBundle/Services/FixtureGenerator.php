@@ -74,12 +74,13 @@ class FixtureGenerator
         }
 
         $this->fixtureSchema = $this->fixtureResolver->resolve($schema::getTableName());
+        $fixtureParams = $this->fixtureResolver->getResolvedParams();
 
         $tableDescription = $schema::getTableDescription();
         $result = [];
 
         for ($i = 1; $i<= $count; $i++) {
-            $result[] = $this->getFixtureItemFromDescription($tableDescription);
+            $result[] = $this->getFixtureItemFromDescription($tableDescription, $fixtureParams);
         }
 
         return $result;
@@ -89,11 +90,12 @@ class FixtureGenerator
      * Строка БД для фикстуры.
      *
      * @param array $schema Схема.
+     * @param array $params Параметры из аннотации фикстуры.
      *
      * @return array
      * @throws RuntimeException | InvalidArgumentException | Exception
      */
-    private function getFixtureItemFromDescription(array $schema) : array
+    private function getFixtureItemFromDescription(array $schema, array $params = []) : array
     {
         $result = [];
         /** @var array $fieldData */
@@ -110,7 +112,12 @@ class FixtureGenerator
                 if ($this->locator->has($serviceId)) {
                     /** @var FixtureGeneratorInterface $generator */
                     $generator = $this->locator->get($serviceId);
-                    $payload = ['field' => $nameField];
+                    $payload = [
+                        'field' => $nameField,
+                        // Применение параметров из аннотации фикстуры.
+                        'params' => array_key_exists($nameField, $params) ? $params[$nameField] : []
+                    ];
+
                     $result[$nameField] = $generator->generate($payload);
                     continue;
                 }

@@ -39,6 +39,8 @@ class SentenceGenerator extends AbstractGenerator
             return $this->faker->sentence((int)$this->params['words']);
         }
 
+        $this->params = [];
+
         return $this->faker->sentence();
     }
 }

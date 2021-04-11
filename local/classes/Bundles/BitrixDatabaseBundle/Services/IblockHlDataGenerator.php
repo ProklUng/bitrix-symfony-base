@@ -8,6 +8,7 @@ use Bitrix\Main\SystemException;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureGeneratorInterface;
 use Local\Bundles\BitrixDatabaseBundle\Services\Iblocks\HighloadBlock;
 use Local\Bundles\BitrixDatabaseBundle\Services\Utils\FixtureResolver;
+use ReflectionException;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
 /**
@@ -77,6 +78,7 @@ class IblockHlDataGenerator
      * @return array
      *
      * @throws ArgumentException | ObjectPropertyException | SystemException
+     * @throws ReflectionException
      */
     public function generate(array $payload = []) : array
     {
@@ -89,9 +91,11 @@ class IblockHlDataGenerator
         // Поля из фикстуры.
         // Принцип именования файла с фикстурой: код hl-блока.php.
         $fixtureSchema = $this->fixtureResolver->resolve($this->iblockCode);
+        $fixtureParams = $this->fixtureResolver->getResolvedParams();
+
         $resultSchema = array_merge($defaultProps, $fixtureSchema);
 
-        $resultFixture = $this->resolveGeneratorsFromLocator($resultSchema, $this->iblockCode);
+        $resultFixture = $this->resolveGeneratorsFromLocator($resultSchema, $this->iblockCode, $fixtureParams);
 
         $result[] = $this->addElement($this->iblockCode, $resultFixture);
 
@@ -132,10 +136,11 @@ class IblockHlDataGenerator
      *
      * @param array  $data       Данные.
      * @param string $iblockCode ID инфоблока.
+     * @param array  $params     Параметры из аннотации фикстуры.
      *
      * @return array
      */
-    private function resolveGeneratorsFromLocator(array $data, string $iblockCode) : array
+    private function resolveGeneratorsFromLocator(array $data, string $iblockCode, array $params = []) : array
     {
         $result = [];
 
@@ -145,7 +150,15 @@ class IblockHlDataGenerator
             if ($this->locator->has($serviceId)) {
                 /** @var FixtureGeneratorInterface $generator */
                 $generator = $this->locator->get($serviceId);
-                $payload = ['field' => $nameField, 'hlblock_code' => $iblockCode, 'ignore_errors' => $this->ignoreErrors];
+
+                $payload = [
+                    'field' => $nameField,
+                    'hlblock_code' => $iblockCode,
+                    'ignore_errors' => $this->ignoreErrors,
+                    // Применение параметров из аннотации фикстуры.
+                    'params' => array_key_exists($nameField, $params) ? $params[$nameField] : []
+                ];
+
                 $result[$nameField] = $generator->generate($payload);
                 continue;
             }

@@ -28,3 +28,9 @@ php bin/console migrator:elements-hl ExampleHighload --truncate=true --count=5
 Кастомная таблица. Очищать элементы, 5 элементов.
 
 php bin/console migrator:seed d_ah_news --truncate=true --count=5
+
+###################
+
+Случайные пользователи. Сначала удалять всех, 5 пользователей с номерами телефонов в качестве логина.
+
+php bin/console migrator:users --truncate=true --count=5 --phone=true

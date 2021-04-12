@@ -97,7 +97,7 @@ class IblockHlDataGenerator
 
         $resultFixture = $this->resolveGeneratorsFromLocator($resultSchema, $this->iblockCode, $fixtureParams);
 
-        $result[] = $this->addElement($this->iblockCode, $resultFixture);
+        $result[] = $this->highloadBlock->addElement($this->iblockCode, $resultFixture);
 
         return $result;
     }
@@ -112,23 +112,6 @@ class IblockHlDataGenerator
         $this->iblockCode = $iblockCode;
 
         return $this;
-    }
-
-    /**
-     * Добавляет элемент инфоблока.
-     *
-     * @param string $code   ID инфоблока.
-     * @param array  $fields Поля.
-     *
-     * @return integer
-     * @throws ArgumentException | ObjectPropertyException | SystemException
-     */
-    private function addElement(string $code, array $fields = []): int
-    {
-        return $this->highloadBlock->addElement(
-            $code,
-            $fields
-        );
     }
 
     /**

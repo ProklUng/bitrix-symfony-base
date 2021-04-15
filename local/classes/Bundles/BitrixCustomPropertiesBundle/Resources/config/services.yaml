@@ -69,6 +69,15 @@ services:
     tags:
       - { name: bitrix.uf.property.type }
 
+  # UF HTML поле с визуальным редактором.
+  Local\Bundles\BitrixCustomPropertiesBundle\Services\CustomProperties\UFVisualEditor:
+    tags:
+      - { name: bitrix.uf.property.type }
+
+  ###########
+  # Сервисы
+  ##########
+
   # Инициализатор кастомных пользовательских (UF) свойств.
   Local\Bundles\BitrixCustomPropertiesBundle\Services\PropertiesProcessor\CustomUfPropertiesProcessor:
     class: Local\Bundles\BitrixCustomPropertiesBundle\Services\PropertiesProcessor\CustomUfPropertiesProcessor

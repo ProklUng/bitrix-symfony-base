@@ -59,6 +59,7 @@ use Symfony\Component\Validator\ObjectInitializerInterface;
  * @since 20.03.2021 Поддержка разных форматов (Yaml, php, xml) конфигурации контейнера. Удаление ExtraFeature
  * внутрь соответствующего класса.
  * @since 04.04.2021 Вынес стандартные compile pass Symfony в отдельный класс.
+ * @since 14.04.2021 Метод boot бандлов вызывается теперь после компиляции контейнера.
  */
 class ServiceProvider
 {
@@ -541,11 +542,12 @@ class ServiceProvider
                 static::$containerBuilder->get('kernel')->getKernelParameters()
             );
 
-            // Boot bundles.
-            $this->bundlesLoader->boot(static::$containerBuilder);
             $this->bundlesLoader->registerExtensions(static::$containerBuilder);
 
             static::$containerBuilder->compile(true);
+
+            // Boot bundles.
+            $this->bundlesLoader->boot(static::$containerBuilder);
         } catch (Exception $e) {
             $this->errorHandler->die(
                 $e->getMessage().'<br><br><pre>'.$e->getTraceAsString().'</pre>'

@@ -27,4 +27,5 @@ return [
     // Local\Bundles\BitrixUtilsBundle\BitrixUtilsBundle::class => ['all' => true],
     Local\Bundles\RequestValidatorBundle\RequestValidatorBundle::class => ['all' => true],
     Local\Bundles\BitrixDatabaseBundle\BitrixDatabaseBundle::class => ['all' => true],
+    Local\Bundles\FacadeBundle\FacadeBundle::class => ['all' => true],
 ];

@@ -657,7 +657,7 @@ class CIBlockPropertyCProp implements IblockPropertyTypeNativeInterface
         $showText = 'Показать';
         $hideText = 'Свернуть';
 
-        CJSCore::Init(['jquery']);
+        CJSCore::Init(['jquery2']);
         if (!self::$showedJs) {
             self::$showedJs = true;
             ?>
@@ -747,7 +747,7 @@ class CIBlockPropertyCProp implements IblockPropertyTypeNativeInterface
      */
     private static function showJsForSetting(string $inputName) : void
     {
-        CJSCore::Init(['jquery']);
+        CJSCore::Init(['jquery2']);
         ?>
       <script>
           function addNewRows () {

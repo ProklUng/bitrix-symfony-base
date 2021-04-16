@@ -1,0 +1,29 @@
+<?php
+
+namespace {{ namespace }};
+
+use Local\ServiceProvider\Micro\AbstractStandaloneServiceProvider;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+
+/**
+ * Class {{ module_class_service_provider }}Provider
+ * Сервис-провайдер для модуля.
+ */
+class {{ module_class_service_provider }}Provider extends AbstractStandaloneServiceProvider
+{
+    /**
+     * @var ContainerBuilder $containerBuilder Контейнер.
+     */
+    protected static $containerBuilder;
+
+    /**
+     * @var string $pathBundlesConfig Путь к конфигурации бандлов.
+     */
+    protected $pathBundlesConfig = '/local/modules/{{ module_id }}/lib/standalone_bundles.php';
+
+    /**
+     * @var string $configDir Папка, где лежат конфиги.
+     */
+    protected $configDir = '/local/modules/{{ module_id }}/config/';
+
+}

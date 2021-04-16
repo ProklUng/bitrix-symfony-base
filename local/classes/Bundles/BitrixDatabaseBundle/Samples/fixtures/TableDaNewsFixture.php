@@ -2,6 +2,7 @@
 
 namespace Local\Bundles\BitrixDatabaseBundle\Samples\Fixtures;
 
+use Local\Bundles\BitrixDatabaseBundle\Services\Annotations\FieldParams;
 use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureInterface;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\HtmlGenerator;
 use Local\Bundles\BitrixDatabaseBundle\Services\Generators\ImageIdGenerator;
@@ -24,6 +25,12 @@ class TableDaNewsFixture implements FixtureInterface
 
     /**
      * @inheritDoc
+     *
+     * @FieldParams(
+     *    params={
+     *     "TITLE"= { "length"=20 },
+     *    }
+     * )
      */
     public function fixture() : array {
         return [

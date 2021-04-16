@@ -1,0 +1,13 @@
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_admin_before.php';
+
+use Local\Services\Bitrix\Modules\Module;
+
+// @todo: Здесь - какой-то системный код, читающие данные и всё такое
+
+require_once $_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/prolog_admin_after.php';
+
+$module = Module::getModuleInstance('{{ module_id }}');
+$module->showOptionsForm();
+
+require_once $_SERVER['DOCUMENT_ROOT'].'/bitrix/modules/main/include/epilog_admin.php';

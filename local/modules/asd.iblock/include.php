@@ -28,7 +28,7 @@ $arJSAsdIBlockConfig = [
 	'asd_iblock' => [
 		'js' => '/local/modules/asd.iblock/install/js/asd.iblock/script.js',
 		'css' => '/local/modules/asd.iblock/install/panel/asd.iblock/interface.css',
-		'rel' => ['jquery'],
+		'rel' => ['jquery2'],
     ],
 	'asd_element_list' => [
 		'js' => '/bitrix/js/asd.iblock/admin/elementlist.js',
@@ -38,7 +38,7 @@ $arJSAsdIBlockConfig = [
 	'asd_palette' => [
 		'js' => '/local/modules/asd.iblock/install/js/asd.iblock/jpicker/jpicker-1.1.6.min.js',
 		'css' => '/local/modules/asd.iblock/install/js/asd.iblock/jpicker/css/jPicker-1.1.6.min.css',
-		'rel' => ['jquery'],
+		'rel' => ['jquery2'],
     ],
 ];
 

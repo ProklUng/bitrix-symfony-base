@@ -110,13 +110,15 @@ class IblockDataGenerator
         $this->iblockId = $this->getIdIblock($this->iblockCode, $this->iblockType);
         // Принцип именования файла с фикстурой: тип инфоблока.код инфоблока.php.
         $fixtureSchema = $this->fixtureResolver->resolve($this->iblockType . '.' . $this->iblockCode);
+        $fixtureParams = $this->fixtureResolver->getResolvedParams();
 
         // Генераторы свойство по умолчанию.
         $propsDefault = $this->defaultPropertiesValueProcessor->getMap($this->iblockId);
         $this->elementMap['PROPERTY_VALUES'] = array_merge($propsDefault, (array)$this->elementMap['PROPERTY_VALUES']);
 
         $result = $this->resolveGeneratorsFromLocator($this->elementMap, $this->iblockId);
-        $resultFixture = $this->resolveGeneratorsFromLocator($fixtureSchema, $this->iblockId);
+        // Параметры из аннотаций фикстуры применяются только к фикстуре в ыиде файла.
+        $resultFixture = $this->resolveGeneratorsFromLocator($fixtureSchema, $this->iblockId, $fixtureParams);
 
         $resultFixture['PROPERTY_VALUES'] = array_merge((array)$result['PROPERTY_VALUES'], (array)$resultFixture['PROPERTY_VALUES']);
         $result = array_merge($result, $resultFixture);
@@ -279,19 +281,34 @@ class IblockDataGenerator
     /**
      * @param array   $data     Данные.
      * @param integer $iblockId ID инфоблока.
+     * @param array   $params   Параметры из аннотации фикстуры.
+     *
      * @return array
      */
-    private function resolveGeneratorsFromLocator(array $data, int $iblockId) : array
+    private function resolveGeneratorsFromLocator(array $data, int $iblockId, array $params = []) : array
     {
         $result = [];
 
         foreach ($data as $nameField => $item) {
+            if ($nameField === 'PROPERTY_VALUES') {
+                continue;
+            }
+
             $serviceId = $data[$nameField];
             if ($this->locator->has($serviceId)) {
                 /** @var FixtureGeneratorInterface $generator */
                 $generator = $this->locator->get($serviceId);
-                $payload = ['field' => $nameField, 'iblock_id' => $iblockId, 'ignore_errors' => $this->ignoreErrors];
+
+                $payload = [
+                    'field' => $nameField,
+                    'iblock_id' => $iblockId,
+                    'ignore_errors' => $this->ignoreErrors,
+                    // Применение параметров из аннотации фикстуры.
+                    'params' => array_key_exists($nameField, $params) ? $params[$nameField] : []
+                ];
+
                 $result[$nameField] = $generator->generate($payload);
+
                 continue;
             }
 
@@ -300,7 +317,11 @@ class IblockDataGenerator
         }
 
         if (array_key_exists('PROPERTY_VALUES', $data) && is_array($data['PROPERTY_VALUES'])) {
-            $result['PROPERTY_VALUES'] = $this->resolveGeneratorsFromLocator($data['PROPERTY_VALUES'], $iblockId);
+            $result['PROPERTY_VALUES'] = $this->resolveGeneratorsFromLocator(
+                $data['PROPERTY_VALUES'],
+                $iblockId,
+                (array)$params['PROPERTY_VALUES']
+            );
         }
 
         return $result;

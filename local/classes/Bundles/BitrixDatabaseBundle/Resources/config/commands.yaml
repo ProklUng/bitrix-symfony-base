@@ -41,3 +41,11 @@ services:
       - '@bitrix_database_bundle.hl_manager'
     tags:
       - { name: console.command, comand: migrator:elements-hl }
+
+  # Генерация пользователей.
+  bitrix_database_bundle.command_seed_users:
+    class: Local\Bundles\BitrixDatabaseBundle\Command\SeedUsersCommand
+    arguments:
+      - '@bitrix_database_bundle.users_generator'
+    tags:
+      - { name: console.command, comand: migrator:users }

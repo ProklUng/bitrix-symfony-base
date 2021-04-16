@@ -34,13 +34,31 @@ services:
       - '@bitrix_database_bundle.fixture_resolver'
       - '%bitrix_database_bundle_ignore_errors%'
 
+  # Генератор пользователей.
+  bitrix_database_bundle.users_generator:
+    class: Local\Bundles\BitrixDatabaseBundle\Services\UserGenerator
+    arguments:
+      - '@bitrix_database_bundle.bitrix_cuser'
+      - '@bitrix_database_bundle.bitrix_cgroup'
+
   ##############
   # Инструменты
   ##############
 
   # Битриксовый CIBlockPropertyEnum
   bitrix_database_bundle.bitrix_property_enums:
+    public: false
     class: CIBlockPropertyEnum
+
+  # Битриксовый CUSER.
+  bitrix_database_bundle.bitrix_cuser:
+    public: false
+    class: CUser
+
+  # Битриксовый CGroup.
+  bitrix_database_bundle.bitrix_cgroup:
+    public: false
+    class: CGroup
 
   # Обработчики полей элементов и подразделов по умолчанию.
   bitrix_database_bundle.standart_element_mapper:
@@ -88,4 +106,5 @@ services:
     class: Local\Bundles\BitrixDatabaseBundle\Services\Utils\FixtureResolver
     arguments:
         - '@bitrix_database_bundle.fixture_class_locator'
+        - '@annotations.reader'
         - '%bitrix_database_bundle_fixture_path%'

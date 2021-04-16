@@ -67,8 +67,14 @@ class ImageGenerator extends AbstractGenerator
     public function generate(?array $payload = null)
     {
         $this->ignoreErrors = $payload['ignore_errors'];
+        $width = array_key_exists('width', $payload['params'])
+                                    ? $payload['params']['width'] : $this->width;
 
-        $imageUrl = $this->faker->picsumStaticRandomUrl($this->width, $this->height);
+        $height = array_key_exists('height', $payload['params'])
+                                    ? $payload['params']['height'] : $this->height;
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        $imageUrl = $this->faker->picsumStaticRandomUrl($width, $height);
 
         return $this->generatePhotoFromLink($imageUrl);
     }

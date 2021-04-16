@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  # Событие запуска отложенных событий по OnEpilog.
+  framework_extension.on_epilog_flush_events_listener:
+    class: Local\Bundles\FrameworkExtensionBundle\Services\Bitrix\OnEpilogFlushListener
+    arguments:
+      - '@delayed.event.dispatcher'
+    tags:
+      - { name: bitrix.events.init, module: main, event: OnEpilog, method: handle, sort: 0 }

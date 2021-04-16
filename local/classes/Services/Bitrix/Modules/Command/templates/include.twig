@@ -1,0 +1,13 @@
+<?php
+use Bitrix\Main\Loader;
+
+Loader::registerAutoLoadClasses('{{ module_id }}',
+    array(
+        {% if generate_micro_serviceprovider %}
+        '{{ namespace }}\{{ module_class_service_provider }}Provider' => 'lib/ModuleServiceProvider.php',
+        {% endif %}
+        {% if generate_entity %}
+        '{{ namespace }}\ModuleTable' => 'lib/moduletable.php',
+        {% endif %}
+    )
+);

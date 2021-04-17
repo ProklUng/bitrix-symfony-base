@@ -102,8 +102,7 @@ trait ModuleUtilsTrait
             return true;
         }
 
-        if (Loader::includeModule($this->MODULE_ID))
-        {
+        if (Loader::includeModule($this->MODULE_ID)) {
             $tableName = $this->MODULE_TABLE_ENTITY::getTableName();
             if (!Application::getConnection()->isTableExists($tableName)) {
                 $this->MODULE_TABLE_ENTITY::getEntity()->createDbTable();
@@ -124,7 +123,7 @@ trait ModuleUtilsTrait
         }
 
         if ($this->MODULE_TABLE_ENTITY === '') {
-            return;
+            return true;
         }
 
         if (Loader::includeModule($this->MODULE_ID))
@@ -162,10 +161,10 @@ trait ModuleUtilsTrait
             CopyDirFiles($components, Application::getDocumentRoot() . "/bitrix/components/{$this->getVendor()}/", true, true);
         }
 
-        // Files will be copied into /bitrix/admin/MODULE_ID/files/
+        // Files will be copied into /bitrix/admin/MODULE_ID/
         $files = $this->GetModuleDir().'/install/files';
         if (Directory::isDirectoryExists($files)) {
-            CopyDirFiles($files, Application::getDocumentRoot() . "/bitrix/admin/{$this->MODULE_ID}/files/", true, true);
+            CopyDirFiles($files, Application::getDocumentRoot() . "/bitrix/admin/{$this->MODULE_ID}/", true, true);
         }
 
         // Если не указаны пути, то пытается по умолчанию рекурсивно копирнуть файлы из /install/admin
@@ -198,7 +197,7 @@ trait ModuleUtilsTrait
         // Файлы.
         $files = Application::getDocumentRoot() . "/bitrix/admin/{$this->MODULE_ID}/files/";
         if (Directory::isDirectoryExists($files)) {
-            Directory::deleteDirectory(Application::getDocumentRoot() . "/bitrix/admin/{$this->MODULE_ID}/files/");
+            Directory::deleteDirectory(Application::getDocumentRoot() . "/bitrix/admin/{$this->MODULE_ID}/");
         }
 
         foreach ($this->INSTALL_PATHS as $to) {

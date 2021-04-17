@@ -4,14 +4,20 @@ namespace Local\Services\Bitrix\Modules;
 
 use Bitrix\Main\Application;
 use Bitrix\Main\ArgumentNullException;
+use Bitrix\Main\ArgumentOutOfRangeException;
+use Bitrix\Main\Config\Option;
+use Bitrix\Main\IO\Directory;
 use Bitrix\Main\Loader;
 use Bitrix\Main\ModuleManager;
+use function CopyDirFiles;
 
 /**
  * Trait ModuleUtilsTrait
  * @package Local\Services\Bitrix\Modules
  *
  * @since 14.04.2021
+ * @since 17.04.2021 Копирование компонентов и файлов при установке. При инсталляции модуля в первую
+ * очередь ищется sql файл и только, если он не найден, приступает к сущности.
  */
 trait ModuleUtilsTrait
 {
@@ -84,6 +90,13 @@ trait ModuleUtilsTrait
 
     public function installDB()
     {
+        $result = $this->installDbBatch();
+
+        // Если не null, то уже нашли и пусканули создание таблицы из файла.
+        if ($result !== null) {
+            return true;
+        }
+
         // Не задана необходимость генерировать таблицу.
         if ($this->MODULE_TABLE_ENTITY === '') {
             return true;
@@ -104,6 +117,12 @@ trait ModuleUtilsTrait
 
     public function uninstallDB()
     {
+        $result = $this->uninstallDbBatch();
+        // Если не null, то уже нашли и пусканули создание таблицы из файла.
+        if ($result !== null) {
+            return true;
+        }
+
         if ($this->MODULE_TABLE_ENTITY === '') {
             return;
         }
@@ -131,16 +150,28 @@ trait ModuleUtilsTrait
     /**
      * Install module files.
      *
-     * In production mode recursively copy all files in directories passed to $this->INSTALL_PATHS
-     * In development mode create symlink defined in $this->DEV_LINKS.
-     *
      * @return void
      */
     public function installFiles(): void
     {
+        // Components path mask: MODULE_PATH/install/components/MODULE_NAME.COMPONENT_NAME
+        // Where MODULE_NAME in module '[vendor].[module]' is '[module]'
+        // @see - https://github.com/detrenasama/bitrix-module-core/blob/master/skel/vendor.modulename/src/Core/Installer.php
+        $components = $this->GetModuleDir().'/install/components';
+        if (Directory::isDirectoryExists($components)) {
+            CopyDirFiles($components, Application::getDocumentRoot() . "/bitrix/components/{$this->getVendor()}/", true, true);
+        }
+
+        // Directories will be copied into /bitrix/DIRECTORY_NAME/MODULE_ID/
+        $files = \glob($this->GetModuleDir().'/install/files/*/');
+        foreach ($files as $dir) {
+            $basename = \basename($dir);
+            CopyDirFiles($dir, Application::getDocumentRoot() . "/bitrix/{$basename}/{$this->MODULE_ID}/", true, true);
+        }
+
         // Если не указаны пути, то пытается по умолчанию рекурсивно копирнуть файлы из /install/admin
         if (count($this->INSTALL_PATHS) === 0) {
-            $srcPath = $_SERVER['DOCUMENT_ROOT']. '/local/modules/' . $this->MODULE_ID . '/install/admin';
+            $srcPath = $this->getModuleDir() . '/install/admin';
             $destPath = $_SERVER['DOCUMENT_ROOT']. '/bitrix/admin/';
             CopyDirFiles($srcPath, $destPath, true, true);
 
@@ -159,7 +190,20 @@ trait ModuleUtilsTrait
      */
     public function uninstallFiles(): void
     {
-        foreach ($this->INSTALL_PATHS as $from => $to) {
+        // Компоненты.
+        $components = \glob(Application::getDocumentRoot() . "/bitrix/components/{$this->getVendor()}/{$this->getModuleCode()}.*/");
+        foreach ($components as $dir) {
+            Directory::deleteDirectory($dir);
+        }
+
+        // Файлы.
+        $files = \glob($this->GetModuleDir() . '/install/files/*/');
+        foreach ($files as $dir) {
+            $basename = \basename($dir);
+            Directory::deleteDirectory(Application::getDocumentRoot()."/bitrix/{$basename}/{$this->MODULE_ID}");
+        }
+
+        foreach ($this->INSTALL_PATHS as $to) {
             if (is_file($_SERVER['DOCUMENT_ROOT'] . $to)) {
                 unlink($_SERVER['DOCUMENT_ROOT'] . $to);
                 continue;
@@ -224,5 +268,92 @@ trait ModuleUtilsTrait
             }
             rmdir($dir);
         }
+    }
+
+    /**
+     * Директория, где лежит модуль.
+     *
+     * @return string
+     */
+    private function getModuleDir() : string
+    {
+        return $_SERVER['DOCUMENT_ROOT']. '/local/modules/' . $this->MODULE_ID;
+    }
+
+    /**
+     * Вендор модуля.
+     *
+     * @return string
+     */
+    private function getVendor() : string
+    {
+        return (string) \substr($this->MODULE_ID, 0, \strpos($this->MODULE_ID, '.'));
+    }
+
+    /**
+     * @return string
+     */
+    private function getModuleCode() : string
+    {
+        return (string) \substr($this->MODULE_ID, \strpos($this->MODULE_ID, '.')+1);
+    }
+
+    /**
+     * Создание таблицы из sql файла.
+     *
+     * @return null|boolean Когда нет таких файлов - null, иначе результат операции.
+     * @throws ArgumentNullException | ArgumentOutOfRangeException Когда что-то пошло не так.
+     */
+    private function installDbBatch() : ?bool
+    {
+        global $APPLICATION, $DB;
+        $dbBatchFile = $_SERVER['DOCUMENT_ROOT'].'/local/modules/'.$this->MODULE_ID.'/install/batch/db/'
+            .strtolower($DB->type).'/install.sql';
+
+        if (!is_file($dbBatchFile)) {
+            return null;
+        }
+
+        $errors = $DB->RunSQLBatch($dbBatchFile);
+
+        if (is_array($errors)) {
+            $APPLICATION->ThrowException(implode(' ', $errors));
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Удаление таблицы посредством sql файла.
+     *
+     * @return null|boolean Когда нет таких файлов - null, иначе результат операции.
+     * @throws ArgumentNullException | ArgumentOutOfRangeException  Когда что-то пошло не так.
+     */
+    private function unInstallDbBatch() : ?bool
+    {
+        global $APPLICATION, $DB;
+
+        if (Option::get($this->MODULE_ID, 'UNINSTALL_SAVE_SETTINGS', 0)) {
+            return null;
+        }
+
+        $dbBatchFile = $_SERVER['DOCUMENT_ROOT'].'/local/modules/'.$this->MODULE_ID
+            .'/install/batch/db/'.strtolower($DB->type).'/uninstall.sql';
+
+        if (!is_file($dbBatchFile)) {
+            return null;
+        }
+
+        $errors = $DB->RunSQLBatch($dbBatchFile);
+
+        if (is_array($errors)) {
+            $APPLICATION->ThrowException(implode(' ', $errors));
+
+            return false;
+        }
+
+        return true;
     }
 }

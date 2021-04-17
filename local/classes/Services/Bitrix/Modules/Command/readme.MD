@@ -1,6 +1,6 @@
 ############################################
 
-php bin/console maker:module test.module fedy --entity=yes --admin=yes --serviceprovider=false
+php bin/console maker:module test.module fedy --entity=false --admin=false --serviceprovider=false
 
 Где test.module - название модуля, а fedy - вендор модуля.
 

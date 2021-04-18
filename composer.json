@@ -47,7 +47,6 @@
     "symfony/dependency-injection": "^4.4",
     "symfony/cache": "^5.1",
     "symfony/twig-bridge": "4.*",
-    "symfony/maker-bundle": "^1.26",
     "symfony/expression-language": "^5.2",
     "symfony/security-csrf": "^4.4",
     "symfony/framework-bundle": "^4.1",
@@ -109,7 +108,8 @@
     "psalm/plugin-symfony": "^2.1",
     "phpstan/phpstan-doctrine": "^0.12.26",
     "psalm/plugin-mockery": "^0.7.0",
-    "mmo/faker-images": "^0.3.0"
+    "mmo/faker-images": "^0.3.0",
+    "symfony/maker-bundle": "^1.26"
   },
   "autoload": {
     "psr-4": {

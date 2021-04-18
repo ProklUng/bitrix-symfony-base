@@ -1,4 +1,0 @@
-<?php
-
-$MESS['CKEDITOR_MODULE_MENU_TITLE'] = 'Меню';
-$MESS['CKEDITOR_MODULE_SUBMENU_TITLE'] = 'Подменю';

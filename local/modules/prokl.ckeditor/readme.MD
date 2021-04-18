@@ -12,7 +12,7 @@
 
 src/src/ckeditor.js
 
-Собрать: yarn run build или npm npm run-script build	
+Собрать: yarn run build или npm run-script build	
 
 Итоговый файл подключается модулем автоматически.
 

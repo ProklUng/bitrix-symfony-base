@@ -2,6 +2,7 @@
 
 namespace Local\Bundles\CkEditorBundle;
 
+use COption;
 use Local\Bundles\CkEditorBundle\DependencyInjection\CkEditorExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -13,9 +14,9 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 final class CkEditorBundle extends Bundle
 {
-   /**
-   * @inheritDoc
-   */
+    /**
+     * @inheritDoc
+     */
     public function getContainerExtension()
     {
         if ($this->extension === null) {
@@ -23,5 +24,16 @@ final class CkEditorBundle extends Bundle
         }
 
         return $this->extension;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function boot() : void
+    {
+        parent::boot();
+        if (COption::GetOptionString('iblock', 'use_htmledit') === 'Y') {
+            COption::SetOptionString('iblock', 'use_htmledit', 'N');
+        }
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
 use Bitrix\Main\Localization\Loc;
-use Local\Services\Bitrix\Modules\Module;
-use Local\Services\Bitrix\Modules\ModuleUtilsTrait;
+use ProklUng\Module\Boilerplate\Module;
+use ProklUng\Module\Boilerplate\ModuleUtilsTrait;
 
 Loc::loadMessages(__FILE__);
 

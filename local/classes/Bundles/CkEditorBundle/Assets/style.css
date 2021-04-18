@@ -1,0 +1,55 @@
+.ck-editor__editable_inline {
+    min-height: 200px;
+}
+
+.ck .c-medialib-item {
+    display: inline-block;
+    width: 55px;
+    height: 55px;
+    margin: 5px 0 0 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.ck .c-medialib-item:hover {
+    border: 1px solid #f00;
+}
+
+.ck .c-medialib-item img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.ck .c-medialib {
+    width: 305px; /* 5x3 55px*/
+    white-space: normal;
+    margin-bottom: 5px;
+}
+
+.ck .c-medialib-nav {
+    text-align: left;
+    margin: 5px 5px 0 5px;
+}
+
+.ck .c-medialib-nav select {
+    width: 150px;
+    margin-right: 2px;
+}
+
+.ck-content .text-tiny {
+    font-size: 0.7em;
+}
+
+.ck-content .text-small {
+    font-size: 0.85em;
+}
+
+.ck-content .text-big {
+    font-size: 1.4em;
+}
+
+.ck-content .text-huge {
+    font-size: 1.8em;
+}

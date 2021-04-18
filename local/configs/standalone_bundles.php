@@ -29,4 +29,5 @@ return [
     Local\Bundles\BitrixDatabaseBundle\BitrixDatabaseBundle::class => ['all' => true],
     Local\Bundles\FrameworkExtensionBundle\FrameworkExtensionBundle::class => ['all' => true],
     Local\Bundles\FacadeBundle\FacadeBundle::class => ['all' => true],
+    // Local\Bundles\CkEditorBundle\CkEditorBundle::class => ['all' => true],
 ];

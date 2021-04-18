@@ -121,19 +121,11 @@
     ]
   },
   "extra": {
+    "bitrix-dir": "bitrix",
     "installer-paths": {
-      "./local/modules/{$name}/": [
-        "type:bitrix-d7-module",
-        "type:bitrix-module"
-      ],
-      "./local/components/{$name}/": [
-        "type:bitrix-d7-component",
-        "type:bitrix-component"
-      ],
-      "./local/templates/{$name}/": [
-        "type:bitrix-d7-template",
-        "type:bitrix-theme"
-      ]
+      "./bitrix/modules/{$name}/": ["type:bitrix-d7-module", "type:bitrix-module"],
+      "./bitrix/components/{$name}/": ["type:bitrix-d7-component", "type:bitrix-component"],
+      "./bitrix/templates/{$name}/": ["type:bitrix-d7-template", "type:bitrix-theme"]
     }
   }
 }

@@ -133,7 +133,10 @@ class ResolverParamsController implements OnControllerRequestHandlerInterface
                 );
             }
 
-            if (is_subclass_of($controller, $classController)) {
+            if (is_subclass_of($controller, $classController)
+                ||
+                get_class($controller) === $classController
+            ) {
                 return true;
             }
         }

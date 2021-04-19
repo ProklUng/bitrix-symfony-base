@@ -2,14 +2,14 @@
 simple_static_page:
   path: /simple_page/
   methods: [GET]
-  controller: 'Local\Bundles\StaticPageMakerBundle\Services\TemplateControllerContainerAware::templateAction'
+  controller: 'Prokl\StaticPageMakerBundle\Services\TemplateControllerContainerAware::templateAction'
   defaults:
     template:  './static/example2.twig'
     context:
       url: /simple_page/
       # Препроцессоры контекста.
       _processors:
-        - '@Local\Bundles\StaticPageMakerBundle\Services\ContextProcessors\ExampleContextProcessor'
+        - '@Prokl\StaticPageMakerBundle\Services\ContextProcessors\ExampleContextProcessor'
       # Сервис как параметр
       options: '@app.options'
       site_name: 'Example site'

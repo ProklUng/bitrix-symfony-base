@@ -30,18 +30,19 @@ services:
     class: Local\Bundles\CustomArgumentResolverBundle\ArgumentsResolver\RequestBodyArgumentResolver
     arguments:
       - '@annotations.cached_reader'
-      - '@Symfony\Component\HttpKernel\Controller\ControllerResolver'
+      - '@Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver'
       - '@serializer'
       - '@custom_arguments_resolvers.validator_request'
     tags:
       - { name: controller.argument_value_resolver, priority: 1500 }
+
 
   # $_GET параметры в DTO.
   custom_arguments_resolvers.query_params:
     class: Local\Bundles\CustomArgumentResolverBundle\ArgumentsResolver\QueryParamsArgumentResolver
     arguments:
       - '@annotations.cached_reader'
-      - '@Symfony\Component\HttpKernel\Controller\ControllerResolver'
+      - '@Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver'
       - '@serializer'
       - '@custom_arguments_resolvers.validator_request'
       - '@property_info'
@@ -53,20 +54,19 @@ services:
     class: Local\Bundles\CustomArgumentResolverBundle\ArgumentsResolver\RequestParamArgumentResolver
     arguments:
       - '@annotations.cached_reader'
-      - '@Symfony\Component\HttpKernel\Controller\ControllerResolver'
+      - '@Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver'
       - '@serializer'
       - '@custom_arguments_resolvers.validator_request'
       - '@property_info'
     tags:
       - { name: controller.argument_value_resolver, priority: 1500 }
 
-
   # Bitrix file.
   custom_arguments_resolvers.bitrix_file:
     class: Local\Bundles\CustomArgumentResolverBundle\ArgumentsResolver\BitrixFileArgumentResolver
     arguments:
       - '@annotations.cached_reader'
-      - '@Symfony\Component\HttpKernel\Controller\ControllerResolver'
+      - '@Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver'
     tags:
       - { name: controller.argument_value_resolver, priority: 1500 }
 
@@ -75,7 +75,6 @@ services:
     class: Local\Bundles\CustomArgumentResolverBundle\ArgumentsResolver\BitrixFileUrlArgumentResolver
     arguments:
       - '@annotations.cached_reader'
-      - '@Symfony\Component\HttpKernel\Controller\ControllerResolver'
+      - '@Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver'
     tags:
       - { name: controller.argument_value_resolver, priority: 1500 }
-

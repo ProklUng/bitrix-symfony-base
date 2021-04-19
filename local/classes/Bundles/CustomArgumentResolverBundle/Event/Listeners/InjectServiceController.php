@@ -52,7 +52,6 @@ class InjectServiceController implements OnControllerRequestHandlerInterface
                 $action = $params[1];
             }
 
-            // Если массив, то воспользоваться уже готовым.
             // Иной способ инициализации роутов.
             if (is_array($controllerParams)) {
                 // @phpstan-ignore-next-line

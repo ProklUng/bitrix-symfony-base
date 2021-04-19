@@ -16,7 +16,7 @@ return [
     Local\Bundles\BitrixCustomPropertiesBundle\BitrixCustomPropertiesBundle::class => ['all' => true],
     Local\Bundles\BitrixIblockElementValidatorBundle\BitrixIblockElementValidatorBundle::class => ['all' => true],
     Local\Bundles\UrlSignedBundle\UrlSignedBundle::class => ['all' => true],
-    Local\Bundles\BitrixOgGraphBundle\BitrixOgGraphBundle::class => ['all' => true],
+    Prokl\BitrixOgGraphBundle\BitrixOgGraphBundle::class => ['all' => true],
     Local\Bundles\InstagramParserRapidApiBundle\InstagramParserRapidApiBundle::class => ['all' => true],
     AutoMapperPlus\AutoMapperPlusBundle\AutoMapperPlusBundle::class => ['all' => true],
     Local\Bundles\DtoMapperBundle\DtoMapperBundle::class => ['all' => true],

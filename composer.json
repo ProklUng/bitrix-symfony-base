@@ -90,7 +90,8 @@
     "hanneskod/classtools": "^1.2",
     "proklung/bitrix.module.generator": "^1.0",
     "proklung/bitrix.ckeditor.module": "^1.0",
-    "proklung/facade-bundle": "^1.0"
+    "proklung/facade-bundle": "^1.0",
+    "proklung/bitrixoggraphbundle": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",

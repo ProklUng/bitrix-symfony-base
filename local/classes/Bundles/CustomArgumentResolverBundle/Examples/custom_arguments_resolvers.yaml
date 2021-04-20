@@ -13,4 +13,3 @@ custom_arguments_resolvers:
     # Классы контроллеров, подлежащие обработке.
     classes_controllers:
       - 'Symfony\Bundle\FrameworkBundle\Controller\AbstractController'
-      - 'Symfony\Bundle\FrameworkBundle\Controller\Controller'

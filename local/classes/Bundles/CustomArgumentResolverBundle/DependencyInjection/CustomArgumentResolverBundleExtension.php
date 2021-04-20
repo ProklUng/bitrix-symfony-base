@@ -51,11 +51,6 @@ class CustomArgumentResolverBundleExtension extends Extension
 
         $loader->load('services.yaml');
 
-        if ($container->getParameter('kernel.environment') === 'dev') {
-            $loader->load('dev/services.yaml');
-        }
-
         $loader->load('listeners.yaml');
-        $loader->load('resolvers.yaml');
     }
 }

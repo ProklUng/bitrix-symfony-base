@@ -94,7 +94,7 @@ class UserPermissions implements OnControllerRequestHandlerInterface
         }
 
         throw new UserDenyAccessException(
-            'Access denied.'
+          'Access denied.'
         );
     }
 

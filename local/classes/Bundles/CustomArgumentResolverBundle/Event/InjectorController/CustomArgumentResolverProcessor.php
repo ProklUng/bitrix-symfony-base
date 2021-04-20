@@ -377,7 +377,7 @@ class CustomArgumentResolverProcessor implements InjectorControllerInterface
         }
 
         // Если использован алиас сервиса, то попробовать получить его из контейнера.
-        if (strpos($argItem, '@') === 0) {
+        if (strpos((string)$argItem, '@') === 0) {
             $resolvedService = $this->container->get(
                 ltrim($argItem, '@')
             );

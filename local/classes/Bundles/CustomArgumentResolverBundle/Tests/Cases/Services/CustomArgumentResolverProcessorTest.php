@@ -384,7 +384,7 @@ class CustomArgumentResolverProcessorTest extends BaseTestCase
         $app->getArguments($request, [new SampleController(), 'action5']);
 
         $this->assertSame(
-            [1, 2, [$_SERVER['HTTP_HOST']], [$this->container->get('session.instance')]],
+            [1, 2, [$this->container->getParameter('kernel.cache_dir')], [$this->container->get('session.instance')]],
             $request->attributes->get('array')
         );
     }

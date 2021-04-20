@@ -30,4 +30,6 @@ return [
     Local\Bundles\FrameworkExtensionBundle\FrameworkExtensionBundle::class => ['all' => true],
     Prokl\FacadeBundle\FacadeBundle::class => ['all' => true],
     // Local\Bundles\CkEditorBundle\CkEditorBundle::class => ['all' => true],
+    Prokl\AnnotatedParamResolverBundle\AnnotatedParamResolverBundle::class => ['all' => true],
+    Prokl\BitrixAnnotatedResolversBundle\BitrixAnnotatedResolversBundle::class => ['all' => true],
 ];

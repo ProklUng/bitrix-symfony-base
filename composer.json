@@ -93,7 +93,9 @@
     "proklung/facade-bundle": "^1.0",
     "proklung/bitrixoggraphbundle": "^1.0",
     "proklung/bitrixstaticpagemakerbundle": "^1.0",
-    "proklung/symfony-maker-bundle": "^1.0"
+    "proklung/symfony-maker-bundle": "^1.0",
+    "proklung/annotatedparamresolverbundle": "^1.0",
+    "proklung/bitrixannotatedresolversbundle": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",

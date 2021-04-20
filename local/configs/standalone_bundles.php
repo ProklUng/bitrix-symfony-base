@@ -9,7 +9,7 @@ return [
     Local\Bundles\SymfonyMiddlewareBundle\MiddlewareBundle::class => ['all' => true],
     Local\Bundles\TaskSchedulerBundle\RewieerTaskSchedulerBundle::class => ['all' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['all' => true],
-    Local\Bundles\BundleMakerBundle\BundleMakerBundle::class => ['all' => true],
+    Prokl\BundleMakerBundle\BundleMakerBundle::class => ['all' => true],
     Prokl\StaticPageMakerBundle\StaticPageMakerBundle::class => ['all' => true],
     Local\Bundles\ModelBundle\ModelBundle::class => ['all' => true],
     Local\Bundles\BitrixWebformBundle\BitrixWebformBundle::class => ['all' => true],

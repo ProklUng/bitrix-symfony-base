@@ -37,8 +37,9 @@ final class Configuration implements ConfigurationInterface
         /** @var NodeBuilder $childNode */
         $childNode = $childNode
             ->scalarNode('signature_key')
-                ->cannotBeEmpty()
-                ->isRequired()
+                ->defaultValue('test key')
+                // ->cannotBeEmpty()
+                // ->isRequired()
                 ->info('key used to sign the URL')
             ->end()
         ;

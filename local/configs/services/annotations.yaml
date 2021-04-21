@@ -4,6 +4,7 @@
 
 parameters:
   annotations.cache_ttl_default: 3600
+  enable_annotations: true
 
 services:
   # конфигурация по умолчанию в *этом* файле

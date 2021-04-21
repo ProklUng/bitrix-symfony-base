@@ -59,13 +59,6 @@ class ExtraFeature implements ExtraFeatureServiceProviderInterface
             $containerBuilder
         );
 
-        if ($containerBuilder->hasParameter('routing')) {
-            $this->loadAnnotationRoute(
-                $containerBuilder->getParameter('routing'),
-                $containerBuilder
-            );
-        }
-
         if ($containerBuilder->hasParameter('validation')) {
             $this->registerValidationConfiguration(
                 $containerBuilder->getParameter('validation'),
@@ -97,46 +90,6 @@ class ExtraFeature implements ExtraFeatureServiceProviderInterface
                 $containerBuilder
             );
         }
-    }
-
-    /**
-     * Аннотированные роуты.
-     *
-     * @param array            $config    Конфиг.
-     * @param ContainerBuilder $container Контейнер.
-     *
-     * @return void
-     *
-     * @since 20.12.2020
-     */
-    private function loadAnnotationRoute(array $config, ContainerBuilder $container)
-    {
-        if (empty($config['enabled'])) {
-            return;
-        }
-
-        $container->register('routing.loader.annotation', AnnotatedRouteControllerLoader::class)
-            ->setPublic(true)
-            ->addTag('routing.loader', ['priority' => -10])
-            ->addArgument(new Reference('annotation_reader'));
-
-        $container->register('routing.loader.annotation.directory', AnnotationDirectoryLoader::class)
-            ->setPublic(true)
-            ->addTag('routing.loader', ['priority' => -10])
-            ->setArguments([
-                new Reference('file_locator'),
-                new Reference('routing.loader.annotation'),
-            ]);
-
-        $container->register('routing.loader.annotation.file', AnnotationFileLoader::class)
-            ->setPublic(true)
-            ->addTag('routing.loader', ['priority' => -10])
-            ->setArguments([
-                new Reference('file_locator'),
-                new Reference('routing.loader.annotation'),
-            ]);
-
-        $this->annotationsConfigEnabled = true;
     }
 
     /**
@@ -315,7 +268,7 @@ class ExtraFeature implements ExtraFeatureServiceProviderInterface
      * @param ContainerBuilder $container Контейнер.
      * @param array            $config    Конфиг.
      *
-     * @return bool Whether the configuration is enabled
+     * @return boolean Whether the configuration is enabled.
      *
      */
     private function isConfigEnabled(ContainerBuilder $container, array $config): bool

@@ -3,8 +3,8 @@
 namespace Local\Services\Twig\Extensions;
 
 use InvalidArgumentException;
-use Local\SymfonyTools\Framework\DispatchController;
 use Local\SymfonyTools\Framework\Utils\ResolverDependency\ResolveDependencyMakerContainerAware;
+use Prokl\BitrixSymfonyRouterBundle\Services\Contracts\DispatchControllerInterface;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
@@ -49,7 +49,7 @@ class RenderExtension extends AbstractExtension implements Twig_ExtensionInterfa
     private $resolveDependencyMakerContainerAware;
 
     /**
-     * @var DispatchController $dispatchController Исполнитель контроллеров.
+     * @var DispatchControllerInterface $dispatchController Исполнитель контроллеров.
      */
     private $dispatchController;
 
@@ -62,12 +62,12 @@ class RenderExtension extends AbstractExtension implements Twig_ExtensionInterfa
      * RenderExtension constructor.
      *
      * @param ResolveDependencyMakerContainerAware $resolveDependencyMakerContainerAware Разрешитель зависимостей.
-     * @param DispatchController                   $dispatchController                   Исполнитель контроллеров.
+     * @param DispatchControllerInterface          $dispatchController                   Исполнитель контроллеров.
      * @param RouteCollection                      $routeCollection                      Коллекция роутов.
      */
     public function __construct(
         ResolveDependencyMakerContainerAware $resolveDependencyMakerContainerAware,
-        DispatchController $dispatchController,
+        DispatchControllerInterface $dispatchController,
         RouteCollection $routeCollection
     ) {
         $this->resolveDependencyMakerContainerAware = $resolveDependencyMakerContainerAware;
@@ -138,7 +138,7 @@ class RenderExtension extends AbstractExtension implements Twig_ExtensionInterfa
         $resolvedController = $this->parseControllerString($controllerClass);
 
         $this->dispatchController->setParams($attributes)
-                                 ->setQuery($query);
+            ->setQuery($query);
 
         if ($this->dispatchController->dispatch($resolvedController)) {
             $response = $this->dispatchController->getResponse();

@@ -96,7 +96,8 @@
     "proklung/symfony-maker-bundle": "^1.0",
     "proklung/annotatedparamresolverbundle": "^1.0",
     "proklung/bitrixannotatedresolversbundle": "^1.0",
-    "proklung/bitrixckeditorbundle": "^1.0"
+    "proklung/bitrixckeditorbundle": "^1.0",
+    "proklung/bitrixsymfonyrouterbundle": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",

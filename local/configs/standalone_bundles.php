@@ -32,4 +32,5 @@ return [
     Prokl\CkEditorBundle\CkEditorBundle::class => ['all' => true],
     Prokl\AnnotatedParamResolverBundle\AnnotatedParamResolverBundle::class => ['all' => true],
     Prokl\BitrixAnnotatedResolversBundle\BitrixAnnotatedResolversBundle::class => ['all' => true],
+    Prokl\BitrixSymfonyRouterBundle\SymfonyRouterBundle::class => ['all' => true],
 ];

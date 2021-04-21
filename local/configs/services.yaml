@@ -1,5 +1,4 @@
 imports:
-  - {resource: services/routing.yaml }
   - {resource: services/utils.yaml }
   - {resource: services/collections.yaml }
   - {resource: services/annotations.yaml }

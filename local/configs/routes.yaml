@@ -13,12 +13,12 @@ foo_placeholder_route:
 
 remove_trailing_slash:
   path: /{url}
-  controller: 'Local\SymfonyTools\Router\Examples\DummyController::loadAction'
+  controller: 'Prokl\BitrixSymfonyRouterBundle\Services\Controllers\RedirectingController::removeTrailingSlas'
 
 index:
   path: '/'
-  controller: 'Prokl\WpSymfonyRouterBundle\Services\Utils\Supplemental::indexRoute'
+  controller: 'Prokl\BitrixSymfonyRouterBundle\Services\Utils\Supplemental::indexRoute'
 
 not-found:
   path: '/{url}'
-  controller: 'Prokl\WpSymfonyRouterBundle\Services\Utils\Supplemental::notFound'
+  controller: 'Prokl\BitrixSymfonyRouterBundle\Services\Utils\Supplemental::notFound'

@@ -25,15 +25,14 @@ class ApiDtoConvertorBundle extends Bundle
 
     /**
      * @inheritDoc
-     * @throws RuntimeException
      */
     public function boot()
     {
         // Игнорируемые при автовайринге классы - интерфейсы.
-        $autowiringControllerParamsBag = $this->container->get('ignored.autowiring.controller.arguments');
+        $autowiringControllerParamsBag = $this->container->get('custom_arguments_resolvers.ignored.autowiring.controller.arguments');
         if ($autowiringControllerParamsBag === null) {
             throw new RuntimeException(
-                'Dependency service ignored.autowiring.controller.arguments not found.'
+                'Dependency service custom_arguments_resolvers.ignored.autowiring.controller.arguments not found.'
             );
         }
 

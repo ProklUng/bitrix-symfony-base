@@ -16,9 +16,9 @@ remove_trailing_slash:
   controller: 'Local\SymfonyTools\Router\Examples\DummyController::loadAction'
 
 index:
-  path: /
-  controller: 'Local\SymfonyTools\Router\Supply\UtilRoutes::indexRoute'
+  path: '/'
+  controller: 'Prokl\WpSymfonyRouterBundle\Services\Utils\Supplemental::indexRoute'
 
 not-found:
-  path: /{url}
-  controller: 'Local\SymfonyTools\Router\Supply\UtilRoutes::notFound'
+  path: '/{url}'
+  controller: 'Prokl\WpSymfonyRouterBundle\Services\Utils\Supplemental::notFound'

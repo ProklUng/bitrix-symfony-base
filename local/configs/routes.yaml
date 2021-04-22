@@ -10,15 +10,3 @@ foo_placeholder_route:
   controller: 'Local\SymfonyTools\Router\Examples\DummyController::loadAction'
   requirements:
     id: "[0-9]+"
-
-remove_trailing_slash:
-  path: /{url}
-  controller: 'Prokl\BitrixSymfonyRouterBundle\Services\Controllers\RedirectingController::removeTrailingSlash'
-
-index:
-  path: '/'
-  controller: 'Prokl\BitrixSymfonyRouterBundle\Services\Utils\Supplemental::indexRoute'
-
-not-found:
-  path: '/{url}'
-  controller: 'Prokl\BitrixSymfonyRouterBundle\Services\Utils\Supplemental::notFound'

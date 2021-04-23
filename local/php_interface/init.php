@@ -9,6 +9,7 @@ use Bitrix\Main\Loader;
 use Local\ServiceProvider\BaseFacade\Facade;
 use Local\ServiceProvider\ServiceProvider;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
+use Prokl\CollectionExtenderBundle\Services\Extender;
 
 Loader::includeModule('iblock');
 
@@ -34,7 +35,7 @@ $symfonyServiceProvider = new ServiceProvider(
 );
 
 // Макросы для коллекций Laravel.
-container()->get('Local\Services\Collections\Extender');
+container()->get(Extender::class);
 
 // Инициализация фасадов сервис-провайдера.
 Facade::boot();

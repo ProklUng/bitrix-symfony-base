@@ -1,6 +1,5 @@
 imports:
   - {resource: services/utils.yaml }
-  - {resource: services/collections.yaml }
   - {resource: services/annotations.yaml }
   - {resource: services/filesystem.yaml }
   - {resource: services/cache.yaml }

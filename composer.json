@@ -97,7 +97,8 @@
     "proklung/annotatedparamresolverbundle": "^1.0",
     "proklung/bitrixannotatedresolversbundle": "^1.0",
     "proklung/bitrixckeditorbundle": "^1.0",
-    "proklung/bitrixsymfonyrouterbundle": "^1.0"
+    "proklung/bitrixsymfonyrouterbundle": "^1.0",
+    "proklung/collection-extender-bundle": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",

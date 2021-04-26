@@ -101,7 +101,8 @@
     "proklung/collection-extender-bundle": "^1.0",
     "proklung/bitrix-custom-properties-bundle": "^1.0",
     "proklung/api-exception-bundle": "^1.0",
-    "proklung/bitrix-webform-bundle": "^1.0"
+    "proklung/bitrix-webform-bundle": "^1.0",
+    "proklung/bitrix-webform-bundle-kantecom": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",

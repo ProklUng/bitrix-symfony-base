@@ -11,7 +11,7 @@ return [
     Prokl\BundleMakerBundle\BundleMakerBundle::class => ['all' => true],
     Prokl\StaticPageMakerBundle\StaticPageMakerBundle::class => ['all' => true],
     Local\Bundles\ModelBundle\ModelBundle::class => ['all' => true],
-    Local\Bundles\BitrixWebformBundle\BitrixWebformBundle::class => ['all' => true],
+    Prokl\BitrixWebformBundle\BitrixWebformBundle::class => ['all' => true],
     Prokl\ApiExceptionBundle\M6WebApiExceptionBundle::class => ['all' => true],
     Local\Bundles\BitrixIblockElementValidatorBundle\BitrixIblockElementValidatorBundle::class => ['all' => true],
     Local\Bundles\UrlSignedBundle\UrlSignedBundle::class => ['all' => true],

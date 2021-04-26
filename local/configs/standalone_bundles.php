@@ -13,7 +13,7 @@ return [
     Prokl\StaticPageMakerBundle\StaticPageMakerBundle::class => ['all' => true],
     Local\Bundles\ModelBundle\ModelBundle::class => ['all' => true],
     Local\Bundles\BitrixWebformBundle\BitrixWebformBundle::class => ['all' => true],
-    Local\Bundles\BitrixCustomPropertiesBundle\BitrixCustomPropertiesBundle::class => ['all' => true],
+    Prokl\ApiExceptionBundle\M6WebApiExceptionBundle::class => ['all' => true],
     Local\Bundles\BitrixIblockElementValidatorBundle\BitrixIblockElementValidatorBundle::class => ['all' => true],
     Local\Bundles\UrlSignedBundle\UrlSignedBundle::class => ['all' => true],
     Prokl\BitrixOgGraphBundle\BitrixOgGraphBundle::class => ['all' => true],

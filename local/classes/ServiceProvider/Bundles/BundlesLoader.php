@@ -20,6 +20,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\MergeExtensionConfiguration
  * @since 19.11.2020 Сделать все приватные подписчики событий публичными.
  * @since 20.12.2020 Сделать все приватные консольные команды публичными.
  * @since 04.03.2021 Возможность загрузки бандлов несколькими провайдерами.
+ * @since 27.04.2021 Баг-фикс: при скомпилированном контейнере не запускался метод boot бандлов.
  */
 class BundlesLoader
 {
@@ -159,6 +160,31 @@ class BundlesLoader
         foreach (static::$bundlesMap[static::class] as $bundle) {
             $bundle->setContainer($container);
             $bundle->boot();
+        }
+    }
+
+    /**
+     * Запуск метода boot у бандлов, когда контейнер скомпилирован.
+     *
+     * @param ContainerInterface $container Контейнер.
+     *
+     * @return void
+     *
+     * @since 27.04.2021 Баг-фикс: при скомпилированном контейнере не запускался метод boot бандлов.
+     */
+    public static function bootAfterCompilingContainer(ContainerInterface $container) : void
+    {
+        if (!$container->hasParameter('kernel.bundles')) {
+            return;
+        }
+
+        /**
+         * @var Bundle $bundle
+         */
+        foreach ($container->getParameter('kernel.bundles') as $bundle) {
+            $bundleObject = new $bundle;
+            $bundleObject->setContainer($container);
+            $bundleObject->boot();
         }
     }
 

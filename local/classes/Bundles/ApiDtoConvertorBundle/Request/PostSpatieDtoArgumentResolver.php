@@ -7,9 +7,8 @@ use Local\Bundles\ApiDtoConvertorBundle\Errors\ValidateDtoSpatieErrorException;
 use Local\Bundles\ApiDtoConvertorBundle\HttpApi\HttpApi;
 use Local\Bundles\ApiDtoConvertorBundle\Request\Traits\RequestTrait;
 use Local\Bundles\ApiDtoConvertorBundle\Request\Traits\SanitizeTrait;
-use Local\Bundles\ApiDtoConvertorBundle\Request\Traits\ValidateTrait;
-use Local\Services\Sanitizing\SanitizableTrait;
-use Local\Services\Validation\Laravel\LaravelValidatorTrait;
+use Prokl\RequestValidatorSanitizer\Sanitizing\SanitizableTrait;
+use Prokl\RequestValidatorSanitizer\Validation\Controllers\ValidateableTrait;
 use ReflectionException;
 use Spatie\DataTransferObject\DataTransferObject;
 use Spatie\DataTransferObject\DataTransferObjectError;
@@ -28,8 +27,7 @@ use Local\Bundles\ApiDtoConvertorBundle\HttpApi\AnnotationNotFoundException;
  */
 class PostSpatieDtoArgumentResolver implements ArgumentValueResolverInterface
 {
-    use LaravelValidatorTrait;
-    use ValidateTrait;
+    use ValidateableTrait;
     use SanitizableTrait;
     use SanitizeTrait;
     use RequestTrait;
@@ -50,6 +48,12 @@ class PostSpatieDtoArgumentResolver implements ArgumentValueResolverInterface
         $this->httpApiReader = $httpApiReader;
     }
 
+    /**
+     * @param Request          $request  Request.
+     * @param ArgumentMetadata $argument Аргумент.
+     *
+     * @return boolean
+     */
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
         $className = $argument->getType();
@@ -75,7 +79,7 @@ class PostSpatieDtoArgumentResolver implements ArgumentValueResolverInterface
     }
 
     /**
-     * @param Request $request
+     * @param Request          $request
      * @param ArgumentMetadata $argument
      *
      * @return Generator

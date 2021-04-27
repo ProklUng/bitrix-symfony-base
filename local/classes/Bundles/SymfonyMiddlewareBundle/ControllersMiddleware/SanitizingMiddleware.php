@@ -3,7 +3,7 @@
 namespace Local\Bundles\SymfonyMiddlewareBundle\ControllersMiddleware;
 
 use Local\Bundles\SymfonyMiddlewareBundle\MiddlewareInterface;
-use Local\Services\Sanitizing\SanitizableTrait;
+use Prokl\RequestValidatorSanitizer\Sanitizing\SanitizableTrait;
 use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\DependencyInjection\ContainerInterface;

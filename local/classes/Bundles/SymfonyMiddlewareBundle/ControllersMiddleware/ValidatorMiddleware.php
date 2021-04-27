@@ -3,7 +3,8 @@
 namespace Local\Bundles\SymfonyMiddlewareBundle\ControllersMiddleware;
 
 use Local\Bundles\SymfonyMiddlewareBundle\MiddlewareInterface;
-use Local\Services\Validation\Controllers\ValidateableTrait;
+use Prokl\RequestValidatorSanitizer\Validation\Controllers\ValidateableTrait;
+use Prokl\RequestValidatorSanitizer\Validation\Exceptions\ValidateErrorException;
 use ReflectionClass;
 use ReflectionException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -40,7 +41,7 @@ class ValidatorMiddleware implements MiddlewareInterface
      * @param Request $request
      * @return Response|null
      *
-     * @throws ReflectionException
+     * @throws ReflectionException|ValidateErrorException
      */
     public function handle(Request $request): ?Response
     {

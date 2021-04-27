@@ -9,28 +9,12 @@ services:
     autoconfigure: true
     public: true
 
-  # Валидатор Laravel. Пример. Загрузка из Yaml.
-  sample.validator:
-    class: Local\Services\Validation\Validator
-    arguments: ['%kernel.project_dir%', '/local/configs/Validation/example.yaml']
-
-  # Валидатор Laravel. Базовый сервис.
-  laravel.validator:
-    class: Local\Services\Validation\Validator
-    arguments: ['%kernel.project_dir%']
-
   # Санитайзер.
   sanitizer:
-    class: Local\Services\Sanitizing\SanitizerService
+    class: Prokl\RequestValidatorSanitizer\Sanitizing\SanitizerService
 
-  Local\Services\Sanitizing\SanitizerService: '@sanitizer'
-  Local\Services\Sanitizing\SanitizerInterface: '@sanitizer'
-
-  Local\Services\Validation\Custom\CustomEmailValidatorNullable: ~
-  Local\Services\Validation\Custom\LaravelPhoneValidatorNullable: ~
-
-  Local\Services\Validation\Custom\CyrillicAlphaValidator: ~
-  Local\Services\Validation\Custom\CyrillicAlphaValidatorNullable: ~
+  Prokl\RequestValidatorSanitizer\Sanitizing\SanitizerService: '@sanitizer'
+  Prokl\RequestValidatorSanitizer\Sanitizing\SanitizerInterface: '@sanitizer'
 
   validator:
     class: Symfony\Component\Validator\Validator\ValidatorInterface

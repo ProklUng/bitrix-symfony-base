@@ -1,7 +1,0 @@
-services:
-    request_validator_bundle.validator_annotation_listener:
-        public: true
-        class: Local\Bundles\RequestValidatorBundle\EventListener\ValidatorAnnotationListener
-        arguments: ['@annotation_reader', '@validator']
-        tags:
-            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController, priority: 15000 }

@@ -65,6 +65,8 @@ class ModuleInitializer
         $objModuleInitializer->DoInstall();
         ob_clean();
 
+        ModuleManager::RegisterModule($moduleId);
+
         return true;
     }
 
@@ -91,6 +93,8 @@ class ModuleInitializer
         $objModuleInitializer->DoUninstall();
 
         ob_end_clean();
+
+        ModuleManager::unRegisterModule($moduleId);
 
         return true;
     }

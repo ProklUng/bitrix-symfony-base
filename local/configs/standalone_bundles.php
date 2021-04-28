@@ -4,7 +4,7 @@ return [
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Local\Bundles\CustomArgumentResolverBundle\CustomArgumentResolverBundle::class => ['all' => true],
     // Local\Bundles\ApiDtoConvertorBundle\ApiDtoConvertorBundle::class => ['all' => true],
-    Local\Bundles\GuzzleBundle\CsaGuzzleBundle::class => ['all' => true],
+    Prokl\GuzzleBundle\CsaGuzzleBundle::class => ['all' => true],
     Local\Bundles\SymfonyMiddlewareBundle\MiddlewareBundle::class => ['all' => true],
     Local\Bundles\TaskSchedulerBundle\RewieerTaskSchedulerBundle::class => ['all' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['all' => true],

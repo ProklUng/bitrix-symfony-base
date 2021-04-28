@@ -17,5 +17,5 @@ services:
       - setTtl: [3600]
 
   bitrix.psr.simple.cacher.adapter:
-    class: Local\Bundles\GuzzleBundle\Middlewares\Cache\Adapter\CacheInterfaceAdapter
+    class: Prokl\GuzzleBundle\Middlewares\Cache\Adapter\CacheInterfaceAdapter
     arguments: ['@bitrix.simple.cacher.configured', 3600]

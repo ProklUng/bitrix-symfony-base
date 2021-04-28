@@ -2,13 +2,13 @@
 
 namespace Local\Facades;
 
-use Local\ServiceProvider\BaseFacade\Facade;
+use Prokl\FacadeBundle\Services\AbstractFacade;
 
 /**
  * Class ResizerImageNoUpscaleFacade
  * @package Local\Facades
  */
-class ResizerImageNoUpscaleFacade extends Facade
+class ResizerImageNoUpscaleFacade extends AbstractFacade
 {
     /**
      * Сервис фасада.

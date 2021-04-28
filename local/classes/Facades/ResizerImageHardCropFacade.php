@@ -2,13 +2,15 @@
 
 namespace Local\Facades;
 
-use Local\ServiceProvider\BaseFacade\Facade;
+use Prokl\FacadeBundle\Services\AbstractFacade;
 
 /**
  * Class ResizerImageHardCrop
  * @package Local\Facades
+ *
+ * @method static setImageId(int $idImage) : self
  */
-class ResizerImageHardCropFacade extends Facade
+class ResizerImageHardCropFacade extends AbstractFacade
 {
     /**
      * Сервис фасада.

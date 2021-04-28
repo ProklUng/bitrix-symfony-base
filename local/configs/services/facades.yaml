@@ -1,0 +1,33 @@
+#########
+# Фасады
+#########
+
+services:
+  # конфигурация по умолчанию в *этом* файле
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+
+  Local\Facades\Application: ~
+  Local\Facades\CMain: ~
+  Local\Facades\CUser: ~
+  Local\Facades\CacherFacade: ~
+  Local\Facades\CFileFacade: ~
+  Local\Facades\EventDispatcherFacade: ~
+  Local\Facades\FilesystemFacade: ~
+  Local\Facades\FormFacade: ~
+  Local\Facades\HLIblockFacade: ~
+  Local\Facades\IblockElementFacade: ~
+  Local\Facades\IblockFacade: ~
+  Local\Facades\IblockPropertyFacade: ~
+  Local\Facades\IblockSectionFacade: ~
+  Local\Facades\KernelFacade: ~
+  Local\Facades\LastModifiedFacade: ~
+  Local\Facades\ResizerImageFacade: ~
+  Local\Facades\ResizerImageHardCropFacade: ~
+  Local\Facades\ResizerImageNoUpscaleFacade: ~
+  Local\Facades\ResizerImageUpscaleFacade: ~
+  Local\Facades\TimestampFacade: ~
+  Local\Facades\TimestampIblockFacade: ~

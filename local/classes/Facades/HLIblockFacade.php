@@ -2,13 +2,13 @@
 
 namespace Local\Facades;
 
-use Local\ServiceProvider\BaseFacade\Facade;
+use Prokl\FacadeBundle\Services\AbstractFacade;
 
 /**
  * Class HLIblockFacade
  * @package Local\Facades
  */
-class HLIblockFacade extends Facade
+class HLIblockFacade extends AbstractFacade
 {
     /**
      * Сервис фасада.

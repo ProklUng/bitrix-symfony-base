@@ -18,6 +18,7 @@ imports:
   - {resource: services/console_commands.yaml }
   - {resource: services/tasks.yaml }
   - {resource: services/framework.yaml }
+  - {resource: services/facades.yaml }
 
 parameters:
   namespace.models.infoblocks: 'Local\Models'

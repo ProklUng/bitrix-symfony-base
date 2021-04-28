@@ -2,13 +2,16 @@
 
 namespace Local\Facades;
 
-use Local\ServiceProvider\BaseFacade\Facade;
+use Prokl\FacadeBundle\Services\AbstractFacade;
 
 /**
  * Class ResizerImageFacade
  * @package Local\Facades
+ *
+ * @method static setImageId(int $idImage) : self
+ * @method static setWidth(int $width) : self
  */
-class ResizerImageFacade extends Facade
+class ResizerImageFacade extends AbstractFacade
 {
     /**
      * Сервис фасада.

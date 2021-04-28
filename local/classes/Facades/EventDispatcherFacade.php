@@ -2,13 +2,13 @@
 
 namespace Local\Facades;
 
-use Local\ServiceProvider\BaseFacade\Facade;
+use Prokl\FacadeBundle\Services\AbstractFacade;
 
 /**
  * Class EventDispatcherFacade
  * @package Local\Facades
  */
-class EventDispatcherFacade extends Facade
+class EventDispatcherFacade extends AbstractFacade
 {
     /**
      * Сервис фасада.

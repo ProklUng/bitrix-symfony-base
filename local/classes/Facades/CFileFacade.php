@@ -2,13 +2,13 @@
 
 namespace Local\Facades;
 
-use Local\ServiceProvider\BaseFacade\Facade;
+use Prokl\FacadeBundle\Services\AbstractFacade;
 
 /**
  * Class CFileFacade
  * @package Local\Facades
  */
-class CFileFacade extends Facade
+class CFileFacade extends AbstractFacade
 {
     /**
      * Сервис фасада.

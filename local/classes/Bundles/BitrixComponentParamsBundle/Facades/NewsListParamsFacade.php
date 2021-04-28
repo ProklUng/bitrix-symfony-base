@@ -2,7 +2,7 @@
 
 namespace Local\Bundles\BitrixComponentParamsBundle\Facades;
 
-use Local\ServiceProvider\BaseFacade\Facade;
+use Prokl\FacadeBundle\Services\AbstractFacade;
 
 /**
  * Class NewsListParamsFacade
@@ -10,7 +10,7 @@ use Local\ServiceProvider\BaseFacade\Facade;
  *
  * @method static make(array $params)
  */
-class NewsListParamsFacade extends Facade
+class NewsListParamsFacade extends AbstractFacade
 {
     /**
      * Сервис фасада.

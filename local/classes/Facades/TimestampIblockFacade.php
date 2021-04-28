@@ -2,13 +2,13 @@
 
 namespace Local\Facades;
 
-use Local\ServiceProvider\BaseFacade\Facade;
+use Prokl\FacadeBundle\Services\AbstractFacade;
 
 /**
  * Class TimestampIblock
  * @package Local\Facades
  */
-class TimestampIblockFacade extends Facade
+class TimestampIblockFacade extends AbstractFacade
 {
     /**
      * Сервис фасада.

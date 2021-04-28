@@ -6,7 +6,6 @@
 // и "перезагрузить" командой `./vendor/bin/jedi env:init default`
 
 use Bitrix\Main\Loader;
-use Local\ServiceProvider\BaseFacade\Facade;
 use Local\ServiceProvider\ServiceProvider;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Prokl\CollectionExtenderBundle\Services\Extender;
@@ -36,9 +35,6 @@ $symfonyServiceProvider = new ServiceProvider(
 
 // Макросы для коллекций Laravel.
 container()->get(Extender::class);
-
-// Инициализация фасадов сервис-провайдера.
-Facade::boot();
 
 include_once 'events.php';
 include_once 'symfony_events.php';

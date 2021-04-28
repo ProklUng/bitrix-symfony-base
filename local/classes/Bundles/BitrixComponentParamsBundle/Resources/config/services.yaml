@@ -70,3 +70,7 @@ services:
     public: true
     class: Local\Bundles\BitrixComponentParamsBundle\Services\MakeArParams
     arguments: ['@bitrix_component_params_bundle.news_list_dto']
+
+  Local\Bundles\BitrixComponentParamsBundle\Facades\NewsListParamsFacade: ~
+  Local\Bundles\BitrixComponentParamsBundle\Facades\NewsParamsFacade: ~
+

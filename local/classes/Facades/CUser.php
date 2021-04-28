@@ -2,13 +2,13 @@
 
 namespace Local\Facades;
 
-use Local\ServiceProvider\BaseFacade\Facade;
+use Prokl\FacadeBundle\Services\AbstractFacade;
 
 /**
  * Class CUser
  * @package Local\Facades
  */
-class CUser  extends Facade
+class CUser extends AbstractFacade
 {
     /**
      * @inheritDoc

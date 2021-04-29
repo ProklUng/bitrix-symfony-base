@@ -28,13 +28,10 @@ services:
     arguments: ['@application']
 
   # Адаптированный Pipeline.
-  Local\Util\Pipeline\Pipeline:
+  Prokl\Pipeline\Hub:
     arguments: ['@service_container']
 
-  Local\Util\Pipeline\Hub:
+  Prokl\Pipeline\Pipeline:
     arguments: ['@service_container']
-
-  Local\SymfonyTools\Framework\Utils\ResolverDependency\ResolveDependencyMaker: ~
-  Local\SymfonyTools\Framework\Utils\ResolverDependency\ResolveDependencyMakerContainerAware: ~
 
   public_logger: '@logger'

@@ -107,7 +107,8 @@
     "proklung/bitrix-blade-bundle": "^1.0",
     "proklung/request-validator-bundle": "^1.0",
     "proklung/symfony-guzzle-bundle": "^1.0",
-    "proklung/arguments-resolvers-bundle": "^1.0"
+    "proklung/arguments-resolvers-bundle": "^1.0",
+    "proklung/pipeline-symfony": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",

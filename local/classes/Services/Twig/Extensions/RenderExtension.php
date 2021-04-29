@@ -3,7 +3,7 @@
 namespace Local\Services\Twig\Extensions;
 
 use InvalidArgumentException;
-use Local\SymfonyTools\Framework\Utils\ResolverDependency\ResolveDependencyMakerContainerAware;
+use Local\Bundles\CustomArgumentResolverBundle\Service\ResolversDependency\ResolveDependencyMakerContainerAware;
 use Prokl\BitrixSymfonyRouterBundle\Services\Contracts\DispatchControllerInterface;
 use RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;

@@ -3,8 +3,8 @@
 namespace Local\SymfonyTools\Framework\Utils;
 
 use Closure;
+use Local\Bundles\CustomArgumentResolverBundle\Service\Utils\ResolveParamsFromContainer;
 use Local\ServiceProvider\Utils\IgnoredAutowiringControllerParamsBag;
-use Local\SymfonyTools\ArgumentsResolvers\Supply\ResolveParamsFromContainer;
 use Local\SymfonyTools\Framework\Utils\ResolverDependency\ResolveDependencyMakerContainerAware;
 use Psr\Container\ContainerInterface;
 use Local\SymfonyTools\Framework\Exceptions\ArgumentsControllersException;

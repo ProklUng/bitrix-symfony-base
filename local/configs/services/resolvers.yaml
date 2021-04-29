@@ -9,21 +9,6 @@ services:
     autoconfigure: true
     public: true
 
-  # Ресолвер переменных и сервисов из контейнера.
-  Local\SymfonyTools\ArgumentsResolvers\Supply\ResolveParamsFromContainer:
-    class: Local\SymfonyTools\ArgumentsResolvers\Supply\ResolveParamsFromContainer
-    calls:
-      - setContainer: ['@service_container']
-
-  # Мой кастомный argument resolver - массив рекурсивно прогоняется на предмет переменных и сервисов.
-  argument_resolver.array_recursive:
-    arguments: ['@Local\SymfonyTools\ArgumentsResolvers\Supply\ResolveParamsFromContainer']
-    calls:
-      - setContainer: ['@service_container']
-    class: Local\SymfonyTools\ArgumentsResolvers\ArrayRecursiveArgumentResolver
-    tags:
-      - { name: controller.argument_value_resolver, priority: 100}
-
   controller_resolver:
     class: Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver
     arguments: ['@service_container']

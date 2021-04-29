@@ -2,7 +2,7 @@
 
 namespace Local\ServiceProvider\PostLoadingPass\Exceptions;
 
-use Local\Bundles\CustomRequestResponserBundle\Exceptions\BaseException;
+use Prokl\BaseException\BaseException;
 
 /**
  * Class RuntimePostLoadingPassException

@@ -2,7 +2,7 @@
 
 namespace Local\Services\Bitrix\Exceptions;
 
-use Local\Bundles\CustomArgumentResolverBundle\Exceptions\BaseException;
+use Prokl\BaseException\BaseException;
 
 /**
  * Class IblockModelException

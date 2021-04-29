@@ -2,7 +2,7 @@
 
 namespace Local\Bundles\CustomArgumentResolverBundle\Event\Exceptions;
 
-use Local\Bundles\CustomArgumentResolverBundle\Exceptions\BaseException;
+use Prokl\BaseException\BaseException;
 use Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
 
 /**

@@ -105,7 +105,7 @@ services:
   render:
     class: Local\Services\Twig\Extensions\RenderExtension
     arguments:
-      - '@Local\SymfonyTools\Framework\Utils\ResolverDependency\ResolveDependencyMakerContainerAware'
+      - '@Local\Bundles\CustomArgumentResolverBundle\Service\ResolversDependency\ResolveDependencyMakerContainerAware'
       - '@dispatcher.controller'
       - '@routes.collection'
     calls:

@@ -1,9 +1,9 @@
 <?php
 
-use Local\Commands\Database\DbDrop;
-use Local\Commands\Database\DbExport;
-use Local\Commands\Database\DbImport;
-use Local\Services\Console\ConsoleCommandConfiguratorSimple;
+use Prokl\DbCommands\Commands\DbDrop;
+use Prokl\DbCommands\Commands\DbExport;
+use Prokl\DbCommands\Commands\DbImport;
+use Prokl\DbCommands\Configurator\ConsoleCommandConfiguratorSimple;
 use Symfony\Component\Console\Application;
 
 @set_time_limit(0);

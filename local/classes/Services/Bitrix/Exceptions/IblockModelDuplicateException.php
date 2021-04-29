@@ -2,7 +2,7 @@
 
 namespace Local\Services\Bitrix\Exceptions;
 
-use Local\SymfonyTools\Framework\Exceptions\BaseException;
+use Local\Bundles\CustomArgumentResolverBundle\Exceptions\BaseException;
 
 /**
  * Class IblockModelDuplicateException

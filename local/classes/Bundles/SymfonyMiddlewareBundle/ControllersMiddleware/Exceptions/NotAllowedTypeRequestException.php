@@ -2,7 +2,7 @@
 
 namespace Local\Bundles\SymfonyMiddlewareBundle\ControllersMiddleware\Exceptions;
 
-use Local\SymfonyTools\Framework\Exceptions\BaseException;
+use Local\Bundles\CustomArgumentResolverBundle\Exceptions\BaseException;
 
 /**
  * Class NotAllowedTypeRequestException

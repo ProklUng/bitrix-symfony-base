@@ -2,7 +2,7 @@
 
 namespace Local\ServiceProvider\PostLoadingPass\Exceptions;
 
-use Local\SymfonyTools\Framework\Exceptions\BaseException;
+use Local\Bundles\CustomRequestResponserBundle\Exceptions\BaseException;
 
 /**
  * Class RuntimePostLoadingPassException

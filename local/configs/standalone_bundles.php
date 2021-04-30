@@ -9,7 +9,7 @@ return [
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['all' => true],
     Prokl\BundleMakerBundle\BundleMakerBundle::class => ['all' => true],
     Prokl\StaticPageMakerBundle\StaticPageMakerBundle::class => ['all' => true],
-    Local\Bundles\ModelBundle\ModelBundle::class => ['all' => true],
+    Prokl\BitrixModelBundle\ModelBundle::class => ['all' => true],
     Prokl\BitrixWebformBundle\BitrixWebformBundle::class => ['all' => true],
     Prokl\BitrixFormBundle\BitrixFormBundle::class => ['all' => true],
     Prokl\ApiExceptionBundle\M6WebApiExceptionBundle::class => ['all' => true],

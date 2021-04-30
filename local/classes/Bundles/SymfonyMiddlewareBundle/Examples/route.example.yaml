@@ -1,5 +1,0 @@
-foo_route3:
-  path: /api/foo3/
-  controller: 'Local\Bundles\SymfonyMiddlewareBundle\Examples\Controller\SimplestValidateController::action'
-  options:
-    middleware: ['Local\Bundles\SymfonyMiddlewareBundle\ControllersMiddleware\SanitizingMiddleware', 'Local\Bundles\SymfonyMiddlewareBundle\ControllersMiddleware\ValidatorMiddleware']

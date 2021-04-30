@@ -105,7 +105,8 @@
     "proklung/pipeline-symfony": "^1.0",
     "proklung/base-exception": "^1.0",
     "proklung/db-command": "^1.0",
-    "proklung/bitrix-model-bundle": "^1.0"
+    "proklung/bitrix-model-bundle": "^1.0",
+    "proklung/symfony-middleware-bundle": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",

@@ -33,4 +33,5 @@ return [
     Prokl\BitrixSymfonyRouterBundle\SymfonyRouterBundle::class => ['all' => true],
     Prokl\CollectionExtenderBundle\CollectionExtenderBundle::class => ['all' => true],
     Prokl\ArgumentResolversBundle\ArgumentResolversBundle::class => ['all' => true],
+    Prokl\BitrixMenuBuilderBundle\BitrixMenuBuilderBundle::class => ['all' => true],
 ];

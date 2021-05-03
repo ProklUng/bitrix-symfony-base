@@ -108,7 +108,8 @@
     "proklung/bitrix-model-bundle": "^1.0",
     "proklung/symfony-middleware-bundle": "^1.0",
     "proklung/cache-proxificator": "^1.1",
-    "proklung/bitrix-menu-builder-bundle": "^1.0"
+    "proklung/bitrix-menu-builder-bundle": "^1.0",
+    "proklung/bitrix-fixture-database-generator-bundle": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",

@@ -8,10 +8,14 @@ namespace Local\Services;
  */
 class TimestampNews
 {
-    /** @var array $arTimeStamps Таймстампы элементов новостей. */
+    /**
+     * @var array $arTimeStamps Таймстампы элементов новостей.
+     */
     private $arTimestamps;
 
-    /** @var array $arData */
+    /**
+     * @var array $arData
+     */
     private $arData = [];
 
     /**
@@ -23,12 +27,11 @@ class TimestampNews
     {
         $this->arTimestamps = $this->process($this->arData);
 
-        /** @var string $sFinalTimestamp Самый свежий timestamp. */
-        return !empty($this->arTimestamps[0]) ? $this->arTimestamps[0] : '';
+        return $this->arTimestamps[0] ?? '';
     }
 
     /**
-     * @param array $arResultItems
+     * @param array $arResultItems Битриксовый $arResult['ITEMS'].
      *
      * @return $this
      */
@@ -40,13 +43,13 @@ class TimestampNews
     }
 
     /**
-     * @param array $arResultItems
+     * @param array $arResultItems Битриксовый $arResult['ITEMS'].
      *
      * @return array
      */
     protected function process(array $arResultItems = []) : array
     {
-        if (empty($arResultItems)) {
+        if (count($arResultItems) === 0) {
             return [];
         }
 
@@ -57,9 +60,9 @@ class TimestampNews
             } else {
                 if (strtotime($a) > strtotime($b)) {
                     return -1;
-                } else {
-                    return 0;
                 }
+
+                return 0;
             }
         });
 

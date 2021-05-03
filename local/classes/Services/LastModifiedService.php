@@ -8,20 +8,22 @@ namespace Local\Services;
  */
 class LastModifiedService
 {
-    /** @var array $arLastModifiedData Дата последнего изменения последовательно по всей странице. */
+    /**
+     * @var array $arLastModifiedData Дата последнего изменения последовательно по всей странице.
+     */
     private static $arLastModifiedData = [];
 
     /**
      * Добавить дату.
      *
-     * @param string $sHashCode Хэш-код.
-     * @param mixed  $value     Таймстамп.
+     * @param string $hashCode Хэш-код.
+     * @param mixed  $value    Таймстамп.
      *
      * @return void
      */
-    public function add(string $sHashCode, $value): void
+    public function add(string $hashCode, $value): void
     {
-        self::$arLastModifiedData[md5($sHashCode)] = $value;
+        self::$arLastModifiedData[md5($hashCode)] = $value;
     }
 
     /**
@@ -53,9 +55,9 @@ class LastModifiedService
             } else {
                 if (strtotime($a) > strtotime($b)) {
                     return -1;
-                } else {
-                    return 0;
                 }
+
+                return 0;
             }
         });
 

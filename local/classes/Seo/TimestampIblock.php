@@ -14,6 +14,7 @@ class TimestampIblock
      * @var CIBlockElement
      */
     private $el;
+
     /**
      * @var integer
      */
@@ -22,7 +23,7 @@ class TimestampIblock
     /**
      * TimestampIblock constructor.
      *
-     * @param CIBlockElement $el       Битриксовый объект.
+     * @param CIBlockElement $el Битриксовый CIBlockElement.
      */
     public function __construct(
         CIBlockElement $el
@@ -39,7 +40,7 @@ class TimestampIblock
     {
         $arData = $this->query($this->iblockId);
 
-        return !empty($arData[0]['TIMESTAMP_X']) ? $arData[0]['TIMESTAMP_X'] : '';
+        return $arData[0]['TIMESTAMP_X'] ?? '';
     }
 
     /**

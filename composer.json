@@ -104,7 +104,8 @@
     "proklung/symfony-middleware-bundle": "^1.0",
     "proklung/cache-proxificator": "^1.1",
     "proklung/bitrix-menu-builder-bundle": "^1.0",
-    "proklung/bitrix-fixture-database-generator-bundle": "^1.0"
+    "proklung/bitrix-fixture-database-generator-bundle": "^1.0",
+    "proklung/request-log-bundle": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",
@@ -123,8 +124,7 @@
     "psalm/plugin-symfony": "^2.1",
     "phpstan/phpstan-doctrine": "^0.12.26",
     "psalm/plugin-mockery": "^0.7.0",
-    "symfony/maker-bundle": "^1.26",
-    "proklung/request-log-bundle": "^1.0"
+    "symfony/maker-bundle": "^1.26"
   },
   "autoload": {
     "psr-4": {

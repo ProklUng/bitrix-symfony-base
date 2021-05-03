@@ -4,7 +4,7 @@ bitrix-fixture-generator:
 
   # Пути к фикстурам.
   bitrix_database_bundle_fixture_path:
-    - '/local/classes/Bundles/BitrixDatabaseBundle/Samples/fixtures/'
+    - '/local/classes/BaseFixtures/'
 
   # Набор команд, генерирующих нужную фикстуру.
   structure_project:

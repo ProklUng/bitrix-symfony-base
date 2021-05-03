@@ -1,16 +1,16 @@
 <?php
 
-namespace Local\Bundles\BitrixDatabaseBundle\Samples\Fixtures;
+namespace Local\BaseFixtures;
 
-use Local\Bundles\BitrixDatabaseBundle\Services\Annotations\FieldParams;
-use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureInterface;
-use Local\Bundles\BitrixDatabaseBundle\Services\Generators\BaseOptionGenerator;
-use Local\Bundles\BitrixDatabaseBundle\Services\Generators\RandomLinkElementGenerator;
-use Local\Bundles\BitrixDatabaseBundle\Services\Generators\RandomLinkSectionGenerator;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Annotations\FieldParams;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Contracts\FixtureInterface;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Generators\BaseOptionGenerator;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Generators\RandomLinkElementGenerator;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Generators\RandomLinkSectionGenerator;
 
 /**
  * Class ExampleHighloadFixture
- * @package Local\Bundles\BitrixDatabaseBundle\Samples\Fixtures
+ * @package Local\BaseFixtures
  *
  * @since 11.04.2021
  */

@@ -1,17 +1,17 @@
 <?php
 
-namespace Local\Bundles\BitrixDatabaseBundle\Samples\Fixtures;
+namespace Local\BaseFixtures;
 
-use Local\Bundles\BitrixDatabaseBundle\Services\Annotations\FieldParams;
-use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureInterface;
-use Local\Bundles\BitrixDatabaseBundle\Services\Generators\EnumGenerator;
-use Local\Bundles\BitrixDatabaseBundle\Services\Generators\ImageGenerator;
-use Local\Bundles\BitrixDatabaseBundle\Services\Generators\LinkElementGenerator;
-use Local\Bundles\BitrixDatabaseBundle\Services\Generators\SentenceGenerator;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Annotations\FieldParams;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Contracts\FixtureInterface;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Generators\EnumGenerator;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Generators\ImageGenerator;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Generators\LinkElementGenerator;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Generators\SentenceGenerator;
 
 /**
  * Class ContentCommonFixture
- * @package Local\Bundles\BitrixDatabaseBundle\Samples\Fixtures
+ * @package Local\BaseFixtures
  *
  * @since 11.04.2021
  */

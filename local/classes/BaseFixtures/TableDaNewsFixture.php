@@ -1,16 +1,16 @@
 <?php
 
-namespace Local\Bundles\BitrixDatabaseBundle\Samples\Fixtures;
+namespace Local\BaseFixtures;
 
-use Local\Bundles\BitrixDatabaseBundle\Services\Annotations\FieldParams;
-use Local\Bundles\BitrixDatabaseBundle\Services\Contracts\FixtureInterface;
-use Local\Bundles\BitrixDatabaseBundle\Services\Generators\HtmlGenerator;
-use Local\Bundles\BitrixDatabaseBundle\Services\Generators\ImageIdGenerator;
-use Local\Bundles\BitrixDatabaseBundle\Services\Generators\UserIdGenerator;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Annotations\FieldParams;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Contracts\FixtureInterface;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Generators\HtmlGenerator;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Generators\ImageIdGenerator;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Generators\UserIdGenerator;
 
 /**
  * Class TableDaNewsFixture
- * @package Local\Bundles\BitrixDatabaseBundle\Samples\Fixtures
+ * @package Local\BaseFixtures
  *
  * @since 11.04.2021
  */
@@ -19,7 +19,8 @@ class TableDaNewsFixture implements FixtureInterface
     /**
      * @inheritDoc
      */
-    public function id() : string {
+    public function id() : string
+    {
         return 'd_ah_news';
     }
 
@@ -32,7 +33,8 @@ class TableDaNewsFixture implements FixtureInterface
      *    }
      * )
      */
-    public function fixture() : array {
+    public function fixture() : array
+    {
         return [
             'IMAGE' => ImageIdGenerator::class, // Сервис, помеченный тэгом fixture_generator.item.
             'CREATED_BY' => UserIdGenerator::class,

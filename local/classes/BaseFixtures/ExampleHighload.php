@@ -3,9 +3,9 @@
  * Образец фикстуры. Указываются только поля, которые обрабатываются особым образом
  */
 
-use Local\Bundles\BitrixDatabaseBundle\Services\Generators\RandomLinkElementGenerator;
-use Local\Bundles\BitrixDatabaseBundle\Services\Generators\RandomLinkSectionGenerator;
-use Local\Bundles\BitrixDatabaseBundle\Services\Generators\SentenceGenerator;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Generators\RandomLinkElementGenerator;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Generators\RandomLinkSectionGenerator;
+use Prokl\BitrixFixtureGeneratorBundle\Services\Generators\SentenceGenerator;
 
 return [
     'UF_STRING' => 'bitrix_database_bundle.short_string_generator',

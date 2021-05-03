@@ -37,13 +37,6 @@ services:
     tags:
       - { name: console.command }
 
-  # Заготовки модулей.
-  Local\Services\Bitrix\Modules\Command\ModuleMaker:
-    arguments:
-      - '@filesystem'
-    tags:
-      - { name: console.command, command: maker:module }
-
   ##############################
   # Стандартные команды Symfony
   ##############################

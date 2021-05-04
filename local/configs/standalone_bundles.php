@@ -33,4 +33,5 @@ return [
     Prokl\CollectionExtenderBundle\CollectionExtenderBundle::class => ['all' => true],
     Prokl\ArgumentResolversBundle\ArgumentResolversBundle::class => ['all' => true],
     Prokl\BitrixMenuBuilderBundle\BitrixMenuBuilderBundle::class => ['all' => true],
+    Prokl\BitrixIblockElementValidatorBundle\BitrixIblockElementValidatorBundle::class => ['all' => true],
 ];

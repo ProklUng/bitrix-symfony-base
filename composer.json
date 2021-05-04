@@ -28,9 +28,6 @@
     "illuminate/support": "^6.0",
     "illuminate/pagination": "^6.0",
     "illuminate/database": "^6.0",
-    "illuminate/events": "^6.0",
-    "illuminate/validation": "^6.0",
-    "illuminate/view": "^6.0",
     "illuminate/container": "^6.0",
     "vlucas/phpdotenv": "3.*",
     "bitrix-expert/monolog-adapter": "^1.0",
@@ -105,7 +102,8 @@
     "proklung/cache-proxificator": "^1.1",
     "proklung/bitrix-menu-builder-bundle": "^1.0",
     "proklung/bitrix-fixture-database-generator-bundle": "^1.0",
-    "proklung/request-log-bundle": "^1.0"
+    "proklung/request-log-bundle": "^1.0",
+    "proklung/bitrix-iblock-element-validator-bundle": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",

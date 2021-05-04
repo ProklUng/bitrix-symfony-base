@@ -6,14 +6,6 @@ bitrix_iblock_element_validator:
     # инфоблока id_iblock.
     # optional_validator - опциональный сервис валидации.
     ######################################################
-    field_email_validator:
-      id_iblock: 1
-      sanitize: ''
-      code_property: EMAIL
-      rule: 'required|string|min:12'
-      error_message: '#FIELD_NAME#: должна быть строка, не менее двенадцати символов длиной.'
-      optional_validator: bitrix_iblock_element_validator.example_custom_validator
-
     field_phone_validator:
       id_iblock: 1
       code_property: Phone

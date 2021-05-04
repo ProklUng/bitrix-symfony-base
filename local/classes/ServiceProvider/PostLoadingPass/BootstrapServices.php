@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
  * @package Local\ServiceProvider\PostLoadingPass
  *
  * @since 28.09.2020
- * @since 94.05.2021 Исключения сервисов автозагрузки больше не глушатся.
+ * @since 04.05.2021 Исключения сервисов автозагрузки больше не глушатся.
  */
 class BootstrapServices implements PostLoadingPassInterface
 {

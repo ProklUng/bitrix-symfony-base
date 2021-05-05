@@ -72,3 +72,10 @@ services:
     arguments: [~, ~]
     tags:
       - { name: console.command, comand: debug:autowiring }
+
+  console.command.dump_reference:
+    class: Local\Commands\Fork\ConfigDumpReferenceCommand
+    calls:
+      - setContainer: ['@service_container']
+    tags:
+      - { name: console.command, comand: config:dump-reference }

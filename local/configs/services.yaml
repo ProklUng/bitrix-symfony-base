@@ -1,23 +1,18 @@
 imports:
   - {resource: services/utils.yaml }
-  - {resource: services/annotations.yaml }
   - {resource: services/filesystem.yaml }
   - {resource: services/cache.yaml }
   - {resource: services/validations.yaml }
-  - {resource: services/serializer.yaml }
-  - {resource: services/sessions.yaml }
   - {resource: services/twig.yaml }
   - {resource: services/assets.yaml }
   - {resource: services/bitrix.yaml }
   - {resource: services/image_resizer.yaml }
-  - {resource: services/csrf.yaml }
   - {resource: services/seo.yaml }
   - {resource: services/controllers.yaml }
   - {resource: services/resolvers.yaml }
   - {resource: services/guzzle.yaml }
   - {resource: services/console_commands.yaml }
   - {resource: services/tasks.yaml }
-  - {resource: services/framework.yaml }
   - {resource: services/facades.yaml }
 
 parameters:
@@ -35,23 +30,8 @@ parameters:
   base.api.url: '/api/'
 
   csrf_protection: false
-
-  dbal:
-    enabled: false
-    url: '%env(DATABASE_URL)%'
-    charset: UTF8
-    default_connection: default
-    types: ~
-
-    connections:
-      default:
-        url: "%env(DATABASE_URL)%"
-        dbname:           sitemanager1
-        user:             root
-        password:         null
-        host:             localhost
-        mapping_types:
-          enum: string
+  enable_annotations: true
+  annotations.cache_ttl_default: 3600
 
 services:
   # конфигурация по умолчанию в *этом* файле

@@ -9,20 +9,6 @@ services:
     autoconfigure: true
     public: true
 
-  # Компонент управления консольными командами.
-  Symfony\Component\Console\Application: ~
-
-  ###########
-  # Команды
-  ##########
-
-  # Менеджер консольных команд.
-  console.command.manager:
-    class: Local\Services\Console\ConsoleCommandConfigurator
-    arguments:
-      - '@Symfony\Component\Console\Application'
-      - '@service_container'
-
   # Очистка кэша.
   Local\Commands\CacheClear:
     tags:
@@ -37,45 +23,3 @@ services:
     tags:
       - { name: console.command }
 
-  ##############################
-  # Стандартные команды Symfony
-  ##############################
-  console.command.router_debug:
-    class: Symfony\Bundle\FrameworkBundle\Command\RouterDebugCommand
-    arguments: ['@router']
-    tags:
-      - { name: console.command, comand: debug:router }
-
-  console.command.router_match:
-    class: Symfony\Bundle\FrameworkBundle\Command\RouterMatchCommand
-    arguments: ['@router']
-    tags:
-      - { name: console.command, comand: router:match }
-
-  console.command.event_dispatcher_debug:
-    class: Symfony\Bundle\FrameworkBundle\Command\EventDispatcherDebugCommand
-    arguments: ['@event_dispatcher']
-    tags:
-      - { name: console.command, comand: debug:event-dispatcher }
-
-  console.command.container_debug:
-    class: Local\Commands\Fork\ContainerDebugCommand
-    calls:
-      - setContainer: ['@service_container']
-    tags:
-      - { name: console.command, comand: debug:container }
-
-  console.command.debug_autowiring:
-    class: Local\Commands\Fork\DebugAutowiringCommand
-    calls:
-      - setContainer: ['@service_container']
-    arguments: [~, ~]
-    tags:
-      - { name: console.command, comand: debug:autowiring }
-
-  console.command.dump_reference:
-    class: Local\Commands\Fork\ConfigDumpReferenceCommand
-    calls:
-      - setContainer: ['@service_container']
-    tags:
-      - { name: console.command, comand: config:dump-reference }

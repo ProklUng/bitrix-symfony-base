@@ -1,6 +1,7 @@
 <?php
 
 return [
+    Prokl\CustomFrameworkExtensionsBundle\CustomFrameworkExtensionsBundle::class => ['all' => true],
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Local\Bundles\CustomArgumentResolverBundle\CustomArgumentResolverBundle::class => ['all' => true],
     Prokl\GuzzleBundle\CsaGuzzleBundle::class => ['all' => true],

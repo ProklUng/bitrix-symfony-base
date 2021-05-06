@@ -39,11 +39,4 @@ class AbstractStandaloneServiceProvider extends ServiceProvider
         $this->symfonyCompilerClass = SymfonyCompilerPassBagLight::class;
         parent::__construct($filename);
     }
-
-    /**
-     * @inheritDoc
-     */
-    protected function registerFrameworkExtensions() : void
-    {
-    }
 }

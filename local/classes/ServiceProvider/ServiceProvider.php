@@ -7,7 +7,6 @@ use CMain;
 use Exception;
 use InvalidArgumentException;
 use Local\ServiceProvider\Bundles\BundlesLoader;
-use Local\ServiceProvider\Extra\ExtraFeature;
 use Local\ServiceProvider\Framework\SymfonyCompilerPassBag;
 use Local\Services\AppKernel;
 use Local\Util\ErrorScreen;
@@ -507,9 +506,6 @@ class ServiceProvider
                 $this->getContainerLoader(static::$containerBuilder)
             );
 
-            // FrameworkExtension.
-            $this->registerFrameworkExtensions();
-
             // Контейнер в AppKernel, чтобы соответствовать Symfony.
             if (static::$containerBuilder->has('kernel')) {
                 $kernelService = static::$containerBuilder->get('kernel');
@@ -793,22 +789,6 @@ class ServiceProvider
         ]);
 
         return new DelegatingLoader($resolver);
-    }
-
-    /**
-     * Регистрация Framework Extensions.
-     *
-     * @return void
-     *
-     * @since 28.11.2020
-     * @since 21.12.2020 Нативная поддержка нативных аннотированных роутов.
-     *
-     * @throws Exception
-     */
-    protected function registerFrameworkExtensions() : void
-    {
-        $frameworkExtension = new ExtraFeature();
-        $frameworkExtension->register(static::$containerBuilder);
     }
 
     /**

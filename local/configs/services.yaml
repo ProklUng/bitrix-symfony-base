@@ -20,7 +20,6 @@ parameters:
   debug: '%env(bool:resolve:DEBUG)%'
   # Компилировать ли сервис-контейнер?
   compile.container: true
-  container.build_id: ~
 
   # Путь к сборке окружения dev.
   build.dev.path: 'local/build/'

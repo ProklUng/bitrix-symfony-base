@@ -84,11 +84,7 @@ touch .env
 - Развернуть окружение
 
 ```sh
-./vendor/bin/jedi env:init default
-
-Update: упрощенная локальная версия Jedi - в терминале: php bin/jedi env:init default
-
-Проблема в том, что оригинальная Jedi давно не обновлялась и лочит всю конструкцию на старый пакет Symfony.
+php bin/jedi env:init default
 
 Эта команда скопирует в директорию `bitrix` системные файлы настроек сконфигурированные для работы с 
 [переменными окружения](https://github.com/vlucas/phpdotenv), а также настройки 

@@ -24,6 +24,10 @@
     {
       "type": "git",
       "url": "https://github.com/proklung/jedi-light"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/proklung/framework-tools-bundle"
     }
   ],
 
@@ -99,7 +103,8 @@
     "proklung/bitrix-menu-builder-bundle": "^1.0",
     "proklung/bitrix-fixture-database-generator-bundle": "^1.0",
     "proklung/request-log-bundle": "^1.0",
-    "proklung/bitrix-iblock-element-validator-bundle": "^1.0"
+    "proklung/bitrix-iblock-element-validator-bundle": "^1.0",
+    "proklung/framework-tools-bundle": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",

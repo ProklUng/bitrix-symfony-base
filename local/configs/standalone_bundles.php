@@ -25,7 +25,7 @@ return [
     Prokl\SymfonyBladeBundle\SymfonyBladeBundle::class => ['all' => true],
     Prokl\RequestValidatorBundle\RequestValidatorBundle::class => ['all' => true],
     Prokl\BitrixFixtureGeneratorBundle\BitrixFixtureGeneratorBundle::class => ['all' => true],
-    Local\Bundles\FrameworkExtensionBundle\FrameworkExtensionBundle::class => ['all' => true],
+    Prokl\FrameworkExtensionBundle\FrameworkExtensionBundle::class => ['all' => true],
     Prokl\FacadeBundle\FacadeBundle::class => ['all' => true],
     Prokl\CkEditorBundle\CkEditorBundle::class => ['all' => true],
     Prokl\AnnotatedParamResolverBundle\AnnotatedParamResolverBundle::class => ['all' => true],

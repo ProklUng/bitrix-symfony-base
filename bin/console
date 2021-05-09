@@ -1,6 +1,6 @@
 <?php
 
-use Local\Commands\Utils\LoaderBitrix;
+use Prokl\FrameworkExtensionBundle\Services\Bitrix\LoaderBitrix;
 use Prokl\CustomFrameworkExtensionsBundle\Services\Console\ConsoleCommandConfigurator;
 
 @set_time_limit(0);

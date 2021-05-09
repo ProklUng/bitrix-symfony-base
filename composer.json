@@ -28,10 +28,6 @@
     {
       "type": "git",
       "url": "https://github.com/proklung/framework-tools-bundle"
-    },
-    {
-      "type": "git",
-      "url": "https://github.com/proklung/instagram.parser.bundle"
     }
   ],
 
@@ -108,8 +104,7 @@
     "proklung/bitrix-fixture-database-generator-bundle": "^1.0",
     "proklung/request-log-bundle": "^1.0",
     "proklung/bitrix-iblock-element-validator-bundle": "^1.0",
-    "proklung/framework-tools-bundle": "^1.0",
-    "proklung/instagram-parser-bundle": "^1.0"
+    "proklung/framework-tools-bundle": "^1.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",

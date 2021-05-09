@@ -5,7 +5,7 @@ namespace Local\Bundles\CustomArgumentResolverBundle\Event\Listeners;
 use Local\Bundles\CustomArgumentResolverBundle\Event\Exceptions\WrongSecurityTokenException;
 use Local\Bundles\CustomArgumentResolverBundle\Event\Interfaces\OnControllerRequestHandlerInterface;
 use Local\Bundles\CustomArgumentResolverBundle\Event\Traits\UseTraitChecker;
-use Local\Controllers\Traits\ValidatorTraits\BitrixSecurityTokenTrait;
+use Local\Bundles\CustomArgumentResolverBundle\Event\Traits\ValidatorTraits\BitrixSecurityTokenTrait;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
 /**

@@ -1,11 +1,11 @@
 <?php
 
-namespace Local\Controllers\Traits\ValidatorTraits;
+namespace Local\Bundles\CustomArgumentResolverBundle\Event\Traits\ValidatorTraits;
 
 /**
  * Trait BitrixSecurityTokenTrait
  * Трэйт, указывающий проверять токен безопасности Битрикс.
- * @package Local\Controllers\Traits\ValidatorTraits
+ * @package Local\Bundles\CustomArgumentResolverBundle\Event\Traits\ValidatorTraits
  *
  * @since 10.09.2020
  */

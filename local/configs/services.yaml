@@ -31,7 +31,6 @@ parameters:
 
   csrf_protection: false
   enable_annotations: true
-  annotations.cache_ttl_default: 3600
 
 services:
   # конфигурация по умолчанию в *этом* файле

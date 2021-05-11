@@ -12,12 +12,17 @@ services:
   # Twig loader
   twig.loader:
     class: Twig_Loader_Filesystem
-    arguments: ['%kernel.project_dir%/local/twig/']
+    arguments:
+      - '%twig_paths%'
 
   # Twig
   twig:
     class: Local\Services\TwigService
-    arguments: ['@twig.loader', '%debug%', '%kernel.project_dir%/bitrix/cache/twig']
+    arguments:
+      - '@twig.loader'
+      - '%debug%'
+      - '%twig_cache_dir%'
+      - '%twig_config%'
 
   # Экземпляр Twig.
   twig.instance:

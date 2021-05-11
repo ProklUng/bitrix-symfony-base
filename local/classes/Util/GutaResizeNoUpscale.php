@@ -14,36 +14,36 @@ class GutaResizeNoUpscale extends GutaResize
      * Ресайз без upscale (увеличения размера,
      * в случае, если картинка маленькая).
      *
-     * @param string $sUrlPicture URL исходной картинки.
-     * @param string $sResultPath Результирующий путь.
+     * @param string $urlPicture URL исходной картинки.
+     * @param string $resultPath Результирующий путь.
      *
      * @return boolean
      */
-    protected function interventionResize(string $sUrlPicture, string $sResultPath): bool
+    protected function interventionResize(string $urlPicture, string $resultPath): bool
     {
         // Create an image manager instance with favored driver (default)
-        $obImageManager = new ImageManager();
-        $obImage = $obImageManager->make($sUrlPicture);
+        $imageManager = new ImageManager();
+        $image = $imageManager->make($urlPicture);
 
         // Если картинка меньше размером, чем требуемая,
         // то вернем исходник.
-        if ($obImage->width() <= $this->iWidth
+        if ($image->width() <= $this->width
             &&
-            $obImage->height() <= $this->iHeight
+            $image->height() <= $this->height
         ) {
             return false;
         }
 
         // Ресайз и кроп
-        $obImage->resize($this->iWidth, $this->iHeight, function ($constraint) {
+        $image->resize($this->width, $this->height, function ($constraint) {
             $constraint->upsize();
             $constraint->aspectRatio();
         });
 
-        $sDestinationFilename = $_SERVER['DOCUMENT_ROOT'].$sResultPath;
+        $destinationFilename = $_SERVER['DOCUMENT_ROOT'].$resultPath;
         // Сохранить результат.
 
-        $obImage->save($sDestinationFilename, $this->iJpgQuaility);
+        $image->save($destinationFilename, $this->jpgQuaility);
 
         return true;
     }

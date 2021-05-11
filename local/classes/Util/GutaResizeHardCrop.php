@@ -10,40 +10,39 @@ use Intervention\Image\ImageManager;
  */
 class GutaResizeHardCrop extends GutaResize
 {
-
     /**
      * Ресайз без upscale (увеличения размера,
      * в случае, если картинка маленькая).
      *
-     * @param string $sUrlPicture URL исходной картинки.
-     * @param string $sResultPath Результирующий путь.
+     * @param string $urlPicture URL исходной картинки.
+     * @param string $resultPath Результирующий путь.
      *
      * @return boolean
      */
-    protected function interventionResize(string $sUrlPicture, string $sResultPath): bool
+    protected function interventionResize(string $urlPicture, string $resultPath): bool
     {
         // Create an image manager instance with favored driver (default)
-        $obImageManager = new ImageManager();
-        $obImage = $obImageManager->make($sUrlPicture);
+        $imageManager = new ImageManager();
+        $imageHandler = $imageManager->make($urlPicture);
 
         // Если картинка меньше размером, чем требуемая,
         // то вернем исходник.
-        if ($obImage->width() <= $this->iWidth
+        if ($imageHandler->width() <= $this->width
             &&
-            $obImage->height() <= $this->iHeight
+            $imageHandler->height() <= $this->height
         ) {
             return false;
         }
 
-        $obImage->fit($this->iWidth, $this->iHeight);
+        $imageHandler->fit($this->width, $this->height);
 
         // Ресайз и кроп
-        $obImage->crop($this->iWidth, $this->iHeight);
+        $imageHandler->crop($this->width, $this->height);
 
-        $sDestinationFilename = $_SERVER['DOCUMENT_ROOT'].$sResultPath;
+        $destinationFilename = $_SERVER['DOCUMENT_ROOT'].$resultPath;
         // Сохранить результат.
 
-        $obImage->save($sDestinationFilename, $this->iJpgQuaility);
+        $imageHandler->save($destinationFilename, $this->jpgQuaility);
 
         return true;
     }

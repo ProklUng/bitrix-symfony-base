@@ -14,11 +14,11 @@ class GutaResizeUpscale extends GutaResize
     /**
      * Проверка размеров картинок.
      *
-     * @param Image $obImage
+     * @param Image $imageHandler
      *
      * @return boolean
      */
-    protected function checkSize(Image $obImage) : bool
+    protected function checkSize(Image $imageHandler) : bool
     {
         return true;
     }

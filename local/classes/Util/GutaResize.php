@@ -11,71 +11,86 @@ use Intervention\Image\ImageManager;
  * Ресайз картинок с помощью библиотеки
  * Intervention Image.
  * @package Local\Util
+ *
+ * @since 03.02.2021 Избавление от венгерской нотации.
  */
 class GutaResize implements PictureResizerInterface
 {
     /** @const string PATH_TO_RESIZED_IMAGES Путь, куда складываются ресайзнутые картинки. */
     private const PATH_TO_RESIZED_IMAGES = '/upload/resized';
 
-    /** @var int $iWidth Нужная ширина картинки. */
-    protected $iWidth = 0;
-    /** @var int $iHeight Нужная высота картинки. */
-    protected $iHeight = 0;
-    /** @var int $iJpgQuaility Выходное качество JPG. */
-    protected $iJpgQuaility = 85;
-    /** @var int $iImageId ID картинки. */
-    protected $iImageId = 0;
+    /**
+     * @var ImageManager $imageManager Ресайзер.
+     */
+    protected $imageManager;
 
-    /** @var ImageManager $obImageManager Ресайзер. */
-    protected $obImageManager;
+    /**
+     * @var integer $width Нужная ширина картинки.
+     */
+    protected $width = 0;
+
+    /**
+     * @var integer $height Нужная высота картинки.
+     */
+    protected $height = 0;
+
+    /**
+     * @var integer $jpgQuaility Выходное качество JPG.
+     */
+    protected $jpgQuaility = 85;
+
+    /**
+     * @var integer $imageId ID картинки.
+     */
+    protected $imageId = 0;
 
     /**
      * ImageResizer constructor.
      *
-     * @param mixed $iImageId ID картинки.
-     * @param mixed $iWidth   Нужная ширина картинки, по умолчанию 1920.
-     * @param mixed $iHeight  Нужная высота, по умолчанию 1080.
+     * @param integer|null $imageId ID картинки.
+     * @param mixed        $width   Нужная ширина картинки, по умолчанию 1920.
+     * @param mixed        $height  Нужная высота, по умолчанию 1080.
      */
-    public function __construct($iImageId = null, $iWidth = 1920, $iHeight = 1080)
+    public function __construct($imageId = null, $width = 1920, $height = 1080)
     {
-        $this->iImageId = $iImageId;
-        $this->iWidth = $iWidth;
-        $this->iHeight = $iHeight;
+        $this->imageId = $imageId;
+        $this->width = $width;
+        $this->height = $height;
 
         // Create an image manager instance with favored driver (default)
-        $this->obImageManager = new ImageManager();
+        $this->imageManager = new ImageManager();
     }
 
     /**
      * Фасад ресайза по ID.
      *
-     * @param integer $iImageId ID битриксовской картинки.
-     * @param mixed   $iWidth   Ширина нужной картинки. По умолчанию - 1920.
-     * @param mixed   $iHeight  Ширина нужной картинки. По умолчанию - 1080.
+     * @param integer $imageId ID битриксовской картинки.
+     * @param mixed   $width   Ширина нужной картинки. По умолчанию - 1920.
+     * @param mixed   $height  Ширина нужной картинки. По умолчанию - 1080.
      *
      * @return string
      */
-    public static function resize(int $iImageId, $iWidth = 1920, $iHeight = 1080) : string
+    public static function resize(int $imageId, $width = 1920, $height = 1080) : string
     {
-        if (!$iImageId) {
+        if (!$imageId) {
             return '';
         }
 
-        $obResizer = new static ($iImageId, $iWidth, $iHeight);
+        $imageResizer = new static ($imageId, $width, $height);
 
-        return $obResizer->resizePicture();
+        return $imageResizer->resizePicture();
     }
 
     /**
      * Установить качество выходной картинки.
      *
-     * @param integer $iJpgQuality Качество JPG.
+     * @param integer $jpgQuality Качество JPG.
      *
      * @return self
      */
-    public function setJpgQuality(int $iJpgQuality) : self
+    public function setJpgQuality(int $jpgQuality) : self
     {
-        $this->iJpgQuaility = $iJpgQuality;
+        $this->jpgQuaility = $jpgQuality;
         return $this;
     }
 
@@ -88,7 +103,7 @@ class GutaResize implements PictureResizerInterface
      */
     public function setImageId(int $idImage)
     {
-        $this->iImageId = $idImage;
+        $this->imageId = $idImage;
 
         return $this;
     }
@@ -102,7 +117,7 @@ class GutaResize implements PictureResizerInterface
      */
     public function setWidth(int $width)
     {
-        $this->iWidth = $width;
+        $this->width = $width;
 
         return $this;
     }
@@ -116,7 +131,7 @@ class GutaResize implements PictureResizerInterface
      */
     public function setHeight(int $height)
     {
-        $this->iHeight = $height;
+        $this->height = $height;
 
         return $this;
     }
@@ -124,17 +139,17 @@ class GutaResize implements PictureResizerInterface
     /**
      * Фасад ресайза по URL.
      *
-     * @param string  $sUrl    URL картинки.
-     * @param integer $iWidth  Ширина нужной картинки.
-     * @param integer $iHeight Ширина нужной картинки.
+     * @param string  $url    URL картинки.
+     * @param integer $width  Ширина нужной картинки.
+     * @param integer $height Ширина нужной картинки.
      *
      * @return string
      */
-    public static function url(string $sUrl = '', int $iWidth = 0, int $iHeight = 0) : string
+    public static function url(string $url = '', int $width = 0, int $height = 0) : string
     {
-        $obResizer = new static (0, $iWidth, $iHeight);
+        $resizer = new static (0, $width, $height);
 
-        return $obResizer->resizePictureByUrl($sUrl);
+        return $resizer->resizePictureByUrl($url);
     }
 
     /**
@@ -145,63 +160,63 @@ class GutaResize implements PictureResizerInterface
     public function resizePicture() : string
     {
         // Получить URL картинки.
-        $sPath = $this->getPathImageById($this->iImageId);
+        $path = $this->getPathImageById($this->imageId);
 
-        return $this->resizePictureByUrl($sPath);
+        return $this->resizePictureByUrl($path);
     }
 
     /**
      * Ресайз картинки по URL.
      *
-     * @param string $sUrlImage URL картинки.
+     * @param string $urlImage URL картинки.
      *
      * @return string
      */
-    public function resizePictureByUrl(string $sUrlImage) : string
+    public function resizePictureByUrl(string $urlImage) : string
     {
-        $sUrlPicture = $_SERVER['DOCUMENT_ROOT'].$sUrlImage;
+        $urlPicture = $_SERVER['DOCUMENT_ROOT'] . $urlImage;
         // Получить имя результирующего файла.
-        $sResultPath = $this->getDestinationFileName($sUrlPicture);
+        $resultPath = $this->getDestinationFileName($urlPicture);
 
         // Если картинка уже существует, то не нужно ничего ресайзить.
-        if (!$this->needResize($sResultPath)) {
-            return $sResultPath;
+        if (!$this->needResize($resultPath)) {
+            return $resultPath;
         }
 
         // Проверить директорию для ресайзнутых картинок на существование.
         $this->checkExistUploadDirectory();
 
-        if ($this->interventionResize($sUrlPicture, $sResultPath)) {
-            return $sResultPath;
+        if ($this->interventionResize($urlPicture, $resultPath)) {
+            return $resultPath;
         }
 
-        return $sUrlImage;
+        return $urlImage;
     }
 
     /**
      * Сам процесс ресайза (для наследования).
      *
-     * @param string $sUrlPicture URL исходной картинки.
-     * @param string $sResultPath Результирующий путь.
+     * @param string $urlPicture URL исходной картинки.
+     * @param string $resultPath Результирующий путь.
      *
      * @return boolean
      */
-    protected function interventionResize(string $sUrlPicture, string $sResultPath): bool
+    protected function interventionResize(string $urlPicture, string $resultPath): bool
     {
-        $obImage = $this->obImageManager->make($sUrlPicture);
+        $imageHandler = $this->imageManager->make($urlPicture);
 
         // Если картинка меньше размером, чем требуемая,
         // то вернем исходник.
-        if (!$this->checkSize($obImage)) {
+        if (!$this->checkSize($imageHandler)) {
             return false;
         }
 
         // Ресайз и кроп
-        $obImage->fit($this->iWidth, $this->iHeight);
+        $imageHandler->fit($this->width, $this->height);
 
-        $sDestinationFilename = $_SERVER['DOCUMENT_ROOT'].$sResultPath;
+        $destinationFilename = $_SERVER['DOCUMENT_ROOT'].$resultPath;
         // Сохранить результат.
-        $obImage->save($sDestinationFilename, $this->iJpgQuaility);
+        $imageHandler->save($destinationFilename, $this->jpgQuaility);
 
         return true;
     }
@@ -209,17 +224,17 @@ class GutaResize implements PictureResizerInterface
     /**
      * Проверка размеров картинок.
      *
-     * @param Image $obImage
+     * @param Image $imageHandler
      *
      * @return boolean
      */
-    protected function checkSize(Image $obImage) : bool
+    protected function checkSize(Image $imageHandler) : bool
     {
         // Если картинка меньше размером, чем требуемая,
         // то вернем исходник.
-        if ($obImage->width() <= $this->iWidth
+        if ($imageHandler->width() <= $this->width
             &&
-            $obImage->height() <= $this->iHeight
+            $imageHandler->height() <= $this->height
         ) {
             return false;
         }
@@ -235,13 +250,12 @@ class GutaResize implements PictureResizerInterface
      */
     protected function checkExistUploadDirectory() : void
     {
-
         // Путь к директории, где расположатся ресайзнутые файлы.
-        $sPathToUploadDirectory = $_SERVER['DOCUMENT_ROOT'].self::PATH_TO_RESIZED_IMAGES;
+        $pathToUploadDirectory = $_SERVER['DOCUMENT_ROOT'] . self::PATH_TO_RESIZED_IMAGES;
 
-        if (!is_dir($sPathToUploadDirectory)) {
-            @mkdir($sPathToUploadDirectory);
-            @chmod($sPathToUploadDirectory, 0755);
+        if (!is_dir($pathToUploadDirectory)) {
+            @mkdir($pathToUploadDirectory);
+            @chmod($pathToUploadDirectory, 0755);
         }
     }
 
@@ -254,42 +268,40 @@ class GutaResize implements PictureResizerInterface
      *     строке прибавляется исходное расширение картинки.
      * }}
      *
-     * @param string $sOriginalUrl URL оригинальной картинки.
+     * @param string $originalUrl URL оригинальной картинки.
      *
      * @return string
      */
-    protected function getDestinationFileName(string $sOriginalUrl) : string
+    protected function getDestinationFileName(string $originalUrl) : string
     {
+        $md5 = md5($originalUrl .$this->width . $this->height);
+        $extension = pathinfo($originalUrl, PATHINFO_EXTENSION);
 
-        $sMd5 = md5($sOriginalUrl.$this->iWidth.$this->iHeight);
-        $sExtension = pathinfo($sOriginalUrl, PATHINFO_EXTENSION);
-
-        return self::PATH_TO_RESIZED_IMAGES.'/'.$sMd5 . '.' . $sExtension;
+        return self::PATH_TO_RESIZED_IMAGES . '/' . $md5 . '.' . $extension;
     }
 
     /**
      * Получить путь к картине по ID Битрикса.
      *
-     * @param integer $iID ID битриксовской картинки.
+     * @param integer $id ID битриксовской картинки.
      *
      * @return string
      */
-    protected function getPathImageById(int $iID): string
+    protected function getPathImageById(int $id): string
     {
-        return CFile::GetPath($iID) ?? '';
+        return CFile::GetPath($id) ?? '';
     }
 
     /**
      * Нужно ли делать ресайз (если результирующая картинка уже существует, то нет).
      *
-     * @param string $sDestinationFilePath Путь к результирущей картинке.
+     * @param string $destinationFilePath Путь к результирущей картинке.
      *
      * @return boolean
      */
-    protected function needResize(string $sDestinationFilePath) : bool
+    protected function needResize(string $destinationFilePath) : bool
     {
-
-        if (!@file_exists($_SERVER['DOCUMENT_ROOT'].$sDestinationFilePath)) {
+        if (!@file_exists($_SERVER['DOCUMENT_ROOT'] . $destinationFilePath)) {
             return true;
         }
 

@@ -10,7 +10,7 @@ services:
     public: true
 
   bitrix.simple.cacher.configured:
-    class: Local\Services\Bitrix\Psr16Cache\BitrixCacher
+    class: Prokl\FrameworkExtensionBundle\Services\Bitrix\Psr16Cache\BitrixCacher
     arguments: ['@Bitrix\Main\Data\Cache']
     calls:
       - setBaseDir: ['/guzzle_request']

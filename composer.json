@@ -46,12 +46,10 @@
     "intervention/image": "^2.5",
     "mmucklo/krumo": "^0.6.0",
     "symfony/dotenv": "^5.2",
-    "symfony/routing": "^4.4",
     "symfony/http-foundation": "^4.4",
     "symfony/event-dispatcher": "^4.4",
     "symfony/http-kernel": "^4.4",
     "symfony/dependency-injection": "^4.4",
-    "symfony/twig-bridge": "4.*",
     "symfony/string": "^5.2",
     "symfony/mailer": "^5.2",
     "symfony/google-mailer": "^5.2",
@@ -65,7 +63,6 @@
     "webarchitect609/bitrix-iblock-property-type": "^1.2",
     "webarchitect609/bitrix-user-type": "^0.7.2",
     "webarchitect609/bitrix-cache": "^1.6",
-    "tijsverkoyen/css-to-inline-styles": "^2.2",
     "spatie/data-transfer-object": "^2.5",
     "spatie/url-signer": "^1.2",
     "dragonmantank/cron-expression": "^3.1",
@@ -104,7 +101,8 @@
     "proklung/bitrix-fixture-database-generator-bundle": "^1.0",
     "proklung/request-log-bundle": "^1.0",
     "proklung/bitrix-iblock-element-validator-bundle": "^1.0",
-    "proklung/framework-tools-bundle": "^1.0"
+    "proklung/framework-tools-bundle": "^1.0",
+    "proklung/twig-extensions-bundle": "^1.1"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "2.*",

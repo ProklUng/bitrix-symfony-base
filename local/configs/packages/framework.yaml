@@ -1,4 +1,12 @@
 framework:
+  twig:
+    paths:
+      - '%kernel.project_dir%/local/twig/'
+      - '%kernel.project_dir%/local/classes/Bundles/EntityGeneratorBundle/templates/'
+
+    cache: false
+    cache_dir: '%kernel.project_dir%/bitrix/cache/twig'
+
   validation:
     enabled: true
     enable_annotations: true

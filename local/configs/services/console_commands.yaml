@@ -9,12 +9,3 @@ services:
     autoconfigure: true
     public: true
 
-  # Очистка кэша.
-  Local\Commands\CacheClear:
-    tags:
-      - { name: console.command }
-
-  Local\Commands\Runner\ExampleRunner:
-    tags:
-      - { name: console.command }
-

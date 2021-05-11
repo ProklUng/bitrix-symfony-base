@@ -6,7 +6,7 @@ use Arrilot\BitrixModels\Exceptions\ExceptionFromBitrix;
 use Arrilot\BitrixModels\Models\ElementModel;
 use Local\Services\Bitrix\Exceptions\IblockModelDuplicateException;
 use Local\Services\Bitrix\Exceptions\IblockModelException;
-use Local\Services\Bitrix\Interfaces\TranslitInterface;
+use Prokl\FrameworkExtensionBundle\Services\Contracts\TranslitInterface;
 
 /**
  * Class AddElement

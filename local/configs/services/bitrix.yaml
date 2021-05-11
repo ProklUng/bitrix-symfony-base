@@ -36,7 +36,7 @@ services:
   # Новый элемент инфоблока.
   creator.iblock.element:
     class: Local\Services\Bitrix\AddElement
-    arguments: ['@Local\Services\TranslitService']
+    arguments: ['@Prokl\FrameworkExtensionBundle\Services\TranslitService']
 
   # Битриксовый кэшер
   bitrix.cacher:
@@ -46,13 +46,6 @@ services:
   cacher:
     class: Local\Util\Bitrix\Cacher
     arguments: ['@bitrix.cacher']
-
-  bitrix.cache.engine:
-    class: Bitrix\Main\Data\ICacheEngine
-    factory: ['Bitrix\Main\Data\Cache', 'createCacheEngine']
-
-  Bitrix\Main\Data\Cache:
-    arguments: ['@bitrix.cache.engine']
 
   # Инстанс $APPLICATION
   application:
@@ -86,15 +79,6 @@ services:
   CFile.wrapper:
     class: Local\Services\CFileWrapper
     arguments: ['@CFile']
-
-  # Транслит.
-  Denismitr\Translit\Translit: ~
-
-  Local\Services\TranslitService:
-    class: Local\Services\TranslitService
-    arguments: ['@Denismitr\Translit\Translit']
-
-  Local\Services\Bitrix\Interfaces\TranslitInterface: '@Local\Services\TranslitService'
 
   # Доступ к bitrix/.settings.php.
   # Параметры: connections.default.host (ключи разделены точками) или connections.

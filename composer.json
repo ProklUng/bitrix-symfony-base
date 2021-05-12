@@ -15,11 +15,15 @@
   "repositories": [
     {
       "type": "git",
-      "url": "https://github.com/proklung/bitrix-models/"
+      "url": "https://github.com/proklung/core.framework.extension.bundle"
     },
     {
       "type": "git",
-      "url": "https://github.com/proklung/core.framework.extension.bundle"
+      "url": "https://github.com/proklung/core.argument.resolvers.bundle"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/proklung/bitrix-models/"
     },
     {
       "type": "git",
@@ -56,6 +60,7 @@
     "symfony/proxy-manager-bridge": "4.*",
     "symfony/monolog-bundle": "^3.6",
     "proklung/core-framework-extension-bundle": "^1.0",
+    "proklung/core-argument-resolvers-bundle": "^1.0",
     "league/flysystem": "^1.0",
     "webarchitect609/bitrix-iblock-property-type": "^1.2",
     "webarchitect609/bitrix-user-type": "^0.7.2",

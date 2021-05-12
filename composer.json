@@ -116,18 +116,12 @@
     "proklung/phpunit-testing-tools": "^1.0",
     "symfony/debug": "^4.4",
     "symfony/var-dumper": "^4.4",
-    "phpstan/phpstan": "^0.12.64",
-    "phpstan/extension-installer": "^1.1",
-    "phpstan/phpstan-symfony": "^0.12.12",
     "ergebnis/phpstan-rules": "^0.15.3",
     "phpstan/phpstan-strict-rules": "^0.12.7",
     "phpstan/phpstan-phpunit": "^0.12.17",
     "slam/phpstan-extensions": "^5.1",
     "phpstan/phpstan-deprecation-rules": "^0.12.6",
-    "vimeo/psalm": "^4.3",
-    "psalm/plugin-symfony": "^2.1",
     "phpstan/phpstan-doctrine": "^0.12.26",
-    "psalm/plugin-mockery": "^0.7.0",
     "symfony/maker-bundle": "^1.26"
   },
   "autoload": {

@@ -39,19 +39,9 @@ services:
     autoconfigure: true
     public: true
 
-  # Ядро.
-  # Сервис kernel регистрируется при загрузке контейнера.
-  Symfony\Component\HttpKernel\KernelInterface: '@kernel'
-  Symfony\Component\HttpKernel\Kernel: '@kernel'
-
   # Опции приложения.
   app.options:
     class: Local\Services\Kernel
-
-  # Параметры приложения.
-  parameter_bag:
-    class: Symfony\Component\DependencyInjection\ParameterBag\ContainerBag
-    arguments: ["@service_container"]
 
   event.dispatcher:
     class: Local\Util\SymfonyEvents\Events

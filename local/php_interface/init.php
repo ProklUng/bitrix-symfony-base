@@ -6,7 +6,7 @@
 // и "перезагрузить" командой `./vendor/bin/jedi env:init default`
 
 use Bitrix\Main\Loader;
-use Local\ServiceProvider\ServiceProvider;
+use Prokl\ServiceProvider\ServiceProvider;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Prokl\CollectionExtenderBundle\Services\Extender;
 

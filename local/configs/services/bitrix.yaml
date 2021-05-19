@@ -15,37 +15,10 @@ services:
   CIBlockSection:
     class: CIBlockSection
 
-  iblock.element.manager:
-    class: Local\Services\IblockElementManager
-
-  iblock.property.manager:
-    class: Local\Services\IBlockPropertyManager
-
-  iblock.section.manager:
-    class: Local\Services\IBlockSectionManager
-
-  hlblock.manager:
-    class: Local\Services\HLIBlockElementManager
-
-  iblock.manager:
-    class: Local\Services\IblockManager
-
-  form.manager:
-    class: Local\Services\FormManager
-
-  # Новый элемент инфоблока.
+   # Новый элемент инфоблока.
   creator.iblock.element:
     class: Local\Services\Bitrix\AddElement
     arguments: ['@Prokl\FrameworkExtensionBundle\Services\TranslitService']
-
-  # Битриксовый кэшер
-  bitrix.cacher:
-    class: CPHPCache
-
-  # Кэшер.
-  cacher:
-    class: Local\Util\Bitrix\Cacher
-    arguments: ['@bitrix.cacher']
 
   # Инстанс $APPLICATION
   application:
@@ -74,11 +47,6 @@ services:
   # Загрузчик контента.
   loader.content:
     class: Local\Util\LoaderContent
-
-  # Обертка над CFile.
-  CFile.wrapper:
-    class: Local\Services\CFileWrapper
-    arguments: ['@CFile']
 
   # Доступ к bitrix/.settings.php.
   # Параметры: connections.default.host (ключи разделены точками) или connections.

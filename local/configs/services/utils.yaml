@@ -22,11 +22,6 @@ services:
     class: Local\Services\Responses\JsonResponseError
     arguments: ['@Symfony\Component\HttpFoundation\Response', '400']
 
-  # Экран смерти.
-  die.screen:
-    class: Local\Util\ErrorScreen
-    arguments: ['@application']
-
   # Адаптированный Pipeline.
   Prokl\Pipeline\Hub:
     arguments: ['@service_container']

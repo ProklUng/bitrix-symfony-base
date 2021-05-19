@@ -3,7 +3,7 @@ data:
   on.result.modifier.component.last.modified:
     event: 'on.result.modifier.component'
     # Класс обработчик.
-    handler: '\Local\SymfonyEvents\Handlers\OnResultModifierSections'
+    handler: '\Prokl\BitrixOrdinaryToolsBundle\Services\SymfonyEvents\Handlers\OnResultModifierSections'
     # Метод слушателя. Если не указано, то "action".
     method: 'action'
     # Приоритет. По умолчанию - 0.
@@ -13,7 +13,7 @@ data:
   on.component.epilog.last.modified:
     event: 'on.component.epilog'
     # Класс обработчик.
-    handler: '\Local\SymfonyEvents\Handlers\OnComponentEpilogLastModified'
+    handler: '\Prokl\BitrixOrdinaryToolsBundle\Services\SymfonyEvents\Handlers\OnComponentEpilogLastModified'
     # Метод слушателя. Если не указано, то "action".
     method: 'action'
     # Приоритет. По умолчанию - 0.
@@ -24,33 +24,33 @@ data:
   set.seo.detail.page:
     event: 'on.component.epilog'
     # Класс обработчик.
-    handler: '\Local\SymfonyEvents\Handlers\Seo\OnDetailSetSeoData'
+    handler: '\Prokl\BitrixOrdinaryToolsBundle\Services\SymfonyEvents\Handlers\Seo\OnDetailSetSeoData'
     priority: 200
 
   # Канонические ссылки в news.detail.
   canonical.detail:
     event: 'on.result.modifier.component.detail'
     # Класс обработчик.
-    handler: '\Local\SymfonyEvents\Handlers\Seo\Canonical'
+    handler: '\Prokl\BitrixOrdinaryToolsBundle\Services\SymfonyEvents\Handlers\Seo\Canonical'
     priority: 100
 
   # H1 в news.list.
   h1.sections:
     event: 'on.result.modifier.component'
     # Класс обработчик.
-    handler: '\Local\SymfonyEvents\Handlers\Seo\H1'
+    handler: '\Prokl\BitrixOrdinaryToolsBundle\Services\SymfonyEvents\Handlers\Seo\H1'
     priority: 250
 
   # H1 в news.detail.
   h1.detal:
     event: 'on.result.modifier.component.detail'
-    handler: '\Local\SymfonyEvents\Handlers\Seo\H1Detail'
+    handler: '\Prokl\BitrixOrdinaryToolsBundle\Services\SymfonyEvents\Handlers\Seo\H1Detail'
     priority: 350
 
   on.component.epilog.section.last.modified:
     event: 'on.component.epilog.sections'
     # Класс обработчик.
-    handler: '\Local\SymfonyEvents\Handlers\OnComponentEpilogLastModified'
+    handler: '\Prokl\BitrixOrdinaryToolsBundle\Services\SymfonyEvents\Handlers\OnComponentEpilogLastModified'
     # Метод слушателя. Если не указано, то "action".
     method: 'action'
     # Приоритет. По умолчанию - 0.
@@ -60,5 +60,5 @@ data:
   set.seo.section.page:
     event: 'on.component.epilog.sections'
     # Класс обработчик.
-    handler: '\Local\SymfonyEvents\Handlers\Seo\OnSectionSetSeoData'
+    handler: '\Prokl\BitrixOrdinaryToolsBundle\Services\SymfonyEvents\Handlers\Seo\OnSectionSetSeoData'
     priority: 200

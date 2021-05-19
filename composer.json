@@ -130,7 +130,6 @@
       "Local\\": "local/classes/"
     },
     "files": [
-      "local/functions/container.php",
       "local/functions/helpers.php"
     ]
   },

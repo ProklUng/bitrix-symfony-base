@@ -9,10 +9,6 @@ services:
     autoconfigure: true
     public: true
 
-
-  Local\Facades\Application: ~
-  Local\Facades\CMain: ~
-  Local\Facades\CUser: ~
   Local\Facades\EventDispatcherFacade: ~
   Local\Facades\FilesystemFacade: ~
   Local\Facades\KernelFacade: ~

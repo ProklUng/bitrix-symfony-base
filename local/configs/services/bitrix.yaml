@@ -24,18 +24,13 @@ services:
   application:
     class: CMain
 
-  Local\Services\Bitrix\GetApplication: ~
-
-  application.instance:
-    class: CMain
-    factory: ['@Local\Services\Bitrix\GetApplication', 'instance']
-
   CFile:
     class: CFile
   CUser:
     class: CUser
   CMain:
     class: CMain
+
   Bitrix\Main\UserTable: ~
   Bitrix\Main\Mail\Event: ~
 

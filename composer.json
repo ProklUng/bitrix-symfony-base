@@ -118,7 +118,7 @@
     "proklung/bitrix-tools-pack-bundle": "^1.0"
   },
   "require-dev": {
-    "squizlabs/php_codesniffer": "2.*",
+    "squizlabs/php_codesniffer": "^3",
     "proklung/phpunit-testing-tools": "^1.0",
     "symfony/debug": "^4.4",
     "symfony/var-dumper": "^4.4",

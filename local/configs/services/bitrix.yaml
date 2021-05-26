@@ -32,19 +32,8 @@ services:
     class: CMain
 
   Bitrix\Main\UserTable: ~
-  Bitrix\Main\Mail\Event: ~
 
   # Работа с почтовыми событиями.
   Local\Services\Email\SendNotification:
     class: Local\Services\Email\SendNotification
     arguments: ['@Bitrix\Main\Mail\Event', '@CFile']
-
-  # Загрузчик контента.
-  loader.content:
-    class: Local\Util\LoaderContent
-
-  # Доступ к bitrix/.settings.php.
-  # Параметры: connections.default.host (ключи разделены точками) или connections.
-  # См. хэлпер bxConfig
-  bx.config:
-    class: Local\Util\Config\Manager

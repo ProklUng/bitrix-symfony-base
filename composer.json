@@ -124,10 +124,7 @@
     "symfony/var-dumper": "^4.4",
     "ergebnis/phpstan-rules": "^0.15.3",
     "phpstan/phpstan-strict-rules": "^0.12.7",
-    "phpstan/phpstan-phpunit": "^0.12.17",
     "slam/phpstan-extensions": "^5.1",
-    "phpstan/phpstan-deprecation-rules": "^0.12.6",
-    "phpstan/phpstan-doctrine": "^0.12.26",
     "symfony/maker-bundle": "^1.26"
   },
   "autoload": {

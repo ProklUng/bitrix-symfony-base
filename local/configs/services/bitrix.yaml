@@ -31,9 +31,3 @@ services:
   CMain:
     class: CMain
 
-  Bitrix\Main\UserTable: ~
-
-  # Работа с почтовыми событиями.
-  Local\Services\Email\SendNotification:
-    class: Local\Services\Email\SendNotification
-    arguments: ['@Bitrix\Main\Mail\Event', '@CFile']

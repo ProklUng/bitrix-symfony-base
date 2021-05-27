@@ -4,13 +4,13 @@ namespace Local\Services\Filesystem;
 
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\AdapterInterface;
-use Local\Services\Filesystem\Interfaces\FilesystemAdapterInterface;
+use Local\Services\Filesystem\Interfaces\LeagueFilesystemAdapterInterface;
 
 /**
- * Class LocalFilesystemAdapter
+ * Class LocalLeagueFilesystemAdapter
  * @package Local\Services\Filesystem
  */
-class LocalFilesystemAdapter implements FilesystemAdapterInterface
+class LocalLeagueFilesystemAdapter implements LeagueFilesystemAdapterInterface
 {
     /**
      * @var AdapterInterface $adapter Адаптер League файловой системы.
@@ -18,13 +18,11 @@ class LocalFilesystemAdapter implements FilesystemAdapterInterface
     private $adapter;
 
     /**
-     * LocalFilesystemAdapter constructor.
+     * LocalLeagueFilesystemAdapter constructor.
      *
      * @param string $rootDir DOCUMENT_ROOT.
      */
-    public function __construct(
-        string $rootDir
-    ) {
+    public function __construct(string $rootDir) {
         $this->adapter = new Local(
             $rootDir . '/',
             LOCK_EX,
@@ -43,7 +41,7 @@ class LocalFilesystemAdapter implements FilesystemAdapterInterface
     }
 
     /**
-     * @return AdapterInterface
+     * @inheritDoc
      */
     public function getAdapter(): AdapterInterface
     {

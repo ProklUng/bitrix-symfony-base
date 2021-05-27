@@ -10,19 +10,21 @@ services:
     public: true
 
   # Адаптер локальной файловой системы.
-  local.filesystem.adapter:
+  filesystem.local.adapter:
     class: Local\Services\Filesystem\LocalFilesystemAdapter
-    arguments: ['%kernel.project_dir%']
+    arguments: ['%kernel.project_dir%/']
 
-  # Сервис инициализации абстракции файловой системы.
-  filesystem.service:
-    class: Local\Services\Filesystem\FilesystemService
-    arguments: ['@local.filesystem.adapter']
+  filesystem.local.adapter.factory:
+    class: League\Flysystem\AdapterInterface
+    factory: ['@filesystem.local.adapter', 'getAdapter']
 
   # Экземпляр League Filesystem.
   filesystem.instance:
     class: League\Flysystem\Filesystem
-    factory: ['@filesystem.service', 'getFilesystem']
+    arguments: ['@filesystem.local.adapter.factory']
+
+  League\Flysystem\FilesystemInterface: '@filesystem.instance'
+  League\Flysystem\Filesystem: '@filesystem.instance'
 
   filesystem:
     class:  Symfony\Component\Filesystem\Filesystem

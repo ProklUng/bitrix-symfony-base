@@ -5,12 +5,14 @@ namespace Local\Services\Filesystem\Interfaces;
 use League\Flysystem\AdapterInterface;
 
 /**
- * Interface FilesystemAdapterInterface
+ * Interface LeagueFilesystemAdapterInterface
  * @package Local\Services\Interfaces
  */
-interface FilesystemAdapterInterface
+interface LeagueFilesystemAdapterInterface
 {
     /**
+     * Адаптер.
+     *
      * @return AdapterInterface
      */
     public function getAdapter(): AdapterInterface;

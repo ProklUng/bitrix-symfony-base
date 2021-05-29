@@ -36,7 +36,3 @@ services:
     autowire: true
     autoconfigure: true
     public: true
-
-  # Опции приложения.
-  app.options:
-    class: Local\Services\Kernel

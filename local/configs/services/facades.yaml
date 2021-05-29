@@ -10,5 +10,3 @@ services:
     public: true
 
   Local\Facades\FilesystemFacade: ~
-  Local\Facades\KernelFacade: ~
-

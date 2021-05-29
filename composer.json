@@ -23,6 +23,10 @@
     },
     {
       "type": "git",
+      "url": "https://github.com/proklung/container.locator.bundle"
+    },
+    {
+      "type": "git",
       "url": "https://github.com/proklung/bitrix-models/"
     },
     {
@@ -51,6 +55,7 @@
     "proklung/bitrix-core-symfony": "^1.0",
     "proklung/core-framework-extension-bundle": "^1.0",
     "proklung/core-argument-resolvers-bundle": "^1.0",
+    "proklung/container-locator-bundle": "^1.0",
     "arrilot/bitrix-migrations": "^2.2",
     "arrilot/bitrix-models": "dev-master",
     "arrilot/bitrix-hermitage": "^1",

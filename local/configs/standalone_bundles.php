@@ -3,6 +3,7 @@
 return [
     Prokl\CustomFrameworkExtensionsBundle\CustomFrameworkExtensionsBundle::class => ['all' => true],
     Prokl\CustomArgumentResolverBundle\CustomArgumentResolverBundle::class => ['all' => true],
+    Prokl\ContainerLocatorBundle\ContainerLocatorBundle::class => ['all' => true],
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
     Prokl\GuzzleBundle\CsaGuzzleBundle::class => ['all' => true],
     Prokl\SymfonyMiddlewareBundle\MiddlewareBundle::class => ['all' => true],

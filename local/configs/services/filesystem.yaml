@@ -11,7 +11,7 @@ services:
 
   # Адаптер локальной файловой системы.
   filesystem.local.adapter:
-    class: Local\Services\Filesystem\LocalFilesystemAdapter
+    class: Local\Services\Filesystem\LocalLeagueFilesystemAdapter
     arguments: ['%kernel.project_dir%/']
 
   filesystem.local.adapter.factory:

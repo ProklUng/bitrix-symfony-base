@@ -26,7 +26,7 @@ services:
   # Загрузчик иконок SVG.
   icons.svg:
     class: Local\Services\IconSvgLoaders
-    arguments: ['@filesystem.instance', '@build.path',  '/images/icons.svg']
+    arguments: ['%kernel.project_dir%', '@build.path',  '/images/icons.svg']
 
   # Загрузить иконки SVG.
   icons.svg.load:

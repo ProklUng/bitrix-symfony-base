@@ -2,8 +2,7 @@
 
 namespace Local\Services;
 
-use League\Flysystem\FileNotFoundException;
-use League\Flysystem\Filesystem;
+use RuntimeException;
 
 /**
  * Class IconSvgLoaders
@@ -15,11 +14,6 @@ use League\Flysystem\Filesystem;
 class IconSvgLoaders
 {
     /**
-     * @var Filesystem $filesystem Файловая система.
-     */
-    private $filesystem;
-
-    /**
      * @var string $iconPath Путь к файлу с иконками.
      */
     private $iconPath;
@@ -30,36 +24,43 @@ class IconSvgLoaders
     private $buildPath;
 
     /**
+     * @var string $documentRoot DOCUMENT_ROOT.
+     */
+    private $documentRoot;
+
+    /**
      * IconSvgLoaders constructor.
      *
-     * @param Filesystem $filesystem Файловая система.
-     * @param string     $buildPath  Путь к сборке.
-     * @param string     $iconPath   Путь к файлу с иконками.
+     * @param string $documentRoot DOCUMENT_ROOT.
+     * @param string $buildPath    Путь к сборке.
+     * @param string $iconPath     Путь к файлу с иконками.
      */
     public function __construct(
-        Filesystem $filesystem,
+        string $documentRoot,
         string $buildPath,
         string $iconPath
     ) {
-        $this->filesystem = $filesystem;
         $this->iconPath = $iconPath;
         $this->buildPath = $buildPath;
+        $this->documentRoot = $documentRoot;
     }
 
     /**
      * Загрузить.
      *
      * @return string
-     * @throws FileNotFoundException Файл не найден.
+     * @throws RuntimeException Файл не найден.
      */
     public function load() : string
     {
-        $content = $this->filesystem->read(
-            '/' . $this->buildPath . $this->iconPath
+        $content = file_get_contents(
+            $this->documentRoot . '/' . $this->buildPath . $this->iconPath
         );
 
-        if (!$content) {
-            $content = '';
+        if ($content === false) {
+            throw new RuntimeException(
+                'File with icons ' .  $this->iconPath . ' not found'
+            );
         }
 
         return $content;

@@ -9,19 +9,6 @@ services:
     autoconfigure: true
     public: true
 
-  Symfony\Component\HttpFoundation\Response:
-    class: Symfony\Component\HttpFoundation\Response
-
-  # Json OK response.
-  json.response:
-    class: Local\Services\Responses\JsonResponse
-    arguments: ['@Symfony\Component\HttpFoundation\Response']
-
-  # Json error response.
-  json.response.error:
-    class: Local\Services\Responses\JsonResponseError
-    arguments: ['@Symfony\Component\HttpFoundation\Response', '400']
-
   # Адаптированный Pipeline.
   Prokl\Pipeline\Hub:
     arguments: ['@service_container']

@@ -7,7 +7,6 @@ imports:
   - {resource: services/bitrix.yaml }
   - {resource: services/seo.yaml }
   - {resource: services/controllers.yaml }
-  - {resource: services/resolvers.yaml }
   - {resource: services/guzzle.yaml }
   - {resource: services/console_commands.yaml }
   - {resource: services/tasks.yaml }

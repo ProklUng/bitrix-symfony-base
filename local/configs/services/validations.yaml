@@ -12,11 +12,3 @@ services:
   # Санитайзер.
   sanitizer:
     class: Prokl\RequestValidatorSanitizer\Sanitizing\SanitizerService
-
-  Local\Validators\PhoneValidator:
-    tags:
-      - { name: validator.constraint_validator }
-
-  Local\Validators\EmailValidator:
-    tags:
-      - { name: validator.constraint_validator }

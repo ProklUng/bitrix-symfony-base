@@ -1,10 +1,11 @@
 <?php
 
-use Local\Seo\Clearizer;
-use Local\Seo\CMainHandlers;
-use Local\Seo\SchemaOrg;
 
 // LastModified
+use Prokl\BitrixOrdinaryToolsBundle\Services\Seo\Clearizer;
+use Prokl\BitrixOrdinaryToolsBundle\Services\Seo\CMainHandlers;
+use Prokl\BitrixOrdinaryToolsBundle\Services\Seo\SchemaOrg;
+
 AddEventHandler(
     'main',
     'OnEpilog',

@@ -10,6 +10,6 @@ services:
     public: true
 
   # Образец scheduled task.
-  Local\Bundles\TaskSchedulerBundle\Examples\ExampleTask:
+  Prokl\TaskSchedulerBundle\Examples\ExampleTask:
     tags:
       - { name: ts.task }

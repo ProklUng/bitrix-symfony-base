@@ -9,7 +9,7 @@ return [
     Prokl\SymfonyMiddlewareBundle\MiddlewareBundle::class => ['all' => true],
     Prokl\CustomRequestResponserBundle\CustomRequestResponserBundle::class => ['all' => true],
     Prokl\BitrixIblockElementValidatorBundle\BitrixIblockElementValidatorBundle::class => ['all' => true],
-    Local\Bundles\TaskSchedulerBundle\RewieerTaskSchedulerBundle::class => ['all' => true],
+    Prokl\TaskSchedulerBundle\TaskSchedulerBundle::class => ['all' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['all' => true],
     Prokl\BundleMakerBundle\BundleMakerBundle::class => ['all' => true],
     Prokl\StaticPageMakerBundle\StaticPageMakerBundle::class => ['all' => true],

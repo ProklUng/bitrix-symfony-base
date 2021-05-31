@@ -87,7 +87,6 @@
     "webarchitect609/bitrix-cache": "^1.6",
     "spatie/data-transfer-object": "^2.5",
     "spatie/url-signer": "^1.2",
-    "dragonmantank/cron-expression": "^3.1",
     "mark-gerarts/auto-mapper-plus": "^1.3",
     "mark-gerarts/automapper-plus-bundle": "^1.3",
     "proklung/jedi-light": "^1.0",

@@ -17,7 +17,7 @@ return [
     Prokl\BitrixWebformBundle\BitrixWebformBundle::class => ['all' => true],
     Prokl\BitrixFormBundle\BitrixFormBundle::class => ['all' => true],
     Prokl\ApiExceptionBundle\M6WebApiExceptionBundle::class => ['all' => true],
-    Local\Bundles\UrlSignedBundle\UrlSignedBundle::class => ['all' => true],
+    Prokl\UrlSignedBundle\UrlSignedBundle::class => ['all' => true],
     Prokl\BitrixOgGraphBundle\BitrixOgGraphBundle::class => ['all' => true],
     AutoMapperPlus\AutoMapperPlusBundle\AutoMapperPlusBundle::class => ['all' => true],
     Local\Bundles\DtoMapperBundle\DtoMapperBundle::class => ['all' => true],

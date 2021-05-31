@@ -48,6 +48,10 @@
     {
       "type": "git",
       "url": "https://github.com/proklung/bitrix.tools.pack.bundle"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/proklung/url.signer.bundle"
     }
   ],
 
@@ -116,7 +120,8 @@
     "proklung/framework-tools-bundle": "^1.0",
     "proklung/twig-extensions-bundle": "^1.1",
     "proklung/custom-request-responser-bundle": "^1.0",
-    "proklung/bitrix-tools-pack-bundle": "^1.0"
+    "proklung/bitrix-tools-pack-bundle": "^1.0",
+    "proklung/url-signer-bundle": "^1.0"
   },
   "require-dev": {
     "proklung/phpunit-testing-tools": "^1.0",

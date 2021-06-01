@@ -20,7 +20,7 @@ return [
     Prokl\UrlSignedBundle\UrlSignedBundle::class => ['all' => true],
     Prokl\BitrixOgGraphBundle\BitrixOgGraphBundle::class => ['all' => true],
     AutoMapperPlus\AutoMapperPlusBundle\AutoMapperPlusBundle::class => ['all' => true],
-    Local\Bundles\DtoMapperBundle\DtoMapperBundle::class => ['all' => true],
+    Prokl\DtoMapperBundle\DtoMapperBundle::class => ['all' => true],
     Local\Bundles\SymfonyMailerBundle\SymfonyMailerBundle::class => ['all' => true],
     Prokl\RequestLogBundle\RequestLogBundle::class => ['all' => true],
     Prokl\SymfonyBladeBundle\SymfonyBladeBundle::class => ['all' => true],

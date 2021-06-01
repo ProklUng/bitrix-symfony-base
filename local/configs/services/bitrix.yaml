@@ -15,11 +15,6 @@ services:
   CIBlockSection:
     class: CIBlockSection
 
-   # Новый элемент инфоблока.
-  creator.iblock.element:
-    class: Local\Services\Bitrix\AddElement
-    arguments: ['@Prokl\FrameworkExtensionBundle\Services\TranslitService']
-
   # Инстанс $APPLICATION
   application:
     class: CMain

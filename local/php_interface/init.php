@@ -26,8 +26,6 @@ maximasterRegisterTwigTemplateEngine();
 Arrilot\BitrixModels\ServiceProvider::register();
 Arrilot\BitrixModels\ServiceProvider::registerEloquent();
 
-Bex\Monolog\MonologAdapter::loadConfiguration();
-
 // Symfony сервис-провайдер
 $symfonyServiceProvider = new ServiceProvider(
     'local/configs/services.yaml'

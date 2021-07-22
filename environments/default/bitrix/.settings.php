@@ -69,12 +69,6 @@ return array (
                     'ignore_silence' => false,
                     'assertion_throws_exception' => true,
                     'assertion_error_type' => 256,
-                    'log' => array(
-                        'class_name' => '\Bex\Monolog\ExceptionHandlerLog',
-                        'settings' => array(
-                            'logger' => 'app'
-                        ),
-                    ),
                 ),
             'readonly' => false,
         ),

@@ -26,31 +26,4 @@ return array (
             )
         )
     ),
-
-    'monolog' => array(
-        'value' => array(
-            'handlers' => array(
-                'default' => array(
-                    'class' => '\Monolog\Handler\StreamHandler',
-                    'level' => 'DEBUG',
-                    'stream' => env('LOG_FILE_PATH', '/home/bitrix/logs/bitrix-project.log'),
-                ),
-                'feedback_event_log' => array(
-                    'class' => '\Bex\Monolog\Handler\BitrixHandler',
-                    'level' => 'DEBUG',
-                    'event' => 'TYPE_FOR_EVENT_LOG',
-                    'module' => 'awesome.module'
-                ),
-            ),
-            'loggers' => array(
-                'app' => array(
-                    'handlers'=> array('default'),
-                ),
-                'feedback' => array(
-                    'handlers'=> array('feedback_event_log'),
-                )
-            )
-        ),
-        'readonly' => false
-    )
 );

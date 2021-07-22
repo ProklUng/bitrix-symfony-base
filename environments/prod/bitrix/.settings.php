@@ -1,14 +1,17 @@
 <?php
 
+use Symfony\Component\Dotenv\Dotenv;
+
 if (!file_exists($autoloadPath = realpath(__DIR__).'/../vendor/autoload.php')) {
 
     $autoloadPath = realpath(__DIR__).'/../../current/vendor/autoload.php';
 }
+
 require_once($autoloadPath) ;
 
-$dotenv = new Dotenv\Dotenv(realpath(__DIR__.'/../'));
-$dotenv->load();
+$dotenv = new Dotenv();
 
+$dotenv->load(realpath(__DIR__.'/../') . '/.env');
 
 return array (
     'utf_mode' =>

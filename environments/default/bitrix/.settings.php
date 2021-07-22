@@ -1,5 +1,6 @@
 <?php
 
+use Symfony\Component\Dotenv\Dotenv;
 
 if (!file_exists($autoloadPath = realpath(__DIR__).'/../vendor/autoload.php')) {
 
@@ -8,8 +9,9 @@ if (!file_exists($autoloadPath = realpath(__DIR__).'/../vendor/autoload.php')) {
 
 require_once($autoloadPath) ;
 
-$dotenv = new Dotenv\Dotenv(realpath(__DIR__.'/../'));
-$dotenv->load();
+$dotenv = new Dotenv();
+
+$dotenv->load(realpath(__DIR__.'/../') . '/.env');
 
 $cache = array (
     'value' => array (

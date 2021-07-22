@@ -88,8 +88,7 @@ php bin/jedi env:init default
 
 Эта команда скопирует в директорию `bitrix` системные файлы настроек сконфигурированные для работы с 
 [переменными окружения](https://github.com/vlucas/phpdotenv), а также настройки 
-[шаблонизатора Twig](https://github.com/maximaster/tools.twig) 
-и [логгера Monolog](https://github.com/bitrix-expert/monolog-adapter)
+[шаблонизатора Twig](https://github.com/maximaster/tools.twig). 
 
 ### Миграции
 

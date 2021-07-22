@@ -5,7 +5,6 @@ imports:
   - {resource: services/validations.yaml }
   - {resource: services/assets.yaml }
   - {resource: services/bitrix.yaml }
-  - {resource: services/seo.yaml }
   - {resource: services/controllers.yaml }
   - {resource: services/guzzle.yaml }
   - {resource: services/console_commands.yaml }

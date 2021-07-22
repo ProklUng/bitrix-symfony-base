@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\Dotenv\Dotenv;
+
 if (!file_exists($autoloadPathDbconn= realpath(__DIR__).'/../../vendor/autoload.php')) {
 
     $autoloadPathDbconn= realpath(__DIR__).'/../../../current/vendor/autoload.php';
@@ -7,9 +9,9 @@ if (!file_exists($autoloadPathDbconn= realpath(__DIR__).'/../../vendor/autoload.
 
 require_once($autoloadPathDbconn) ;
 
-$dotenv = new Dotenv\Dotenv(realpath(__DIR__.'/../../'));
-$dotenv->load();
+$dotenv = new Dotenv();
 
+$dotenv->load(realpath(__DIR__.'/../') . '/../.env');
 
 define("BX_USE_MYSQLI", true);
 define("DBPersistent", false);

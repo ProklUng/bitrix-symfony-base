@@ -13,6 +13,30 @@ $dotenv = new Dotenv();
 
 $dotenv->load(realpath(__DIR__.'/../') . '/.env');
 
+$cache = array (
+    'value' => array (
+        'type' => 'files',
+    ),
+    'readonly' => false,
+);
+
+
+if (env('USE_MEMCACHE')) {
+    $cache = array(
+        'value' =>
+            array(
+                'type' => 'memcache',
+                'memcache' => array(
+                    'host' => '127.0.0.1',
+                    'port' => '11211',
+                    'sid' => $_SERVER["DOCUMENT_ROOT"].'#site01',
+                ),
+            ),
+        'readonly' => false
+    );
+}
+
+
 return array (
     'utf_mode' =>
         array (
@@ -66,4 +90,11 @@ return array (
                 ),
             'readonly' => true,
         ),
+    'cache' => $cache,
+    'crypto' => [
+        'value' => [
+            'crypto_key' => 'mysupersecretphrase',
+        ],
+        'readonly' => true,
+    ]
 );

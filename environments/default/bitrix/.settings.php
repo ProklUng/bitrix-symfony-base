@@ -91,4 +91,10 @@ return array (
             'readonly' => true,
         ),
     'cache' => $cache,
+    'crypto' => [
+        'value' => [
+            'crypto_key' => 'mysupersecretphrase',
+        ],
+        'readonly' => true,
+    ]
 );

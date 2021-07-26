@@ -44,9 +44,9 @@
   ],
 
   "require": {
-    "proklung/bitrix-core-symfony": "^1.2.1",
+    "proklung/bitrix-core-symfony": "^1.2.3",
     "psr/container": "1.0.*",
-    "proklung/core-framework-extension-bundle": "^1.1",
+    "proklung/core-framework-extension-bundle": "^1.3",
     "proklung/core-argument-resolvers-bundle": "^1.0",
     "arrilot/bitrix-migrations": "^2.6",
     "arrilot/bitrix-models": "dev-master",
@@ -89,7 +89,7 @@
     "ergebnis/phpstan-rules": "^0.15.3",
     "phpstan/phpstan-strict-rules": "^0.12.7",
     "slam/phpstan-extensions": "^5.1",
-    "symfony/maker-bundle": "^1.26",
+    "symfony/maker-bundle": "^1.33",
     "icanhazstring/composer-unused": "^0.7.5"
   },
   "autoload": {

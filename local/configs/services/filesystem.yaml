@@ -9,24 +9,4 @@ services:
     autoconfigure: true
     public: true
 
-  # Адаптер локальной файловой системы.
-  filesystem.local.adapter:
-    class: Local\Services\Filesystem\LocalLeagueFilesystemAdapter
-    arguments: ['%kernel.project_dir%/']
-
-  filesystem.local.adapter.factory:
-    class: League\Flysystem\AdapterInterface
-    factory: ['@filesystem.local.adapter', 'getAdapter']
-
-  # Экземпляр League Filesystem.
-  filesystem.instance:
-    class: League\Flysystem\Filesystem
-    arguments: ['@filesystem.local.adapter.factory']
-
-  League\Flysystem\FilesystemInterface: '@filesystem.instance'
-  League\Flysystem\Filesystem: '@filesystem.instance'
-
-  filesystem:
-    class:  Symfony\Component\Filesystem\Filesystem
-
   Symfony\Component\Filesystem\Filesystem: '@filesystem'

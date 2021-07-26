@@ -61,7 +61,6 @@
     "symfony/mailer": "^5.2",
     "symfony/google-mailer": "^5.2",
     "symfony/monolog-bundle": "^3.7",
-    "league/flysystem": "^1.1",
     "webarchitect609/bitrix-iblock-property-type": "^1.2",
     "webarchitect609/bitrix-user-type": "^0.7.2",
     "proklung/jedi-light": "^1.0",

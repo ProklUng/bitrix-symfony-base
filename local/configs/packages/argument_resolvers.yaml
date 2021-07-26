@@ -1,5 +1,0 @@
-argument_resolvers:
-  defaults:
-    enabled: true
-  resolvers:
-    argument_resolvers.argument_resolver_query: true

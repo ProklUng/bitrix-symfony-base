@@ -23,10 +23,6 @@
     },
     {
       "type": "git",
-      "url": "https://github.com/proklung/container.locator.bundle"
-    },
-    {
-      "type": "git",
       "url": "https://github.com/proklung/bitrix-models/"
     },
     {
@@ -39,27 +35,11 @@
     },
     {
       "type": "git",
-      "url": "https://github.com/proklung/custom.request.responser.bundle"
-    },
-    {
-      "type": "git",
       "url": "https://github.com/proklung/bitrix.core.symfony"
     },
     {
       "type": "git",
       "url": "https://github.com/proklung/bitrix.tools.pack.bundle"
-    },
-    {
-      "type": "git",
-      "url": "https://github.com/proklung/url.signer.bundle"
-    },
-    {
-      "type": "git",
-      "url": "https://github.com/proklung/task.scheduler.bundle"
-    },
-    {
-      "type": "git",
-      "url": "https://github.com/proklung/dto.mapper.bundle"
     }
   ],
 
@@ -68,65 +48,41 @@
     "psr/container": "1.0.*",
     "proklung/core-framework-extension-bundle": "^1.1",
     "proklung/core-argument-resolvers-bundle": "^1.0",
-    "proklung/container-locator-bundle": "^1.0",
     "arrilot/bitrix-migrations": "^2.6",
     "arrilot/bitrix-models": "dev-master",
     "maximaster/tools.twig": "^1.1",
     "bitrix-expert/bbc": "^1.0",
-    "illuminate/support": "^6.0",
-    "illuminate/database": "^6.0",
-    "illuminate/container": "^6.0",
+    "illuminate/support": "^6.0  || ^7.0",
+    "illuminate/database": "^6.0 || ^7.0",
+    "illuminate/container": "^6.0 || ^7.0",
     "vlucas/phpdotenv": "3.*",
     "mmucklo/krumo": "^0.6.0",
     "symfony/dotenv": "^5.2",
     "symfony/mailer": "^5.2",
     "symfony/google-mailer": "^5.2",
-    "symfony/proxy-manager-bridge": "4.*",
-    "symfony/monolog-bundle": "^3.6",
-    "league/flysystem": "^1.0",
+    "symfony/monolog-bundle": "^3.7",
+    "league/flysystem": "^1.1",
     "webarchitect609/bitrix-iblock-property-type": "^1.2",
     "webarchitect609/bitrix-user-type": "^0.7.2",
-    "webarchitect609/bitrix-cache": "^1.9",
-    "spatie/data-transfer-object": "^2.8",
-    "mark-gerarts/automapper-plus-bundle": "^1.3",
     "proklung/jedi-light": "^1.0",
     "proklung/bitrix.module.generator": "^1.0",
-    "proklung/bitrix.ckeditor.module": "^1.0",
     "proklung/facade-bundle": "^1.0",
     "proklung/bitrixoggraphbundle": "^1.0",
     "proklung/bitrixstaticpagemakerbundle": "^1.0",
     "proklung/symfony-maker-bundle": "^1.0",
-    "proklung/annotatedparamresolverbundle": "^1.2",
-    "proklung/bitrixannotatedresolversbundle": "^1.0",
-    "proklung/bitrixckeditorbundle": "^1.0",
-    "proklung/bitrixsymfonyrouterbundle": "^1.1",
+    "proklung/bitrixsymfonyrouterbundle": "^1.3",
     "proklung/collection-extender-bundle": "^1.0",
     "proklung/bitrix-custom-properties-bundle": "^1.0",
     "proklung/api-exception-bundle": "^1.0",
     "proklung/bitrix-webform-bundle": "^1.0",
-    "proklung/bitrix-webform-bundle-kantecom": "^1.0",
     "proklung/controller-sanitizer-validator": "^1.2",
     "proklung/bitrix-blade-bundle": "^1.1",
-    "proklung/request-validator-bundle": "^1.0",
-    "proklung/symfony-guzzle-bundle": "^1.0",
-    "proklung/arguments-resolvers-bundle": "^1.0",
     "proklung/pipeline-symfony": "^1.0",
-    "proklung/base-exception": "^1.0",
     "proklung/db-command": "^1.0",
-    "proklung/bitrix-model-bundle": "^1.6",
-    "proklung/symfony-middleware-bundle": "^1.0",
-    "proklung/cache-proxificator": "^1.2",
-    "proklung/bitrix-menu-builder-bundle": "^1.0",
-    "proklung/bitrix-fixture-database-generator-bundle": "^1.0",
-    "proklung/request-log-bundle": "^1.0",
     "proklung/bitrix-iblock-element-validator-bundle": "^1.0",
-    "proklung/framework-tools-bundle": "^1.0",
+    "proklung/framework-tools-bundle": "^1.3",
     "proklung/twig-extensions-bundle": "^1.1",
-    "proklung/custom-request-responser-bundle": "^1.0",
-    "proklung/bitrix-tools-pack-bundle": "^1.2",
-    "proklung/url-signer-bundle": "^1.0",
-    "proklung/task-scheduler-bundle": "^1.0",
-    "proklung/dto-mapper-bundle": "^1.0"
+    "proklung/bitrix-tools-pack-bundle": "^1.2"
   },
   "require-dev": {
     "proklung/phpunit-testing-tools": "^1.4",
@@ -136,7 +92,8 @@
     "ergebnis/phpstan-rules": "^0.15.3",
     "phpstan/phpstan-strict-rules": "^0.12.7",
     "slam/phpstan-extensions": "^5.1",
-    "symfony/maker-bundle": "^1.26"
+    "symfony/maker-bundle": "^1.26",
+    "icanhazstring/composer-unused": "^0.7.5"
   },
   "autoload": {
     "psr-4": {

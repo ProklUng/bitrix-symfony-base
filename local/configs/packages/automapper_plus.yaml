@@ -1,8 +1,0 @@
-auto_mapper_plus:
-  options:
-    create_unregistered_mappings: true
-    skip_constructor: true
-    use_substitution: true
-    ignore_null_properties: false
-    # property_accessor: AutoMapperPlus\AutoMapperPlusBundle\PropertyAccessor\SymfonyPropertyAccessorBridge
-

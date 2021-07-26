@@ -58,8 +58,6 @@
     "vlucas/phpdotenv": "3.*",
     "mmucklo/krumo": "^0.6.0",
     "symfony/dotenv": "^5.2",
-    "symfony/mailer": "^5.2",
-    "symfony/google-mailer": "^5.2",
     "symfony/monolog-bundle": "^3.7",
     "webarchitect609/bitrix-iblock-property-type": "^1.2",
     "webarchitect609/bitrix-user-type": "^0.7.2",

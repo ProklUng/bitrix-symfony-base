@@ -13,7 +13,6 @@ return [
     Prokl\BitrixWebformBundle\BitrixWebformBundle::class => ['all' => true],
     Prokl\ApiExceptionBundle\M6WebApiExceptionBundle::class => ['all' => true],
     Prokl\BitrixOgGraphBundle\BitrixOgGraphBundle::class => ['all' => true],
-    Local\Bundles\SymfonyMailerBundle\SymfonyMailerBundle::class => ['all' => true],
     Prokl\SymfonyBladeBundle\SymfonyBladeBundle::class => ['all' => true],
     Prokl\FacadeBundle\FacadeBundle::class => ['all' => true],
     Prokl\CollectionExtenderBundle\CollectionExtenderBundle::class => ['all' => true],

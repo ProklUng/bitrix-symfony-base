@@ -76,7 +76,7 @@ Encore
     })
     .addAliases(prepareAliases(ALIASES))
     .enableVueLoader(() => {}, { runtimeCompilerBuild: true, useJsx: false })
-    .enablePostCssLoader()
+    // .enablePostCssLoader()
     .enableSassLoader(() => {}, {
         resolveUrlLoader: false,
     })
@@ -91,16 +91,6 @@ Encore
         options.DEBUG = false;
         options["process.env.DEBUG"] = JSON.stringify("false");
     })
-    .configureUrlLoader({
-        images: {
-            limit: 8192,
-            esModule: false,
-        },
-        fonts: {
-            limit: 8192,
-            esModule: false,
-        },
-    })
     .enableSourceMaps(IS_DEV || IS_DEV_SERVER)
     .addExternals({
         BX: "BX",
@@ -108,10 +98,8 @@ Encore
         jquery: "jQuery",
     })
     .configureFilenames({
-        js: "js/[name].js?v=[hash]",
-        css: "css/[name].css?v=[hash]",
-        images: "images/[path][name].[hash:8].[ext]",
-        fonts: "fonts/[path][name].[hash:8].[ext]",
+        js: "js/[name].js?v=[fullhash]",
+        css: "css/[name].css?v=[fullhash]"
     })
     .enableVersioning(!IS_DEV_SERVER)
     //TODO: перенастроить под chunks: "all" после включения поддержки нескольких файлов для entrypoints.json

@@ -223,9 +223,47 @@ mklink "upload" "../../upload" /j
 
 Далее необходимо настроить веб-сервер для работы с новым сайтом.
 
+## Composer scripts
+
+Приложено пару примеров скриптов для composer, запускающимся по событиям `post-update` и `post-install`.
+
+- `Local\ComposerScript\RunMigrationsHandler` - запускает миграции.
+   
+- `Local\ComposerScript\CacheWarmerHandler` - убивает и прогревает кэш.
+
+Добавить в секцию `scripts` файла `composer.json`:
+
+```json
+  "scripts": {
+    "post-update-cmd": [
+      "Local\\ComposerScript\\RunMigrationsHandler::doInstall",
+      "Local\\ComposerScript\\CacheWarmerHandler::doInstall"
+    ],
+    "post-install-cmd": [
+      "Local\\ComposerScript\\RunMigrationsHandler::doInstall",
+      "Local\\ComposerScript\\CacheWarmerHandler::doInstall"
+    ],
+    "cache:warm": "Local\\ComposerScript\\CacheWarmerHandler::doInstall",
+    "migrations:run": "Local\\ComposerScript\\RunMigrationsHandler::doInstall"
+  },
+```
+
+Появятся команды:
+
+```sh
+composer cache:warm
+```
+
+и
+
+```sh
+composer migrations:run
+```
+
 ## Прочее
 
 - Пришлось залочить пакет `psr/container` на версию 1.0. Без этого ставился 1.1.1 (по запросу Symfony DI) 
 и конструкция падала из-за несоответствия интерфейсов.
 
 Последствия: DI компонент пока версии 5.2, а не актуальной 5.3.
+

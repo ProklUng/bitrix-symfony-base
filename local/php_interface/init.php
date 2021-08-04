@@ -26,6 +26,10 @@ maximasterRegisterTwigTemplateEngine();
 Arrilot\BitrixModels\ServiceProvider::register();
 Arrilot\BitrixModels\ServiceProvider::registerEloquent();
 
+// Во избежании проблем с созданием кэша на проде
+// @see https://symfony.com/doc/current/setup/file_permissions.html
+umask(0000);
+
 // Symfony сервис-провайдер
 $symfonyServiceProvider = new ServiceProvider(
     'local/configs/services.yaml'

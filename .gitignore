@@ -21,14 +21,7 @@ hosts.yml
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
-
-# Local History for Visual Studio Code
 .history/
-/local/classes/ServiceProvider/cache/
-/bitrix/
 
 /composer.lock
 composer.lock
-
-/local/components/bbc
-/local/modules/bex.bbc

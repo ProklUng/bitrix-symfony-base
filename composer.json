@@ -44,6 +44,10 @@
     {
       "type": "git",
       "url": "https://github.com/ProklUng/bitrix-migrations"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/proklung/tools.twig"
     }
   ],
 
@@ -54,10 +58,10 @@
     "proklung/core-argument-resolvers-bundle": "^1.1",
     "arrilot/bitrix-migrations": "dev-master",
     "arrilot/bitrix-models": "dev-master",
-    "maximaster/tools.twig": "^1.1",
+    "maximaster/tools.twig": "dev-master",
     "bitrix-expert/bbc": "^1.0",
     "illuminate/support": "^6.0 || ^7.0",
-    "vlucas/phpdotenv": "3.*",
+    "vlucas/phpdotenv": "3.* || ^4",
     "symfony/dotenv": "^5.2",
     "symfony/monolog-bundle": "^3.7",
     "proklung/jedi-light": "^1.0",

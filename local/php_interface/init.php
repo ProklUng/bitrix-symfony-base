@@ -8,7 +8,6 @@
 use Bitrix\Main\Loader;
 use Prokl\ServiceProvider\ServiceProvider;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
-use Prokl\CollectionExtenderBundle\Services\Extender;
 
 Loader::includeModule('iblock');
 
@@ -20,7 +19,6 @@ $_SESSION['csrf_token'] = $appCsrfToken;
 // так как  автолоад (в нашем случае) регистрируется до ядра,
 // Твиг не успевает зарегистрироваться
 // необходимо это действие повтроить еще раз:
-
 maximasterRegisterTwigTemplateEngine();
 
 Arrilot\BitrixModels\ServiceProvider::register();
@@ -35,9 +33,5 @@ $symfonyServiceProvider = new ServiceProvider(
     'local/configs/services.yaml'
 );
 
-// Макросы для коллекций Laravel.
-container()->get(Extender::class);
-
 include_once 'events.php';
-include_once 'symfony_events.php';
 

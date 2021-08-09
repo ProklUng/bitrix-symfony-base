@@ -15,6 +15,10 @@
   "repositories": [
     {
       "type": "git",
+      "url": "https://github.com/proklung/bitrix.core.symfony"
+    },
+    {
+      "type": "git",
       "url": "https://github.com/proklung/core.framework.extension.bundle"
     },
     {
@@ -35,10 +39,6 @@
     },
     {
       "type": "git",
-      "url": "https://github.com/proklung/bitrix.core.symfony"
-    },
-    {
-      "type": "git",
       "url": "https://github.com/proklung/bitrix.tools.pack.bundle"
     },
     {
@@ -56,27 +56,20 @@
     "psr/container": "1.0.*",
     "proklung/core-framework-extension-bundle": "^1.6",
     "proklung/core-argument-resolvers-bundle": "^1.1",
+    "proklung/bitrixsymfonyrouterbundle": "^1.3",
     "arrilot/bitrix-migrations": "dev-master",
     "arrilot/bitrix-models": "dev-master",
     "maximaster/tools.twig": "dev-master",
     "bitrix-expert/bbc": "^1.0",
+    "proklung/jedi-light": "^1.0",
     "illuminate/support": "^6.0 || ^7.0",
     "vlucas/phpdotenv": "3.* || ^4",
     "symfony/dotenv": "^5.2",
     "symfony/monolog-bundle": "^3.7",
-    "proklung/jedi-light": "^1.0",
-    "proklung/bitrix.module.generator": "^1.0",
     "proklung/facade-bundle": "^1.0",
-    "proklung/bitrixoggraphbundle": "^1.0",
     "proklung/bitrixstaticpagemakerbundle": "^1.0",
-    "proklung/symfony-maker-bundle": "^1.0",
-    "proklung/bitrixsymfonyrouterbundle": "^1.3",
-    "proklung/collection-extender-bundle": "^1.0",
     "proklung/bitrix-custom-properties-bundle": "^1.0",
-    "proklung/api-exception-bundle": "^1.0",
     "proklung/bitrix-webform-bundle": "^1.0",
-    "proklung/controller-sanitizer-validator": "^1.2",
-    "proklung/bitrix-blade-bundle": "^1.2",
     "proklung/pipeline-symfony": "^1.0",
     "proklung/db-command": "^1.0",
     "proklung/bitrix-iblock-element-validator-bundle": "^1.0",
@@ -86,13 +79,14 @@
   },
   "require-dev": {
     "proklung/phpunit-testing-tools": "^1.5",
+    "proklung/symfony-maker-bundle": "^1.0",
+    "proklung/bitrix.module.generator": "^1.0",
+    "symfony/maker-bundle": "^1.33",
     "squizlabs/php_codesniffer": "^3",
-    "symfony/debug": "^4.4 || ^5.0",
     "symfony/var-dumper": "^4.4 || ^5.0",
     "ergebnis/phpstan-rules": "^0.15.3",
     "phpstan/phpstan-strict-rules": "^0.12.7",
     "slam/phpstan-extensions": "^5.1",
-    "symfony/maker-bundle": "^1.33",
     "mmucklo/krumo": "^0.6.0",
     "icanhazstring/composer-unused": "^0.7.5"
   },

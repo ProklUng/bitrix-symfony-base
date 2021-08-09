@@ -1,4 +1,0 @@
-symfony_blade:
-  baseViewPath: '%kernel.project_dir%/local/views'
-  cachePath: '%kernel.project_dir%/bitrix/cache/blade'
-  readonly: false

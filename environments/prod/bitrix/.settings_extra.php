@@ -23,6 +23,9 @@ return array (
                     // Переменные arResult будут доступны не в result, а напрямую
                     'extract_result' => false,
 
+                    // Импортировать твиговские шаблоны из установленных модулей
+                    'import_from_modules' => false,
+
                     // Пространства имен
                     'namespaces' => [],
 

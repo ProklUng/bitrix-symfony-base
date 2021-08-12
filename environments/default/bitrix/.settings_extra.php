@@ -22,6 +22,17 @@ return array (
 
                     // Переменные arResult будут доступны не в result, а напрямую
                     'extract_result' => false,
+
+                    // Пространства имен
+                    'namespaces' => [],
+
+                    // Globals
+                    'globals' => [
+                        'app' => \Bitrix\Main\Application::getInstance()
+                    ],
+
+                    // Runtimes
+                    'runtimes' => [],
                 )
             )
         )

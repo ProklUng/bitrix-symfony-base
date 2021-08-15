@@ -5,6 +5,8 @@ framework:
 
     cache: false
     cache_dir: '%kernel.project_dir%/bitrix/cache/twig'
+    globals:
+      secret_key: 'xxxx'
 
   validation:
     enabled: true

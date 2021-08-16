@@ -6,16 +6,49 @@ use ProklUng\ModuleGenerator\Utils\ConsoleCommandConfigurator;
 use ProklUng\ModuleGenerator\Utils\LoaderBitrix;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Dotenv\Dotenv;
 
 @set_time_limit(0);
 
-$_SERVER['DOCUMENT_ROOT'] = __DIR__ . DIRECTORY_SEPARATOR . '..';
-$GLOBALS['DOCUMENT_ROOT'] = $_SERVER['DOCUMENT_ROOT'];
+/** @var array $autoloadPaths Пути, где искать autoload.php композера. */
+$autoloadPaths = ['/../vendor/autoload.php', '/../../current/vendor/autoload.php'];
+$autoloadPath = '';
 
-$autoloadPath = $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+foreach ($autoloadPaths as $path) {
+    if (file_exists($autoloadPath = realpath(__DIR__) . $path)) {
+        $autoloadPath = realpath(__DIR__) . $path;
+        break;
+    }
+}
 
-/** @noinspection PhpIncludeInspection */
+if (!$autoloadPath) {
+    die('Cannot find composer autoload.php file.' . PHP_EOL);
+}
+
 require_once $autoloadPath;
+
+$dotenv = new Dotenv();
+
+$envFile = realpath(__DIR__.'/../') . '/.env';
+
+if (!file_exists($envFile)) {
+    die('Cannot find .env file by path: ' .  realpath(__DIR__.'/../'  . PHP_EOL));
+}
+$dotenv->load($envFile);
+
+// Попытка определить DOCUMENT_ROOT.
+$documentRoot =  __DIR__. '/..';
+if (array_key_exists('RELATIVE_DOCUMENT_ROOT_PATH', $_ENV)) {
+    $documentRoot = realpath(__DIR__.'/..') . $_ENV['RELATIVE_DOCUMENT_ROOT_PATH'];
+    if (!file_exists($documentRoot)) {
+        die(
+            'Path to root ' . $_ENV['RELATIVE_DOCUMENT_ROOT_PATH'] . ' from RELATIVE_DOCUMENT_ROOT_PATH variable not exists' . PHP_EOL
+        );
+    }
+}
+
+$_SERVER['DOCUMENT_ROOT'] = $documentRoot;
+$GLOBALS['DOCUMENT_ROOT'] = $documentRoot;
 
 /**
  * Загрузить Битрикс.

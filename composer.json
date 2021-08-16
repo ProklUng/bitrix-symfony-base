@@ -109,5 +109,10 @@
       "./bitrix/components/{$name}/": ["type:bitrix-d7-component", "type:bitrix-component"],
       "./bitrix/templates/{$name}/": ["type:bitrix-d7-template", "type:bitrix-theme"]
     }
-  }
+  },
+  "bin": [
+    "bin/module",
+    "bin/console",
+    "bin/db"
+  ]
 }

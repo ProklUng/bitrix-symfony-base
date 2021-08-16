@@ -1,20 +1,38 @@
+#!/usr/bin/env php
 <?php
 
+use Symfony\Component\Console\Application;
 use Prokl\DbCommands\Commands\DbDrop;
 use Prokl\DbCommands\Commands\DbExport;
 use Prokl\DbCommands\Commands\DbImport;
 use Prokl\DbCommands\Configurator\ConsoleCommandConfiguratorSimple;
-use Symfony\Component\Console\Application;
 
 @set_time_limit(0);
 
-$_SERVER['DOCUMENT_ROOT'] = __DIR__. DIRECTORY_SEPARATOR . '..';
-$GLOBALS['DOCUMENT_ROOT'] = $_SERVER['DOCUMENT_ROOT'];
+/** @var array $autoloadPaths Пути, где искать autoload.php композера. */
+$autoloadPaths = ['/../vendor/autoload.php',
+    '/../../current/vendor/autoload.php',
+    '/../../../vendor/autoload.php',
+    '/../../../../vendor/autoload.php',
 
-$autoloadPath = $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
+];
+$autoloadPath = '';
 
-/** @noinspection PhpIncludeInspection */
+foreach ($autoloadPaths as $path) {
+    if (file_exists($autoloadPath = realpath(__DIR__) . $path)) {
+        $autoloadPath = realpath(__DIR__) . $path;
+        break;
+    }
+}
+
+if (!$autoloadPath) {
+    die('Cannot find composer autoload.php file.' . PHP_EOL);
+}
+
 require_once $autoloadPath;
+
+// Считаю, что в данном случае DOCUMENT_ROOT находится на одном уровне с папкой vendor
+$_SERVER['DOCUMENT_ROOT'] = $GLOBALS['DOCUMENT_ROOT'] = dirname($autoloadPath) . '/..';
 
 $application = new ConsoleCommandConfiguratorSimple(
     new Application(),

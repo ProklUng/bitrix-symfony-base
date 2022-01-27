@@ -60,14 +60,7 @@ const addSVGSpritemapPlugin = (iconsPath, isProd) => {
           svgo: isProd
               ? {
                 plugins: [
-                  {
-                    convertColors: {
-                      currentColor: true,
-                    },
-                    addAttributesToSVGElement: {
-                      attributes: { fill: "currentColor" },
-                    },
-                  },
+
                 ],
               }
               : false,
